@@ -1,0 +1,60 @@
+name: sa_cooperation
+description: A new Flutter project.
+
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.17.0-266.1.beta <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  google_fonts: ^3.0.1
+  flutter_bloc: ^8.0.1
+  bloc: ^8.0.2
+  http: ^0.13.4
+  equatable: ^2.0.3
+  json_serializable: ^6.2.0
+  json_annotation: ^4.5.0
+  get_it: ^7.2.0
+  path_provider: ^2.0.10
+  hive: ^2.2.1
+  hive_generator: ^1.1.3
+  intl: ^0.17.0
+  get: ^4.6.5
+  readmore: ^2.1.0
+  charts_flutter: ^0.12.0
+  flutter_svg: ^1.1.0
+  hive_flutter: ^1.1.0
+  loader_overlay: ^2.0.7
+  fl_chart: ^0.55.1
+  image_picker: ^0.8.5+3
+  screenshot: ^1.2.3
+  # share_plus: ^5.0.0
+  open_file: ^2.1.1
+  datetime_picker_formfield: ^2.0.1
+  another_stepper: ^1.1.6
+  url_launcher: ^6.1.6
+  syncfusion_flutter_charts: ^20.3.57
+  dotted_border: ^2.0.0+3
+  syncfusion_flutter_sliders: ^20.4.54
+
+
+ 
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^2.0.0
+  build_runner: ^2.1.11
+
+flutter:
+
+  uses-material-design: true
+  assets:
+    - assets/svg-icons/
+    - assets/images/
+
