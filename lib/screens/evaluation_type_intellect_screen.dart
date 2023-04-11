@@ -21,10 +21,12 @@ class EvaluationTypeIntellectScreen extends StatefulWidget {
   const EvaluationTypeIntellectScreen({Key? key}) : super(key: key);
 
   @override
-  State<EvaluationTypeIntellectScreen> createState() => _EvaluationTypeIntellectScreenState();
+  State<EvaluationTypeIntellectScreen> createState() =>
+      _EvaluationTypeIntellectScreenState();
 }
 
-class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectScreen> {
+class _EvaluationTypeIntellectScreenState
+    extends State<EvaluationTypeIntellectScreen> {
   final sectionController = PageController();
   final questionController = PageController();
 
@@ -36,7 +38,8 @@ class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectS
 
   void validate() {
     if (_formKey.currentState!.validate()) {
-      _requestBody['userId'] = context.read<LoginRepository>().getLoggedInUser!.id;
+      _requestBody['userId'] =
+          context.read<LoginRepository>().getLoggedInUser!.id;
       // _requestBody['sectionId'] = widget.sectionId;
       List<Map<String, dynamic>> answerMap = new List.empty(growable: true);
       answerList.forEach((element) {
@@ -45,7 +48,8 @@ class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectS
       _requestBody['answerList'] = answerMap;
       _formKey.currentState!.save();
       context.loaderOverlay.show();
-      BlocProvider.of<TransactionBloc>(context).add(SubmitEvaluationTypeIntellect(_requestBody));
+      BlocProvider.of<TransactionBloc>(context)
+          .add(SubmitEvaluationTypeIntellect(_requestBody));
     } else {
       print("Not Validated");
     }
@@ -54,7 +58,8 @@ class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectS
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<EvaluationTypeIntellectBloc>(context).add(FetchEvaluationTypeIntellectEvent());
+    BlocProvider.of<EvaluationTypeIntellectBloc>(context)
+        .add(FetchEvaluationTypeIntellectEvent());
   }
 
   @override
@@ -70,7 +75,8 @@ class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectS
       ),
       body: Form(
         key: _formKey,
-        child: BlocBuilder<EvaluationTypeIntellectBloc, EvaluationTypeIntellectState>(
+        child: BlocBuilder<EvaluationTypeIntellectBloc,
+            EvaluationTypeIntellectState>(
           builder: ((context, state) {
             if (state is EvaluationTypeIntellectLoading) {
               return const Center(
@@ -78,7 +84,8 @@ class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectS
               );
             }
             if (state is EvaluationTypeIntellectLoaded) {
-              List<EvaluationTypeIntellect> list = state.evaluationTypeIntellectList.toList();
+              List<EvaluationTypeIntellect> list =
+                  state.evaluationTypeIntellectList.toList();
               if (list.isEmpty) {
                 return const Center(
                   child: Text('No evaluation intellect found'),
@@ -101,7 +108,10 @@ class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectS
     );
   }
 
-  Widget getSectionWidget({required List<EvaluationTypeIntellect> questionList, required double height, required double width}) {
+  Widget getSectionWidget(
+      {required List<EvaluationTypeIntellect> questionList,
+      required double height,
+      required double width}) {
     return Container(
       height: height * 0.95,
       width: width * 1,
@@ -134,7 +144,8 @@ class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectS
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         // questionIndex = index;
-                        var answer = EvaluationTypeIntellectAnswer(sectionId: questionList[index].sectionId);
+                        var answer = EvaluationTypeIntellectAnswer(
+                            sectionId: questionList[index].sectionId);
                         answer.oidQuestion = questionList[index].questionId;
                         return BodyWidget(
                           constraints: constraints,
@@ -160,14 +171,20 @@ class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectS
                 children: [
                   TextButton(
                     onPressed: () {
-                      questionController.previousPage(
+                      questionController.nextPage(
                         duration: const Duration(milliseconds: 400),
                         curve: Curves.easeIn,
                       );
-                      if (questionController.page! - 1 >= 0) {
+                      if (questionController.page! + 1 <= questionList.length) {
                         setState(() {
-                          questionNumber -= 1;
-                          isLastQuestion = false;
+                          questionNumber += 1;
+                        });
+                      }
+                      if (questionController.page!.toInt() ==
+                          questionList.length - 2) {
+                        print("submit");
+                        setState(() {
+                          isLastQuestion = true;
                         });
                       }
                     },
@@ -188,12 +205,14 @@ class _EvaluationTypeIntellectScreenState extends State<EvaluationTypeIntellectS
                           duration: const Duration(milliseconds: 400),
                           curve: Curves.easeIn,
                         );
-                        if (questionController.page! + 1 <= questionList.length) {
+                        if (questionController.page! + 1 <=
+                            questionList.length) {
                           setState(() {
                             questionNumber += 1;
                           });
                         }
-                        if (questionController.page!.toInt() == questionList.length - 2) {
+                        if (questionController.page!.toInt() ==
+                            questionList.length - 2) {
                           print("submit");
                           setState(() {
                             isLastQuestion = true;
@@ -385,7 +404,8 @@ class _BodyWidgetState extends State<BodyWidget> {
           listener: (context, state) {
             if (state is TransactionSuccess) {
               context.loaderOverlay.hide();
-              Navigator.pushNamed(context, evaluationTypeIntellectResultScreenRoute);
+              Navigator.pushNamed(
+                  context, evaluationTypeIntellectResultScreenRoute);
             } else if (state is TransactionError) {
               context.loaderOverlay.hide();
             }
@@ -449,17 +469,18 @@ class _BodyWidgetState extends State<BodyWidget> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Slider(
-                  min: widget.question.minSlider.toDouble(),
-                  max: widget.question.maxSlider.toDouble(),
+                  min: 0.0,
+                  max: 10.0,
                   value: sliderValue,
                   divisions: 10,
-                  label: "Range: ${sliderValue.round().toString()}",
+                  label: sliderValue.round().toString(),
                   onChanged: (d) {
                     setState(() {
                       sliderValue = d;
                       widget.answer.sliderValue = sliderValue;
                     });
-                    widget.answerList.removeWhere((element) => element.oidQuestion == widget.answer.oidQuestion);
+                    widget.answerList.removeWhere((element) =>
+                        element.oidQuestion == widget.answer.oidQuestion);
                     widget.answerList.add(widget.answer);
                   },
                   thumbColor: Style.pColor,
@@ -472,7 +493,7 @@ class _BodyWidgetState extends State<BodyWidget> {
                 child: Text(
                   "Your last score was ${widget.question.lastsliderValue != null ? widget.question.lastsliderValue : 'N/A'}",
                   textScaleFactor: 0.9,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontWeight: FontWeight.bold,
                     color: Style.pColor,
                     fontStyle: FontStyle.italic,

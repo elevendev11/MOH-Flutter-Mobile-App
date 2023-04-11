@@ -130,7 +130,7 @@ class _HomePageState extends State<HomePage> {
                     homeScreenRoute, (route) => false);
               } else {
                 _navigator.pushNamedAndRemoveUntil(
-                    assesmentScreenRoute, (route) => false);
+                    homeScreenRoute, (route) => false);
               }
             } else if (state is AuthenticationUnauthenticated) {
               _navigator.pushNamedAndRemoveUntil(

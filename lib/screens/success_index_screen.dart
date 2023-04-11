@@ -37,7 +37,8 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
 
   void validate() {
     if (_formKey.currentState!.validate()) {
-      _requestBody['userId'] = context.read<LoginRepository>().getLoggedInUser!.id;
+      _requestBody['userId'] =
+          context.read<LoginRepository>().getLoggedInUser!.id;
       // _requestBody['sectionId'] = widget.sectionId;
       List<Map<String, dynamic>> answerMap = new List.empty(growable: true);
       answerList.forEach((element) {
@@ -46,7 +47,8 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
       _requestBody['answerList'] = answerMap;
       _formKey.currentState!.save();
       context.loaderOverlay.show();
-      BlocProvider.of<TransactionBloc>(context).add(SubmitSuccessIndex(_requestBody));
+      BlocProvider.of<TransactionBloc>(context)
+          .add(SubmitSuccessIndex(_requestBody));
     } else {
       print("Not Validated");
     }
@@ -124,7 +126,10 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
     );
   }
 
-  Widget getSectionWidget({required List<SuccessIndex> questionList, required double height, required double width}) {
+  Widget getSectionWidget(
+      {required List<SuccessIndex> questionList,
+      required double height,
+      required double width}) {
     return Container(
       height: height * 0.95,
       width: width * 1,
@@ -157,7 +162,8 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
                       itemCount: questionList.length,
                       itemBuilder: (context, index) {
                         // questionIndex = index;
-                        var answer = SuccessIndexAnswer(sectionId: questionList[index].sectionId);
+                        var answer = SuccessIndexAnswer(
+                            sectionId: questionList[index].sectionId);
                         answer.oidQuestion = questionList[index].questionId;
                         // answerList.add(answer);
                         // answerList.add(answer);------------------------------------------------------------------------------------------
@@ -185,14 +191,19 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      questionController.previousPage(
+                      questionController.nextPage(
                         duration: const Duration(milliseconds: 400),
                         curve: Curves.easeIn,
                       );
-                      if (questionController.page! - 1 >= 0) {
+                      if (questionController.page! + 1 <= questionList.length) {
                         setState(() {
-                          questionNumber -= 1;
-                          isLastQuestion = false;
+                          questionNumber += 1;
+                        });
+                      }
+                      if (questionController.page!.toInt() ==
+                          questionList.length - 2) {
+                        setState(() {
+                          isLastQuestion = true;
                         });
                       }
                     },
@@ -213,33 +224,21 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
                           duration: const Duration(milliseconds: 400),
                           curve: Curves.easeIn,
                         );
-                        if (questionController.page! + 1 <= questionList.length) {
+                        if (questionController.page! + 1 <=
+                            questionList.length) {
                           setState(() {
                             questionNumber += 1;
                           });
                         }
                         print("aaaaaaaa ${questionController.page}");
                         print("----------");
-                        if (questionController.page!.toInt() == questionList.length - 2) {
+                        if (questionController.page!.toInt() ==
+                            questionList.length - 2) {
                           print("submit");
                           setState(() {
                             isLastQuestion = true;
                           });
                         }
-                        // if (questionController.page!.toInt() <
-                        //     section.questionList!.length - 1) {
-                        //   questionController.animateToPage(
-                        //     questionController.page!.toInt() + 1,
-                        //     duration: const Duration(milliseconds: 400),
-                        //     curve: Curves.easeIn,
-                        //   );
-                        // } else {
-                        //   if (sectionController.page!.toInt() <
-                        //       sectionListLength - 1) {
-                        //     sectionController.jumpToPage(
-                        //         sectionController.page!.toInt() + 1);
-                        //   }
-                        // }
                       },
                       icon: Image.asset(
                         nextButtonIcon,
@@ -381,21 +380,6 @@ class _FooterWidgetState extends State<FooterWidget> {
       ),
     );
   }
-
-  // Widget _builSliderRange() {
-  //   double _currentSliderValue = 20;
-  //   return Slider(
-  //     value: _currentSliderValue,
-  //     max: 100,
-  //     divisions: 5,
-  //     label: _currentSliderValue.round().toString(),
-  //     onChanged: (double value) {
-  //       setState(() {
-  //         _currentSliderValue = value;
-  //       });
-  //     },
-  //   );
-  // }
 }
 
 class BodyWidget extends StatefulWidget {
@@ -442,7 +426,8 @@ class _BodyWidgetState extends State<BodyWidget> {
           listener: (context, state) {
             if (state is TransactionSuccess) {
               context.loaderOverlay.hide();
-              Navigator.pushNamed(context, successIndexQuestionResultScreenRoute);
+              Navigator.pushNamed(
+                  context, successIndexQuestionResultScreenRoute);
             } else if (state is TransactionError) {
               context.loaderOverlay.hide();
             }
@@ -504,8 +489,10 @@ class _BodyWidgetState extends State<BodyWidget> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Slider(
-                  min: widget.question.minSlider.toDouble(),
-                  max: widget.question.maxSlider.toDouble(),
+                  // min: widget.question.minSlider.toDouble(),
+                  // max: widget.question.maxSlider.toDouble(),
+                  min: 0.0,
+                  max: 10.0,
                   value: sliderValue,
                   divisions: 10,
                   label: sliderValue.round().toString(),
@@ -514,7 +501,8 @@ class _BodyWidgetState extends State<BodyWidget> {
                       sliderValue = d;
                       widget.answer.sliderValue = sliderValue;
                     });
-                    widget.answerList.removeWhere((element) => element.oidQuestion == widget.answer.oidQuestion);
+                    widget.answerList.removeWhere((element) =>
+                        element.oidQuestion == widget.answer.oidQuestion);
                     widget.answerList.add(widget.answer);
                   },
                   thumbColor: Style.pColor,

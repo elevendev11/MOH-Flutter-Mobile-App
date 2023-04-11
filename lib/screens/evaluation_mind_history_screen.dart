@@ -22,7 +22,7 @@ class _EvaluationMindHistoryOptionScreenState extends State<EvaluationMindHistor
       appBar: AppBar(
         backgroundColor: Style.pColor,
         title: const Text(
-          "Happiness Index History",
+          "Evaluation Mind History",
           style: TextStyle(
             color: Colors.white,
             fontSize: 22,

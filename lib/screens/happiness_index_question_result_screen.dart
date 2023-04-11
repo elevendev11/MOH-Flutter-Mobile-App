@@ -23,6 +23,8 @@ class HappinessIndexQuestionResultScreen extends StatefulWidget {
 
 class _HappinessIndexQuestionResultScreenState
     extends State<HappinessIndexQuestionResultScreen> {
+  
+  
   Future<bool> _onWillPop() async {
     if (Navigator.of(context).canPop()) {
       Navigator.of(context).popUntil((route) => route.isFirst);
@@ -30,8 +32,6 @@ class _HappinessIndexQuestionResultScreenState
     }
     return true;
   }
-
-  int index = 0;
 
   @override
   void initState() {
@@ -196,42 +196,39 @@ class _HappinessIndexQuestionResultScreenState
                                                     },
                                                   );
                                                   return SfSliderTheme(
-                                                      data: SfSliderThemeData(
-                                                          thumbRadius: 18),
-                                                      child: SfSlider(
-                                                        min: 0.0,
-                                                        max: 10.0,
-                                                        activeColor: Colors.red,
-                                                        thumbIcon: Container(
-                                                          alignment:
-                                                              Alignment.center,
-                                                          child: Text(
-                                                            value
-                                                                .toStringAsFixed(
-                                                              2,
-                                                            ),
-                                                            textScaleFactor:
-                                                                0.8,
-                                                            style:
-                                                                const TextStyle(
-                                                              color:
-                                                                  Colors.white,
-                                                            ),
-                                                            textAlign: TextAlign
-                                                                .center,
+                                                    data: SfSliderThemeData(
+                                                        thumbRadius: 18),
+                                                    child: SfSlider(
+                                                      min: 0.0,
+                                                      max: 10.0,
+                                                      activeColor: Colors.red,
+                                                      thumbIcon: Container(
+                                                        alignment:
+                                                            Alignment.center,
+                                                        child: Text(
+                                                          value.toStringAsFixed(
+                                                            2,
                                                           ),
+                                                          textScaleFactor: 0.8,
+                                                          style:
+                                                              const TextStyle(
+                                                            color: Colors.white,
+                                                          ),
+                                                          textAlign:
+                                                              TextAlign.center,
                                                         ),
-                                                        value: double.parse(value
-                                                            .toStringAsFixed(
-                                                                2)),
-                                                        onChanged:
-                                                            (dynamic values) {
-                                                          // setState(() {
-                                                          //   _value =
-                                                          //       values as double;
-                                                          // });
-                                                        },
-                                                      ));
+                                                      ),
+                                                      value: double.parse(value
+                                                          .toStringAsFixed(2)),
+                                                      onChanged:
+                                                          (dynamic values) {
+                                                        // setState(() {
+                                                        //   _value =
+                                                        //       values as double;
+                                                        // });
+                                                      },
+                                                    ),
+                                                  );
                                                   // return SliderTheme(
                                                   //   data: SliderTheme.of(context).copyWith(
                                                   //     activeTrackColor: const Color.fromRGBO(255, 102, 0, 1),

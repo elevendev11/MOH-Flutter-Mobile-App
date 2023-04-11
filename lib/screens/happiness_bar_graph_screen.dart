@@ -18,7 +18,8 @@ class HappinessBarGraphScreen extends StatefulWidget {
   const HappinessBarGraphScreen({super.key});
 
   @override
-  State<HappinessBarGraphScreen> createState() => _HappinessBarGraphScreenState();
+  State<HappinessBarGraphScreen> createState() =>
+      _HappinessBarGraphScreenState();
 }
 
 class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
@@ -27,7 +28,8 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<HappinessIndexResultBloc>(context).add(FetchHappinessIndexResultEvent());
+    BlocProvider.of<HappinessIndexResultBloc>(context)
+        .add(FetchHappinessIndexResultEvent());
   }
 
   @override
@@ -44,7 +46,8 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
             );
           }
           if (state is HappinessIndexResultLoaded) {
-            List<HappinessIndexResult> list = state.happinessIndexResultList.toList();
+            List<HappinessIndexResult> list =
+                state.happinessIndexResultList.toList();
             if (list.isEmpty) {
               return const Center(
                 child: Text('No result found'),
@@ -152,13 +155,15 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                           ),
                                           const Spacer(),
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
                                             children: [
                                               InkWell(
                                                 hoverColor: Colors.red,
                                                 onTap: () {},
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   height: height * 0.06,
                                                   width: width * 0.1,
                                                   decoration: BoxDecoration(
@@ -169,7 +174,9 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                                         blurRadius: 2,
                                                       )
                                                     ],
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
                                                   child: Image.asset(
                                                     happinessIcon,
@@ -179,10 +186,12 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.pushNamed(context, successBarChartScreenRoute);
+                                                  Navigator.pushNamed(context,
+                                                      successBarChartScreenRoute);
                                                 },
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   height: height * 0.06,
                                                   width: width * 0.1,
                                                   decoration: BoxDecoration(
@@ -193,7 +202,9 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                                         blurRadius: 2,
                                                       )
                                                     ],
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
                                                   child: Image.asset(
                                                     successIndexIcon,
@@ -203,10 +214,12 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.pushNamed(context, evaluationTypeIntellectResultScreenRoute);
+                                                  Navigator.pushNamed(context,
+                                                      evaluationTypeIntellectResultScreenRoute);
                                                 },
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   height: height * 0.06,
                                                   width: width * 0.1,
                                                   decoration: BoxDecoration(
@@ -217,7 +230,9 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                                         blurRadius: 2,
                                                       )
                                                     ],
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
                                                   child: Image.asset(
                                                     personalEvaluationIcon,
@@ -227,10 +242,12 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.pushNamed(context, brainAnalyticsScreenRoute);
+                                                  Navigator.pushNamed(context,
+                                                      brainAnalyticsScreenRoute);
                                                 },
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   height: height * 0.06,
                                                   width: width * 0.1,
                                                   decoration: BoxDecoration(
@@ -241,7 +258,9 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                                         blurRadius: 2,
                                                       )
                                                     ],
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
                                                   child: Image.asset(
                                                     knowYourselfIcon,
@@ -260,7 +279,11 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                     left: 0,
                                     child: CircleAvatar(
                                       radius: height * 0.045,
-                                      backgroundImage: NetworkImage('${ApiUtil.profileImageEndPoint}/${state.user.image}'),
+                                      backgroundImage: NetworkImage(
+                                        state.user.image != null
+                                            ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
+                                            : avatarNetworkIcon,
+                                      ),
                                       backgroundColor: Colors.transparent,
                                     ),
                                   ),

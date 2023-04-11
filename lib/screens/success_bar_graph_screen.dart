@@ -25,7 +25,8 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<SuccessIndexResultBloc>(context).add(FetchSuccessIndexResultEvent());
+    BlocProvider.of<SuccessIndexResultBloc>(context)
+        .add(FetchSuccessIndexResultEvent());
   }
 
   @override
@@ -149,15 +150,18 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                           ),
                                           const Spacer(),
                                           Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceAround,
                                             children: [
                                               InkWell(
                                                 hoverColor: Colors.red,
                                                 onTap: () {
-                                                  Navigator.pushNamed(context, happinessBarChartScreenRoute);
+                                                  Navigator.pushNamed(context,
+                                                      happinessBarChartScreenRoute);
                                                 },
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   height: height * 0.06,
                                                   width: width * 0.1,
                                                   decoration: BoxDecoration(
@@ -168,7 +172,9 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                                         blurRadius: 2,
                                                       )
                                                     ],
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
                                                   child: Image.asset(
                                                     happinessIcon,
@@ -179,18 +185,24 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                               GestureDetector(
                                                 onTap: () {},
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   height: height * 0.06,
                                                   width: width * 0.1,
                                                   decoration: BoxDecoration(
-                                                    color: const Color.fromRGBO(255, 102, 0, 1),
+                                                    color: const Color.fromRGBO(
+                                                        255, 102, 0, 1),
                                                     boxShadow: const [
                                                       BoxShadow(
-                                                        color: const Color.fromRGBO(255, 102, 0, 1),
+                                                        color: const Color
+                                                                .fromRGBO(
+                                                            255, 102, 0, 1),
                                                         blurRadius: 2,
                                                       )
                                                     ],
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
                                                   child: Image.asset(
                                                     successIndexIcon,
@@ -200,10 +212,12 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.pushNamed(context, evaluationTypeIntellectResultScreenRoute);
+                                                  Navigator.pushNamed(context,
+                                                      evaluationTypeIntellectResultScreenRoute);
                                                 },
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   height: height * 0.06,
                                                   width: width * 0.1,
                                                   decoration: BoxDecoration(
@@ -214,7 +228,9 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                                         blurRadius: 2,
                                                       )
                                                     ],
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
                                                   child: Image.asset(
                                                     personalEvaluationIcon,
@@ -224,10 +240,12 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                               ),
                                               GestureDetector(
                                                 onTap: () {
-                                                  Navigator.pushNamed(context, brainAnalyticsScreenRoute);
+                                                  Navigator.pushNamed(context,
+                                                      brainAnalyticsScreenRoute);
                                                 },
                                                 child: Container(
-                                                  padding: const EdgeInsets.all(5),
+                                                  padding:
+                                                      const EdgeInsets.all(5),
                                                   height: height * 0.06,
                                                   width: width * 0.1,
                                                   decoration: BoxDecoration(
@@ -238,7 +256,9 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                                         blurRadius: 2,
                                                       )
                                                     ],
-                                                    borderRadius: BorderRadius.circular(8),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            8),
                                                   ),
                                                   child: Image.asset(
                                                     knowYourselfIcon,
@@ -257,7 +277,11 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                     left: 0,
                                     child: CircleAvatar(
                                       radius: height * 0.045,
-                                      backgroundImage: NetworkImage('${ApiUtil.profileImageEndPoint}/${state.user.image}'),
+                                      backgroundImage: NetworkImage(
+                                        state.user.image != null
+                                            ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
+                                            : avatarNetworkIcon,
+                                      ),
                                       backgroundColor: Colors.transparent,
                                     ),
                                   ),
@@ -274,7 +298,8 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                           width: width * 0.8,
                           height: height * 0.5,
                           decoration: const BoxDecoration(),
-                          child: SuccessIndexBarChartWidget(barValues: state.successIndexResultList.toList()),
+                          child: SuccessIndexBarChartWidget(
+                              barValues: state.successIndexResultList.toList()),
                         ),
                       ),
                     ],

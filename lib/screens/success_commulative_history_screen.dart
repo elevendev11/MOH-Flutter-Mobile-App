@@ -19,16 +19,19 @@ class SuccessIndexCommulativeScreen extends StatefulWidget {
   const SuccessIndexCommulativeScreen({super.key});
 
   @override
-  State<SuccessIndexCommulativeScreen> createState() => _SuccessIndexCommulativeScreenState();
+  State<SuccessIndexCommulativeScreen> createState() =>
+      _SuccessIndexCommulativeScreenState();
 }
 
-class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeScreen> {
+class _SuccessIndexCommulativeScreenState
+    extends State<SuccessIndexCommulativeScreen> {
   ScreenshotController screenshotController = ScreenshotController();
 
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<SuccessIndexLineChartBloc>(context).add(FetchSuccessIndexLineChartEvent());
+    BlocProvider.of<SuccessIndexLineChartBloc>(context)
+        .add(FetchSuccessIndexLineChartEvent());
   }
 
   @override
@@ -45,7 +48,8 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
             );
           }
           if (state is SuccessIndexLineChartLoaded) {
-            List<SuccessIndexLineChart> listChart = state.successIndexLineChartList.toList();
+            List<SuccessIndexLineChart> listChart =
+                state.successIndexLineChartList.toList();
             if (listChart.isEmpty) {
               return const Center(
                 child: Text('No result found'),
@@ -127,7 +131,8 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                                               // Colors.transparent,
                                             ],
                                           ),
-                                          borderRadius: BorderRadius.circular(15),
+                                          borderRadius:
+                                              BorderRadius.circular(15),
                                         ),
                                         padding: const EdgeInsets.only(
                                           top: 32,
@@ -155,15 +160,18 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                                             ),
                                             const Spacer(),
                                             Row(
-                                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
                                               children: [
                                                 InkWell(
                                                   hoverColor: Colors.red,
                                                   onTap: () {
-                                                    Navigator.pushNamed(context, happinessBarChartScreenRoute);
+                                                    Navigator.pushNamed(context,
+                                                        happinessBarChartScreenRoute);
                                                   },
                                                   child: Container(
-                                                    padding: const EdgeInsets.all(5),
+                                                    padding:
+                                                        const EdgeInsets.all(5),
                                                     height: height * 0.06,
                                                     width: width * 0.1,
                                                     decoration: BoxDecoration(
@@ -174,7 +182,9 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                                                           blurRadius: 2,
                                                         )
                                                       ],
-                                                      borderRadius: BorderRadius.circular(8),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
                                                     ),
                                                     child: Image.asset(
                                                       happinessIcon,
@@ -185,18 +195,23 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                                                 GestureDetector(
                                                   onTap: () {},
                                                   child: Container(
-                                                    padding: const EdgeInsets.all(5),
+                                                    padding:
+                                                        const EdgeInsets.all(5),
                                                     height: height * 0.06,
                                                     width: width * 0.1,
                                                     decoration: BoxDecoration(
-                                                      color: Color.fromRGBO(255, 102, 0, 1),
+                                                      color: Color.fromRGBO(
+                                                          255, 102, 0, 1),
                                                       boxShadow: const [
                                                         BoxShadow(
-                                                          color: Color.fromRGBO(255, 102, 0, 1),
+                                                          color: Color.fromRGBO(
+                                                              255, 102, 0, 1),
                                                           blurRadius: 2,
                                                         )
                                                       ],
-                                                      borderRadius: BorderRadius.circular(8),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
                                                     ),
                                                     child: Image.asset(
                                                       successIndexIcon,
@@ -206,10 +221,12 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                                                 ),
                                                 GestureDetector(
                                                   onTap: () {
-                                                    Navigator.pushNamed(context, evaluationTypeIntellectResultScreenRoute);
+                                                    Navigator.pushNamed(context,
+                                                        evaluationTypeIntellectResultScreenRoute);
                                                   },
                                                   child: Container(
-                                                    padding: const EdgeInsets.all(5),
+                                                    padding:
+                                                        const EdgeInsets.all(5),
                                                     height: height * 0.06,
                                                     width: width * 0.1,
                                                     decoration: BoxDecoration(
@@ -220,7 +237,9 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                                                           blurRadius: 2,
                                                         )
                                                       ],
-                                                      borderRadius: BorderRadius.circular(8),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
                                                     ),
                                                     child: Image.asset(
                                                       personalEvaluationIcon,
@@ -230,10 +249,12 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                                                 ),
                                                 GestureDetector(
                                                   onTap: () {
-                                                    Navigator.pushNamed(context, brainAnalyticsScreenRoute);
+                                                    Navigator.pushNamed(context,
+                                                        brainAnalyticsScreenRoute);
                                                   },
                                                   child: Container(
-                                                    padding: const EdgeInsets.all(5),
+                                                    padding:
+                                                        const EdgeInsets.all(5),
                                                     height: height * 0.06,
                                                     width: width * 0.1,
                                                     decoration: BoxDecoration(
@@ -244,7 +265,9 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                                                           blurRadius: 2,
                                                         )
                                                       ],
-                                                      borderRadius: BorderRadius.circular(8),
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              8),
                                                     ),
                                                     child: Image.asset(
                                                       knowYourselfIcon,
@@ -263,7 +286,11 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                                       left: 0,
                                       child: CircleAvatar(
                                         radius: height * 0.045,
-                                        backgroundImage: NetworkImage('${ApiUtil.profileImageEndPoint}/${user.image}'),
+                                        backgroundImage: NetworkImage(user
+                                                    .image !=
+                                                null
+                                            ? '${ApiUtil.profileImageEndPoint}/${user.image}'
+                                            : avatarNetworkIcon),
                                         backgroundColor: Colors.transparent,
                                       ),
                                     ),
@@ -280,7 +307,8 @@ class _SuccessIndexCommulativeScreenState extends State<SuccessIndexCommulativeS
                         width: width * 0.8,
                         height: height * 0.5,
                         decoration: BoxDecoration(),
-                        child: SuccessIndexLineChartWidget(barValues: listChart),
+                        child:
+                            SuccessIndexLineChartWidget(barValues: listChart),
                       ),
                     ],
                   ),

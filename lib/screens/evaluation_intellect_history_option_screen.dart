@@ -70,7 +70,7 @@ class _EvaluationIntellectOptionScreenState
                       ],
                       image: DecorationImage(
                         image: Image.network(
-                          '${ApiUtil.profileImageEndPoint}/${state.user.image}',
+                        state.user.image != null ? '${ApiUtil.profileImageEndPoint}/${state.user.image}' : avatarNetworkIcon,
                           fit: BoxFit.cover,
                         ).image,
                       ),

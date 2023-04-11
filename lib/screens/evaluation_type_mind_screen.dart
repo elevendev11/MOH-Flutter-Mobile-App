@@ -20,7 +20,8 @@ class EvaluationTypeMindScreen extends StatefulWidget {
   EvaluationTypeMindScreen({Key? key}) : super(key: key);
 
   @override
-  State<EvaluationTypeMindScreen> createState() => _EvaluationTypeMindScreenState();
+  State<EvaluationTypeMindScreen> createState() =>
+      _EvaluationTypeMindScreenState();
 }
 
 class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
@@ -35,7 +36,8 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
 
   void validate() {
     if (_formKey.currentState!.validate()) {
-      _requestBody['userId'] = context.read<LoginRepository>().getLoggedInUser!.id;
+      _requestBody['userId'] =
+          context.read<LoginRepository>().getLoggedInUser!.id;
       List<Map<String, dynamic>> answerMap = List.empty(growable: true);
       answerList.forEach((element) {
         answerMap.add(element.toJson());
@@ -44,7 +46,8 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
       print(answerMap);
       _formKey.currentState!.save();
       context.loaderOverlay.show();
-      BlocProvider.of<TransactionBloc>(context).add(SubmitEvaluationTypeMind(_requestBody));
+      BlocProvider.of<TransactionBloc>(context)
+          .add(SubmitEvaluationTypeMind(_requestBody));
     } else {
       print("Not Validated");
     }
@@ -53,7 +56,8 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<EvaluationTypeMindBloc>(context).add(FetchEvaluationTypeMindEvent());
+    BlocProvider.of<EvaluationTypeMindBloc>(context)
+        .add(FetchEvaluationTypeMindEvent());
   }
 
   @override
@@ -77,7 +81,8 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
               );
             }
             if (state is EvaluationTypeMindLoaded) {
-              List<EvaluationTypeMind> list = state.evaluationTypeMindList.toList();
+              List<EvaluationTypeMind> list =
+                  state.evaluationTypeMindList.toList();
               if (list.isEmpty) {
                 return const Center(
                   child: Text('No evaluation type mind found'),
@@ -100,7 +105,10 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
     );
   }
 
-  Widget getSectionWidget({required List<EvaluationTypeMind> questionList, required double height, required double width}) {
+  Widget getSectionWidget(
+      {required List<EvaluationTypeMind> questionList,
+      required double height,
+      required double width}) {
     return Container(
       height: height * 0.95,
       width: width * 1,
@@ -133,7 +141,8 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         // questionIndex = index;
-                        var answer = EvaluationTypeMindAnswer(sectionId: questionList[index].sectionId);
+                        var answer = EvaluationTypeMindAnswer(
+                            sectionId: questionList[index].sectionId);
                         answer.oidQuestion = questionList[index].questionId;
                         // answerList.add(answer);
                         return BodyWidget(
@@ -160,14 +169,19 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      questionController.previousPage(
+                      questionController.nextPage(
                         duration: const Duration(milliseconds: 400),
                         curve: Curves.easeIn,
                       );
-                      if (questionController.page! - 1 >= 0) {
+                      if (questionController.page! + 1 <= questionList.length) {
                         setState(() {
-                          questionNumber -= 1;
-                          isLastQuestion = false;
+                          questionNumber += 1;
+                        });
+                      }
+                      if (questionController.page!.toInt() ==
+                          questionList.length - 2) {
+                        setState(() {
+                          isLastQuestion = true;
                         });
                       }
                     },
@@ -188,14 +202,16 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
                           duration: const Duration(milliseconds: 400),
                           curve: Curves.easeIn,
                         );
-                        if (questionController.page! + 1 <= questionList.length) {
+                        if (questionController.page! + 1 <=
+                            questionList.length) {
                           setState(() {
                             questionNumber += 1;
                           });
                         }
                         print(questionController.page);
                         print("----------");
-                        if (questionController.page!.toInt() == questionList.length - 2) {
+                        if (questionController.page!.toInt() ==
+                            questionList.length - 2) {
                           print("submit");
                           setState(() {
                             isLastQuestion = true;
@@ -450,8 +466,8 @@ class _BodyWidgetState extends State<BodyWidget> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Slider(
-                  min: widget.question.minSlider.toDouble(),
-                  max: widget.question.maxSlider.toDouble(),
+                  min: 0.0,
+                  max: 10.0,
                   value: sliderValue,
                   divisions: 10,
                   label: "Range: ${sliderValue.round().toString()}",
@@ -460,7 +476,8 @@ class _BodyWidgetState extends State<BodyWidget> {
                       sliderValue = d;
                       widget.answer.sliderValue = sliderValue;
                     });
-                    widget.answerList.removeWhere((element) => element.oidQuestion == widget.answer.oidQuestion);
+                    widget.answerList.removeWhere((element) =>
+                        element.oidQuestion == widget.answer.oidQuestion);
                     widget.answerList.add(widget.answer);
                   },
                   thumbColor: Style.pColor,
