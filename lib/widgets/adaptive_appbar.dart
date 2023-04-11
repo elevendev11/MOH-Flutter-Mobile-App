@@ -65,7 +65,7 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
       title,
       style: Style.headline6.copyWith(
         color: Colors.white,
-        fontSize: 22
+        fontSize: 22  
       ),
       textScaleFactor: 1.0,
     );

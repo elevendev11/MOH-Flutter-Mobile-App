@@ -1,19 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
-import 'package:sa_cooperation/blocs/authentication-bloc/authentication_bloc.dart';
-import 'package:sa_cooperation/blocs/authentication-bloc/authentication_state.dart';
+import 'package:sa_cooperation/blocs/login-bloc/login_bloc.dart';
 import 'package:sa_cooperation/blocs/transaction-bloc/transaction_bloc.dart';
 import 'package:sa_cooperation/blocs/transaction-bloc/transaction_state.dart';
 import 'package:sa_cooperation/models/user.dart';
+import 'package:sa_cooperation/repositories/login_repository.dart';
 import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
 import 'package:sa_cooperation/utils/routes.dart';
 import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/utils/system_util.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+
+import '../blocs/login-bloc/login_event.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({Key? key}) : super(key: key);
@@ -26,8 +28,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    //   RepositoryProvider.of<LoginRepository>(context).refreshUser();
-    // BlocProvider.of<LoginBloc>(context).add(RefreshUser());
+    RepositoryProvider.of<LoginRepository>(context).refreshUser();
+    BlocProvider.of<LoginBloc>(context).add(RefreshUser());
   }
 
   @override
@@ -122,7 +124,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                               ],
                               image: DecorationImage(
                                 image: Image.network(
-                                  user.image != null ? '${ApiUtil.profileImageEndPoint}/${user.image}' : avatarNetworkIcon,
+                                  user.image != null
+                                      ? '${ApiUtil.profileImageEndPoint}/${user.image}'
+                                      : avatarNetworkIcon,
                                   errorBuilder: (context, error, stackTrace) {
                                     return CircleAvatar(
                                       backgroundColor: Colors.white,
@@ -208,7 +212,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, happinessIndexScreenRoute);
+                              Navigator.pushNamed(
+                                  context, happinessIndexScreenRoute);
                             },
                             child: Tile(
                               assetName: happinessIcon,
@@ -225,7 +230,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, successIndexScreenRoute);
+                              Navigator.pushNamed(
+                                  context, successIndexScreenRoute);
                             },
                             child: Tile(
                               assetName: successIndexIcon,
@@ -242,7 +248,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, evaluationTypeIntellectScreenRoute);
+                              Navigator.pushNamed(
+                                  context, evaluationTypeIntellectScreenRoute);
                             },
                             child: Tile(
                               assetName: personalEvaluationIcon,
@@ -259,7 +266,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
                           ),
                           GestureDetector(
                             onTap: () {
-                              Navigator.pushNamed(context, evaluationTypeMindScreenRoute);
+                              Navigator.pushNamed(
+                                  context, evaluationTypeMindScreenRoute);
                             },
                             child: Tile(
                               assetName: knowYourselfIcon,
@@ -321,9 +329,12 @@ class Tile extends StatelessWidget {
             decoration: BoxDecoration(
               border: Border.all(
                 width: 2,
-                color: isEven ? const Color.fromRGBO(255, 102, 0, 1) : Style.pColor,
+                color: isEven
+                    ? const Color.fromRGBO(255, 102, 0, 1)
+                    : Style.pColor,
               ),
-              color: isEven ? Style.pColor : const Color.fromRGBO(255, 102, 0, 1),
+              color:
+                  isEven ? Style.pColor : const Color.fromRGBO(255, 102, 0, 1),
               borderRadius: const BorderRadius.only(
                 topRight: Radius.circular(10),
                 bottomLeft: Radius.circular(10),

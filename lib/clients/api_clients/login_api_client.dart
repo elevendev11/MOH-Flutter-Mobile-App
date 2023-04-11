@@ -11,7 +11,7 @@ class LoginApiClient {
 
   Future<User> createLogin(Map<String, dynamic> requestBody) async {
     var response = await apiBaseHelper.post(
-      url: '${ApiUtil.loginEndPoint}',
+      url: ApiUtil.loginEndPoint,
       body: requestBody,
       headers: ApiUtil.headers(),
     );
@@ -32,28 +32,28 @@ class LoginApiClient {
   }
 
   Future<String> logoutSessionUser() async {
-    var _user = loggedInUser();
+    var user = loggedInUser();
     var response = await apiBaseHelper.post(
-        url: '${ApiUtil.logoutEndPoint}',
+        url: ApiUtil.logoutEndPoint,
         headers: ApiUtil.headers(
-          authorization: 'Bearer ${_user!.tokenId}',
+          authorization: 'Bearer ${user!.tokenId}',
         ));
 
     if (response.errorCode != 200) {
-      throw new Exception(response.errorMessage);
+      throw Exception(response.errorMessage);
     }
     return response.response.toString();
   }
 
   Future<User> refreshUser() async {
-    Map<String, dynamic> _requestBody = {
+    Map<String, dynamic> requestBody = {
       'email': loggedInUser()!.email,
       'password': loggedInUser()!.password,
     };
 
     var response = await apiBaseHelper.post(
-      url: '${ApiUtil.loginEndPoint}',
-      body: _requestBody,
+      url: ApiUtil.loginEndPoint,
+      body: requestBody,
       headers: ApiUtil.headers(),
     );
     if (response.errorCode != 200) {

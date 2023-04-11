@@ -11,7 +11,8 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginEvent>(_mapEventToState);
   }
 
-  Future<void> _mapEventToState(LoginEvent event, Emitter<LoginState> emit) async {
+  Future<void> _mapEventToState(
+      LoginEvent event, Emitter<LoginState> emit) async {
     if (event is Login) {
       try {
         User user = await repository.createLogin(event.requestBody);
@@ -20,6 +21,15 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(LoginError(e.toString()));
       }
     }
-
+    if (event is RefreshUser) {
+      try {
+        User user = repository.getLoggedInUser!;
+        emit(UserRefreshed(user));
+        user = await repository.refreshUser();
+        emit(UserRefreshed(user));
+      } catch (e) {
+        e.toString();
+      }
+    }
   }
 }

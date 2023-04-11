@@ -8,6 +8,8 @@ import 'package:sa_cooperation/models/happiness_index_question_result.dart';
 import 'package:sa_cooperation/models/happiness_index_result.dart';
 import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
+import 'package:sa_cooperation/utils/routes.dart';
+import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
@@ -23,16 +25,6 @@ class HappinessIndexQuestionResultScreen extends StatefulWidget {
 
 class _HappinessIndexQuestionResultScreenState
     extends State<HappinessIndexQuestionResultScreen> {
-  
-  
-  Future<bool> _onWillPop() async {
-    if (Navigator.of(context).canPop()) {
-      Navigator.of(context).popUntil((route) => route.isFirst);
-      return false;
-    }
-    return true;
-  }
-
   @override
   void initState() {
     super.initState();
@@ -46,273 +38,281 @@ class _HappinessIndexQuestionResultScreenState
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
-    return WillPopScope(
-      onWillPop: _onWillPop,
-      child: Scaffold(
-        appBar: const AdaptiveAppBar(
-          null,
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text(
           'Happiness Index Result',
+          style: TextStyle(color: Colors.white, fontSize: 22),
+          textScaleFactor: 1.0,
         ),
-        body: BlocBuilder<HappinessIndexQuestionResultBloc,
-            HappinessIndexQuestionResultState>(
-          builder: (context, state) {
-            if (state is HappinessIndexQuestionResultLoading) {
+        backgroundColor: Style.pColor,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () {
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              homeScreenRoute,
+              (route) => route.isFirst,
+            );
+          },
+        ),
+      ),
+      body: BlocBuilder<HappinessIndexQuestionResultBloc,
+          HappinessIndexQuestionResultState>(
+        builder: (context, state) {
+          if (state is HappinessIndexQuestionResultLoading) {
+            return const Center(
+              child: ActivityIndicator(),
+            );
+          }
+
+          if (state is HappinessIndexQuestionResultLoaded) {
+            List<HappinessIndexQuestionResult> list =
+                state.happinessIndexQuestionResultList.toList();
+            if (state.happinessIndexQuestionResultList.isEmpty) {
               return const Center(
-                child: ActivityIndicator(),
+                child: Text('No result found'),
               );
             }
 
-            if (state is HappinessIndexQuestionResultLoaded) {
-              List<HappinessIndexQuestionResult> list =
-                  state.happinessIndexQuestionResultList.toList();
-              if (state.happinessIndexQuestionResultList.isEmpty) {
-                return const Center(
-                  child: Text('No result found'),
-                );
-              }
-
-              return BlocBuilder<AuthenticationBloc, AuthenticationState>(
-                builder: (context, state) {
-                  if (state is AuthenticationAuthenticated) {
-                    return SingleChildScrollView(
+            return BlocBuilder<AuthenticationBloc, AuthenticationState>(
+              builder: (context, state) {
+                if (state is AuthenticationAuthenticated) {
+                  return SingleChildScrollView(
+                    child: Container(
+                      padding: const EdgeInsets.all(20),
+                      width: width,
+                      decoration: const BoxDecoration(
+                        gradient: LinearGradient(
+                          tileMode: TileMode.clamp,
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color.fromRGBO(252, 129, 48, 1),
+                            Colors.white,
+                          ],
+                        ),
+                      ),
                       child: Container(
-                        padding: const EdgeInsets.all(20),
-                        width: width,
-                        decoration: const BoxDecoration(
-                          gradient: LinearGradient(
+                        padding: const EdgeInsets.symmetric(vertical: 20),
+                        decoration: BoxDecoration(
+                          gradient: const LinearGradient(
                             tileMode: TileMode.clamp,
                             begin: Alignment.topCenter,
                             end: Alignment.bottomCenter,
                             colors: [
-                              Color.fromRGBO(252, 129, 48, 1),
                               Colors.white,
+                              Colors.white,
+                              // Colors.transparent,
                             ],
                           ),
+                          borderRadius: BorderRadius.circular(15),
                         ),
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 20),
-                          decoration: BoxDecoration(
-                            gradient: const LinearGradient(
-                              tileMode: TileMode.clamp,
-                              begin: Alignment.topCenter,
-                              end: Alignment.bottomCenter,
-                              colors: [
-                                Colors.white,
-                                Colors.white,
-                                // Colors.transparent,
-                              ],
+                        child: Column(
+                          children: [
+                            Text(
+                              "Result",
+                              style: TextStyle(
+                                color: Colors.grey[800],
+                                fontSize: 22,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            borderRadius: BorderRadius.circular(15),
-                          ),
-                          child: Column(
-                            children: [
-                              Text(
-                                "Result",
-                                style: TextStyle(
-                                  color: Colors.grey[800],
-                                  fontSize: 22,
-                                  fontWeight: FontWeight.bold,
-                                ),
+                            Text(
+                              "This content is related to your result",
+                              style: TextStyle(
+                                color: Colors.grey[600],
                               ),
-                              Text(
-                                "This content is related to your result",
-                                style: TextStyle(
-                                  color: Colors.grey[600],
-                                ),
-                              ),
-                              const SizedBox(
-                                height: 10,
-                              ),
-                              Container(
-                                width: width * 0.8,
-                                height: height * 0.3,
-                                child: Stack(
-                                  children: [
-                                    Positioned(
-                                      bottom: 0,
-                                      child: Container(
-                                        width: width * 0.8,
-                                        height: height * 0.25,
-                                        decoration: BoxDecoration(
-                                          gradient: LinearGradient(
-                                            tileMode: TileMode.clamp,
-                                            begin: Alignment.topCenter,
-                                            end: Alignment.bottomCenter,
-                                            colors: [
-                                              Colors.grey[200]!,
-                                              Colors.white,
-                                              // Colors.transparent,
-                                            ],
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(15),
-                                        ),
-                                        padding: const EdgeInsets.only(
-                                          top: 32,
-                                          right: 15,
-                                          left: 15,
-                                          bottom: 15,
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            Text(
-                                              state.user.name,
-                                              style: TextStyle(
-                                                color: Colors.grey[800],
-                                                fontWeight: FontWeight.bold,
-                                                fontSize: 18,
-                                              ),
-                                            ),
-                                            Text(
-                                              "This content is related to app. This content is related to app. This content is related to app.",
-                                              style: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: 12,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
-                                            BlocBuilder<
-                                                HappinessIndexResultBloc,
-                                                HappinessIndexResultState>(
-                                              builder: (context, state) {
-                                                if (state
-                                                    is HappinessIndexResultLoading) {
-                                                  return const Center(
-                                                    child: ActivityIndicator(),
-                                                  );
-                                                }
-                                                if (state
-                                                    is HappinessIndexResultLoaded) {
-                                                  List<HappinessIndexResult>
-                                                      list = state
-                                                          .happinessIndexResultList
-                                                          .toList();
-                                                  double value = 0.0;
-                                                  list.forEach(
-                                                    (element) {
-                                                      value += element
-                                                              .sliderValueAverage /
-                                                          list.length;
-                                                    },
-                                                  );
-                                                  return SfSliderTheme(
-                                                    data: SfSliderThemeData(
-                                                        thumbRadius: 18),
-                                                    child: SfSlider(
-                                                      min: 0.0,
-                                                      max: 10.0,
-                                                      activeColor: Colors.red,
-                                                      thumbIcon: Container(
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Text(
-                                                          value.toStringAsFixed(
-                                                            2,
-                                                          ),
-                                                          textScaleFactor: 0.8,
-                                                          style:
-                                                              const TextStyle(
-                                                            color: Colors.white,
-                                                          ),
-                                                          textAlign:
-                                                              TextAlign.center,
-                                                        ),
-                                                      ),
-                                                      value: double.parse(value
-                                                          .toStringAsFixed(2)),
-                                                      onChanged:
-                                                          (dynamic values) {
-                                                        // setState(() {
-                                                        //   _value =
-                                                        //       values as double;
-                                                        // });
-                                                      },
-                                                    ),
-                                                  );
-                                                  // return SliderTheme(
-                                                  //   data: SliderTheme.of(context).copyWith(
-                                                  //     activeTrackColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                  //     inactiveTrackColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                  //     trackShape: const RoundedRectSliderTrackShape(),
-                                                  //     trackHeight: 4.0,
-                                                  //     thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
-                                                  //     thumbColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                  //     overlayColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                  //     overlayShape: const RoundSliderOverlayShape(overlayRadius: 28.0),
-                                                  //     tickMarkShape: const RoundSliderTickMarkShape(),
-                                                  //     activeTickMarkColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                  //     inactiveTickMarkColor: Colors.red[100],
-                                                  //     valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
-                                                  //     valueIndicatorColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                  //     valueIndicatorTextStyle: const TextStyle(
-                                                  //       color: Colors.white,
-                                                  //     ),
-                                                  //   ),
-                                                  //   child: Slider(
-                                                  //     value: double.parse(value.toStringAsFixed(2)),
-                                                  //     min: 0,
-                                                  //     max: 100,
-                                                  //     divisions: 10,
-                                                  //     label: value.toString(),
-                                                  //     onChanged: (value) {},
-                                                  //   ),
-                                                  // );
-                                                }
-                                                return Container();
-                                              },
-                                            ),
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Container(
+                              width: width * 0.8,
+                              height: height * 0.3,
+                              child: Stack(
+                                children: [
+                                  Positioned(
+                                    bottom: 0,
+                                    child: Container(
+                                      width: width * 0.8,
+                                      height: height * 0.25,
+                                      decoration: BoxDecoration(
+                                        gradient: LinearGradient(
+                                          tileMode: TileMode.clamp,
+                                          begin: Alignment.topCenter,
+                                          end: Alignment.bottomCenter,
+                                          colors: [
+                                            Colors.grey[200]!,
+                                            Colors.white,
+                                            // Colors.transparent,
                                           ],
                                         ),
+                                        borderRadius: BorderRadius.circular(15),
+                                      ),
+                                      padding: const EdgeInsets.only(
+                                        top: 32,
+                                        right: 15,
+                                        left: 15,
+                                        bottom: 15,
+                                      ),
+                                      child: Column(
+                                        children: [
+                                          Text(
+                                            state.user.name,
+                                            style: TextStyle(
+                                              color: Colors.grey[800],
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 18,
+                                            ),
+                                          ),
+                                          Text(
+                                            "This content is related to app. This content is related to app. This content is related to app.",
+                                            style: TextStyle(
+                                              color: Colors.grey[600],
+                                              fontSize: 12,
+                                            ),
+                                            textAlign: TextAlign.center,
+                                          ),
+                                          BlocBuilder<HappinessIndexResultBloc,
+                                              HappinessIndexResultState>(
+                                            builder: (context, state) {
+                                              if (state
+                                                  is HappinessIndexResultLoading) {
+                                                return const Center(
+                                                  child: ActivityIndicator(),
+                                                );
+                                              }
+                                              if (state
+                                                  is HappinessIndexResultLoaded) {
+                                                List<HappinessIndexResult>
+                                                    list = state
+                                                        .happinessIndexResultList
+                                                        .toList();
+                                                double value = 0.0;
+                                                list.forEach(
+                                                  (element) {
+                                                    value += element
+                                                            .sliderValueAverage /
+                                                        list.length;
+                                                  },
+                                                );
+                                                return SfSliderTheme(
+                                                  data: SfSliderThemeData(
+                                                      thumbRadius: 18),
+                                                  child: SfSlider(
+                                                    min: 0.0,
+                                                    max: 10.0,
+                                                    activeColor: Colors.red,
+                                                    thumbIcon: Container(
+                                                      alignment:
+                                                          Alignment.center,
+                                                      child: Text(
+                                                        value.toStringAsFixed(
+                                                          2,
+                                                        ),
+                                                        textScaleFactor: 0.8,
+                                                        style: const TextStyle(
+                                                          color: Colors.white,
+                                                        ),
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                      ),
+                                                    ),
+                                                    value: double.parse(value
+                                                        .toStringAsFixed(2)),
+                                                    onChanged:
+                                                        (dynamic values) {
+                                                      // setState(() {
+                                                      //   _value =
+                                                      //       values as double;
+                                                      // });
+                                                    },
+                                                  ),
+                                                );
+                                                // return SliderTheme(
+                                                //   data: SliderTheme.of(context).copyWith(
+                                                //     activeTrackColor: const Color.fromRGBO(255, 102, 0, 1),
+                                                //     inactiveTrackColor: const Color.fromRGBO(255, 102, 0, 1),
+                                                //     trackShape: const RoundedRectSliderTrackShape(),
+                                                //     trackHeight: 4.0,
+                                                //     thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
+                                                //     thumbColor: const Color.fromRGBO(255, 102, 0, 1),
+                                                //     overlayColor: const Color.fromRGBO(255, 102, 0, 1),
+                                                //     overlayShape: const RoundSliderOverlayShape(overlayRadius: 28.0),
+                                                //     tickMarkShape: const RoundSliderTickMarkShape(),
+                                                //     activeTickMarkColor: const Color.fromRGBO(255, 102, 0, 1),
+                                                //     inactiveTickMarkColor: Colors.red[100],
+                                                //     valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+                                                //     valueIndicatorColor: const Color.fromRGBO(255, 102, 0, 1),
+                                                //     valueIndicatorTextStyle: const TextStyle(
+                                                //       color: Colors.white,
+                                                //     ),
+                                                //   ),
+                                                //   child: Slider(
+                                                //     value: double.parse(value.toStringAsFixed(2)),
+                                                //     min: 0,
+                                                //     max: 100,
+                                                //     divisions: 10,
+                                                //     label: value.toString(),
+                                                //     onChanged: (value) {},
+                                                //   ),
+                                                // );
+                                              }
+                                              return Container();
+                                            },
+                                          ),
+                                        ],
                                       ),
                                     ),
-                                    Positioned(
-                                      right: 0,
-                                      left: 0,
-                                      child: CircleAvatar(
-                                        radius: height * 0.045,
-                                        backgroundImage: NetworkImage(
-                                          state.user.image != null
-                                              ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
-                                              : avatarNetworkIcon,
-                                        ),
-                                        backgroundColor: Colors.transparent,
+                                  ),
+                                  Positioned(
+                                    right: 0,
+                                    left: 0,
+                                    child: CircleAvatar(
+                                      radius: height * 0.045,
+                                      backgroundImage: NetworkImage(
+                                        state.user.image != null
+                                            ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
+                                            : avatarNetworkIcon,
                                       ),
+                                      backgroundColor: Colors.transparent,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
-                              const SizedBox(
-                                height: 10,
+                            ),
+                            const SizedBox(
+                              height: 10,
+                            ),
+                            Column(
+                              children: List.generate(
+                                list.length,
+                                (index) =>
+                                    getCardWidget(width, height, list[index]),
                               ),
-                              Column(
-                                children: List.generate(
-                                  list.length,
-                                  (index) =>
-                                      getCardWidget(width, height, list[index]),
-                                ),
-                              ),
-                              // getCardWidget(width, height),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // getCardWidget(width, height),
-                              // const SizedBox(
-                              //   height: 10,
-                              // ),
-                              // getCardWidget(width, height),
-                            ],
-                          ),
+                            ),
+                            // getCardWidget(width, height),
+                            // const SizedBox(
+                            //   height: 10,
+                            // ),
+                            // getCardWidget(width, height),
+                            // const SizedBox(
+                            //   height: 10,
+                            // ),
+                            // getCardWidget(width, height),
+                          ],
                         ),
                       ),
-                    );
-                  }
-                  return Container();
-                },
-              );
-            }
-            return Container();
-          },
-        ),
+                    ),
+                  );
+                }
+                return Container();
+              },
+            );
+          }
+          return Container();
+        },
       ),
     );
   }
