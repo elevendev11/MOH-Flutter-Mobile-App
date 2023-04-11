@@ -26,13 +26,11 @@ class Assesment {
 class Choice {
   final int id;
   final String choiceStatement;
-  int? questionId;
   final int assesmentId;
 
   Choice({
     required this.id,
     required this.choiceStatement,
-    this.questionId,
     required this.assesmentId,
   });
 

@@ -25,13 +25,11 @@ Map<String, dynamic> _$AssesmentToJson(Assesment instance) => <String, dynamic>{
 Choice _$ChoiceFromJson(Map<String, dynamic> json) => Choice(
       id: json['id'] as int,
       choiceStatement: json['choiceStatement'] as String,
-      questionId: json['questionId'] as int?,
       assesmentId: json['assesmentId'] as int,
     );
 
 Map<String, dynamic> _$ChoiceToJson(Choice instance) => <String, dynamic>{
       'id': instance.id,
       'choiceStatement': instance.choiceStatement,
-      'questionId': instance.questionId,
       'assesmentId': instance.assesmentId,
     };

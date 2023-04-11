@@ -61,7 +61,8 @@ class _MyAppState extends State<MyApp> {
         RepositoryProvider(create: (_) => locator<LoginRepository>()),
       ],
       child: MultiBlocProvider(providers: [
-        BlocProvider(create: (_) => locator<AuthenticationBloc>()..add(AppStarted())),
+        BlocProvider(
+            create: (_) => locator<AuthenticationBloc>()..add(AppStarted())),
         BlocProvider(create: (_) => locator<TransactionBloc>()),
         BlocProvider(create: (_) => locator<LoginBloc>()),
         BlocProvider(create: (_) => locator<AssesmentBloc>()),
@@ -70,14 +71,17 @@ class _MyAppState extends State<MyApp> {
         BlocProvider(create: (_) => locator<EvaluationTypeIntellectBloc>()),
         BlocProvider(create: (_) => locator<EvaluationTypeMindBloc>()),
         BlocProvider(create: (_) => locator<SuccessIndexResultBloc>()),
-        BlocProvider(create: (_) => locator<EvaluationMindQuestionResultBloc>()),
+        BlocProvider(
+            create: (_) => locator<EvaluationMindQuestionResultBloc>()),
         BlocProvider(create: (_) => locator<EvaluationMindResultBloc>()),
         BlocProvider(create: (_) => locator<SuccessIndexLineChartBloc>()),
-        BlocProvider(create: (_) => locator<EvaluationTypeIntellectResultBloc>()),
+        BlocProvider(
+            create: (_) => locator<EvaluationTypeIntellectResultBloc>()),
         BlocProvider(create: (_) => locator<HappinessIndexResultBloc>()),
         BlocProvider(create: (_) => locator<HappinessIndexLineChartBloc>()),
         BlocProvider(create: (_) => locator<SuccessIndexQuestionResultBloc>()),
-        BlocProvider(create: (_) => locator<HappinessIndexQuestionResultBloc>()),
+        BlocProvider(
+            create: (_) => locator<HappinessIndexQuestionResultBloc>()),
       ], child: const HomePage()),
     );
   }
@@ -122,12 +126,15 @@ class _HomePageState extends State<HomePage> {
           listener: (context, state) {
             if (state is AuthenticationAuthenticated) {
               if (state.user.assesmentStatus == 1) {
-                _navigator.pushNamedAndRemoveUntil(homeScreenRoute, (route) => false);
+                _navigator.pushNamedAndRemoveUntil(
+                    homeScreenRoute, (route) => false);
               } else {
-                _navigator.pushNamedAndRemoveUntil(assesmentScreenRoute, (route) => false);
+                _navigator.pushNamedAndRemoveUntil(
+                    assesmentScreenRoute, (route) => false);
               }
             } else if (state is AuthenticationUnauthenticated) {
-              _navigator.pushNamedAndRemoveUntil(splashScreenRoute, (route) => false);
+              _navigator.pushNamedAndRemoveUntil(
+                  splashScreenRoute, (route) => false);
             }
           },
           child: child,

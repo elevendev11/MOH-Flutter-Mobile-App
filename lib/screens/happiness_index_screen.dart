@@ -27,15 +27,16 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
   final sectionController = PageController();
   final questionController = PageController();
 
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  Map<String, dynamic> _requestBody = {};
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final Map<String, dynamic> _requestBody = {};
   List<HappinessIndexAnswer> answerList = [];
   bool isLastQuestion = false;
   int questionNumber = 1;
 
   void validate() {
     if (_formKey.currentState!.validate()) {
-      _requestBody['userId'] = context.read<LoginRepository>().getLoggedInUser!.id;
+      _requestBody['userId'] =
+          context.read<LoginRepository>().getLoggedInUser!.id;
       // _requestBody['sectionId'] = widget.sectionId;
       List<Map<String, dynamic>> answerMap = List.empty(growable: true);
       answerList.forEach((element) {
@@ -44,7 +45,8 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
       _requestBody['answerList'] = answerMap;
       _formKey.currentState!.save();
       context.loaderOverlay.show();
-      BlocProvider.of<TransactionBloc>(context).add(SubmitHappinessIndex(_requestBody));
+      BlocProvider.of<TransactionBloc>(context)
+          .add(SubmitHappinessIndex(_requestBody));
     } else {
       print("Not Validated");
     }
@@ -53,7 +55,8 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<HappinessIndexBloc>(context).add(FetchHappinessIndexEvent());
+    BlocProvider.of<HappinessIndexBloc>(context)
+        .add(FetchHappinessIndexEvent());
   }
 
   @override
@@ -100,7 +103,10 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
     );
   }
 
-  Widget getSectionWidget({required List<HappinessIndex> questionList, required double height, required double width}) {
+  Widget getSectionWidget(
+      {required List<HappinessIndex> questionList,
+      required double height,
+      required double width}) {
     return Container(
       height: height * 0.95,
       width: width * 1,
@@ -133,7 +139,8 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
                       physics: const NeverScrollableScrollPhysics(),
                       itemBuilder: (context, index) {
                         // questionIndex = index;
-                        var answer = HappinessIndexAnswer(sectionId: questionList[index].sectionId);
+                        var answer = HappinessIndexAnswer(
+                            sectionId: questionList[index].sectionId);
                         answer.oidQuestion = questionList[index].questionId;
                         return BodyWidget(
                           constraints: constraints,
@@ -159,14 +166,30 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
                 children: [
                   TextButton(
                     onPressed: () {
-                      questionController.previousPage(
+                      // questionController.previousPage(
+                      //   duration: const Duration(milliseconds: 400),
+                      //   curve: Curves.easeIn,
+                      // );
+                      // if (questionController.page! - 1 >= 0) {
+                      //   setState(() {
+                      //     questionNumber -= 1;
+                      //     isLastQuestion = false;
+                      //   });
+                      // }
+                      print(questionController.page);
+                      questionController.nextPage(
                         duration: const Duration(milliseconds: 400),
                         curve: Curves.easeIn,
                       );
-                      if (questionController.page! - 1 >= 0) {
+                      if (questionController.page! + 1 <= questionList.length) {
                         setState(() {
-                          questionNumber -= 1;
-                          isLastQuestion = false;
+                          questionNumber += 1;
+                        });
+                      }
+                      if (questionController.page!.toInt() ==
+                          questionList.length - 2) {
+                        setState(() {
+                          isLastQuestion = true;
                         });
                       }
                     },
@@ -187,12 +210,14 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
                           duration: const Duration(milliseconds: 400),
                           curve: Curves.easeIn,
                         );
-                        if (questionController.page! + 1 <= questionList.length) {
+                        if (questionController.page! + 1 <=
+                            questionList.length) {
                           setState(() {
                             questionNumber += 1;
                           });
                         }
-                        if (questionController.page!.toInt() == questionList.length - 2) {
+                        if (questionController.page!.toInt() ==
+                            questionList.length - 2) {
                           print("submit");
                           setState(() {
                             isLastQuestion = true;
@@ -362,7 +387,7 @@ class _BodyWidgetState extends State<BodyWidget> {
   double sliderValue = 0.0;
   @override
   void initState() {
-    sliderValue = widget.question.minSlider.toDouble();
+    // sliderValue = widget.question.minSlider.toDouble();
     widget.answer.sliderValue = sliderValue;
     widget.answerList.add(widget.answer);
     super.initState();
@@ -384,7 +409,8 @@ class _BodyWidgetState extends State<BodyWidget> {
           listener: (context, state) {
             if (state is TransactionSuccess) {
               context.loaderOverlay.hide();
-              Navigator.pushNamed(context, happinessIndexQuestionResultScreenRoute);
+              Navigator.pushNamed(
+                  context, happinessIndexQuestionResultScreenRoute);
             } else if (state is TransactionError) {
               context.loaderOverlay.hide();
             }
@@ -446,8 +472,8 @@ class _BodyWidgetState extends State<BodyWidget> {
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Slider(
-                  min: widget.question.minSlider.toDouble(),
-                  max: widget.question.maxSlider.toDouble(),
+                  min: 0.0,
+                  max: 10.0,
                   value: sliderValue,
                   divisions: 10,
                   label: sliderValue.round().toString(),
@@ -456,7 +482,8 @@ class _BodyWidgetState extends State<BodyWidget> {
                       sliderValue = d;
                       widget.answer.sliderValue = sliderValue;
                     });
-                    widget.answerList.removeWhere((element) => element.oidQuestion == widget.answer.oidQuestion);
+                    widget.answerList.removeWhere((element) =>
+                        element.oidQuestion == widget.answer.oidQuestion);
                     widget.answerList.add(widget.answer);
                   },
                   thumbColor: Style.pColor,

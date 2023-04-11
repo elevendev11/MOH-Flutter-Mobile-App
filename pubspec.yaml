@@ -41,6 +41,7 @@ dependencies:
   syncfusion_flutter_charts: ^20.3.57
   dotted_border: ^2.0.0+3
   syncfusion_flutter_sliders: ^20.4.54
+  syncfusion_flutter_core: ^20.4.54
 
 
  

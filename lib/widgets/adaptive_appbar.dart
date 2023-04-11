@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:sa_cooperation/utils/icon_util.dart';
 import 'package:sa_cooperation/utils/style.dart';
 
 class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
@@ -28,6 +29,13 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
         padding: const EdgeInsetsDirectional.only(start: 8, end: 8),
         backgroundColor: Colors.red,
         automaticallyImplyLeading: automaticallyImplyLeading,
+        leading: IconButton(
+          onPressed: () {},
+          icon: Image.asset(
+            backButtonIcon,
+            height: 25,
+          ),
+        ),
         middle: _titleWidget(),
         trailing: Row(
           mainAxisSize: MainAxisSize.min,
@@ -40,6 +48,13 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       title: _titleWidget(),
       elevation: 0.5,
+      leading: IconButton(
+        onPressed: () {},
+        icon: Image.asset(
+          backButtonIcon,
+          height: 25,
+        ),
+      ),
       iconTheme: const IconThemeData(
         color: Colors.white, //change your color here
       ),
@@ -63,10 +78,7 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
     return Text(
       title,
-      style: Style.headline6.copyWith(
-        color: Colors.white,
-        fontSize: 22
-      ),
+      style: Style.headline6.copyWith(color: Colors.white, fontSize: 22),
       textScaleFactor: 1.0,
     );
   }
