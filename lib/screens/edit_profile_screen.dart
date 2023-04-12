@@ -64,9 +64,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     var gender = box.get('user')!.gender;
     if (gender != null) {
       _selectedGender = gender.toString();
-      _requestBody.putIfAbsent('gender', () => gender);
+      // _requestBody.putIfAbsent('gender', () => gender);
+      _requestBody['gender'] = _selectedGender;
     } else {
       _selectedGender = _selectedGender;
+      _requestBody['gender'] = _selectedGender;
     }
     print(_requestBody);
   }
@@ -108,10 +110,13 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   height: height * 0.38,
                                   width: width,
                                   decoration: BoxDecoration(
-                                    color: const Color.fromRGBO(224, 225, 249, 1),
+                                    color:
+                                        const Color.fromRGBO(224, 225, 249, 1),
                                     borderRadius: BorderRadius.only(
-                                      bottomLeft: Radius.circular(height * 0.28),
-                                      bottomRight: Radius.circular(height * 0.28),
+                                      bottomLeft:
+                                          Radius.circular(height * 0.28),
+                                      bottomRight:
+                                          Radius.circular(height * 0.28),
                                     ),
                                   ),
                                 ),
@@ -125,23 +130,20 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       shape: BoxShape.circle,
                                       boxShadow: [
                                         BoxShadow(
-                                          color: const Color.fromRGBO(173, 174, 227, 1),
+                                          color: const Color.fromRGBO(
+                                              173, 174, 227, 1),
                                           spreadRadius: 6,
                                           blurRadius: 10,
                                           offset: new Offset(0, -6),
                                         ),
                                       ],
-                                      // image: DecorationImage(
-                                      //   image: Image.network(
-                                      //     user.image != null ? '${ApiUtil.profileImageEndPoint}/${user.image}' : avatarNetworkIcon,
-                                      //     fit: BoxFit.cover,
-                                      //   ).image,
-                                      // ),
                                       image: DecorationImage(
                                         image: _image != null
                                             ? Image.file(_image!).image
                                             : Image.network(
-                                                user.image != null ? '${ApiUtil.profileImageEndPoint}/${user.image}' : avatarNetworkIcon,
+                                                user.image != null
+                                                    ? '${ApiUtil.profileImageEndPoint}/${user.image}'
+                                                    : avatarNetworkIcon,
                                                 fit: BoxFit.cover,
                                               ).image,
                                       ),
@@ -156,7 +158,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     child: IconButton(
                                       onPressed: () async {
                                         // await getImage();
-                                        _createUploadImageModalBottomSheet(context);
+                                        _createUploadImageModalBottomSheet(
+                                            context);
                                       },
                                       icon: const Icon(
                                         Icons.image,
@@ -183,7 +186,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             height: 30,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: width * 0.12),
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.12),
                             child: TextFormField(
                               initialValue: user.name,
                               onSaved: (value) {
@@ -213,7 +217,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             height: 15,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: width * 0.12),
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.12),
                             child: Row(
                               children: [
                                 const Text(
@@ -231,7 +236,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   onChanged: (value) {
                                     setState(() {
                                       _selectedGender = value.toString();
-                                      _requestBody['gender'] = _selectedGender.toString();
+                                      _requestBody['gender'] =
+                                          _selectedGender.toString();
                                     });
                                   },
                                 ),
@@ -250,7 +256,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                   onChanged: (value) {
                                     setState(() {
                                       _selectedGender = value.toString();
-                                      _requestBody['gender'] = _selectedGender.toString();
+                                      _requestBody['gender'] =
+                                          _selectedGender.toString();
                                     });
                                   },
                                 ),
@@ -269,7 +276,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             height: 15,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: width * 0.12),
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.12),
                             child: DateTimeField(
                               initialValue: user.dob != null ? user.dob : null,
                               decoration: InputDecoration(
@@ -280,14 +288,18 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   focusColor: Colors.grey[300],
-                                  focusedBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(15))),
+                                  focusedBorder: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(15))),
                               format: DateUtil.defaultDateFormat,
                               onSaved: (DateTime? value) {
                                 if (value != null) {
-                                  _requestBody['dob'] = value.millisecondsSinceEpoch.toString();
+                                  _requestBody['dob'] =
+                                      value.millisecondsSinceEpoch.toString();
                                 }
                               },
-                              validator: (value) => value == null ? 'From date is required.' : null,
+                              validator: (value) => value == null
+                                  ? 'From date is required.'
+                                  : null,
                               onShowPicker: (context, currentValue) async {
                                 final date = await showDatePicker(
                                   context: context,
@@ -296,7 +308,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       data: ThemeData.light().copyWith(
                                         colorScheme: ColorScheme.fromSwatch(
                                           primarySwatch: Style.primarySwatch,
-                                          primaryColorDark: Style.textPrimaryColor,
+                                          primaryColorDark:
+                                              Style.textPrimaryColor,
                                           accentColor: Style.textPrimaryColor,
                                         ),
                                         dialogBackgroundColor: Colors.white,
@@ -320,7 +333,8 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             height: 15,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: width * 0.12),
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.12),
                             child: TextFormField(
                               initialValue: user.email,
                               onSaved: (value) {
@@ -350,10 +364,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                             height: 15,
                           ),
                           Padding(
-                            padding: EdgeInsets.symmetric(horizontal: width * 0.12),
+                            padding:
+                                EdgeInsets.symmetric(horizontal: width * 0.12),
                             child: TextFormField(
                               keyboardType: TextInputType.number,
-                              initialValue: user.phoneNo != null ? user.phoneNo : null,
+                              initialValue:
+                                  user.phoneNo != null ? user.phoneNo : null,
                               onSaved: (value) {
                                 _requestBody['phoneNo'] = value;
                               },

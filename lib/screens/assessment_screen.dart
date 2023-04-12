@@ -187,14 +187,14 @@ class _AssessmentScreenState extends State<AssessmentScreen> {
           height: 25,
         ),
         ...List.generate(
-          q.questionTypeId == 1 ? 1 : q.choiceList.length,
+          q.questionTypeId == 1 ? 1 : q.choiceList!.length,
           (index) {
             if (q.questionTypeId == 1) {
               return _buildTextField();
             } else if (q.questionTypeId == 2) {
-              return _buildSingleChoiceListItem(q, q.choiceList[index]);
+              return _buildSingleChoiceListItem(q, q.choiceList![index]);
             } else {
-              return _buildMultiChoiceListItem(q, q.choiceList[index]);
+              return _buildMultiChoiceListItem(q, q.choiceList![index]);
             }
           },
         ),
@@ -235,12 +235,14 @@ class _AssessmentScreenState extends State<AssessmentScreen> {
                 if (isValid(q)) {
                   selectedChoice = null;
                   _multiCheckSelectValues.clear();
+                  textController.clear();
                   List<Map<String, dynamic>> answerMap =
                       List.empty(growable: true);
                   answerList.forEach((element) {
                     answerMap.add(element.toJson());
                   });
                   _requestBody['answerList'] = answerMap;
+
                   print(answerMap);
 
                   if (isLast) {
@@ -323,15 +325,6 @@ class _AssessmentScreenState extends State<AssessmentScreen> {
         cursorColor: Style.textSecondaryColor.withOpacity(0.2),
         cursorWidth: 1,
         autocorrect: true,
-        onSaved: (value) {
-          _requestBody['email'] = value;
-        },
-        validator: (value) {
-          if (value == null || value.isEmpty) {
-            return 'Field is required';
-          }
-          return null;
-        },
       ),
     );
   }

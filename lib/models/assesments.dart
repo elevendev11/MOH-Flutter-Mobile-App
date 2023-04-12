@@ -8,16 +8,17 @@ class Assesment {
   final String title;
   final int questionTypeId;
 
-  List<Choice> choiceList;
+  List<Choice>? choiceList;
 
   Assesment({
     required this.id,
     required this.title,
-    required this.choiceList,
+    this.choiceList,
     required this.questionTypeId,
   });
 
-  factory Assesment.fromJson(Map<String, dynamic> json) => _$AssesmentFromJson(json);
+  factory Assesment.fromJson(Map<String, dynamic> json) =>
+      _$AssesmentFromJson(json);
 
   Map<String, dynamic> toJson() => _$AssesmentToJson(this);
 }

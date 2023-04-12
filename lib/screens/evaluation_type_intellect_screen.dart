@@ -36,6 +36,7 @@ class _EvaluationTypeIntellectScreenState
   bool isLastQuestion = false;
   int questionNumber = 1;
 
+
   void validate() {
     if (_formKey.currentState!.validate()) {
       _requestBody['userId'] =
@@ -343,7 +344,7 @@ class _FooterWidgetState extends State<FooterWidget> {
                 const SizedBox(
                   width: 15,
                 ),
-                Text(
+                const Text(
                   "Your answers will remain completely\nconfidential.",
                   textScaleFactor: 1.0,
                   style: TextStyle(
@@ -382,7 +383,7 @@ class _BodyWidgetState extends State<BodyWidget> {
   double sliderValue = 0.0;
   @override
   void initState() {
-    sliderValue = widget.question.minSlider.toDouble();
+    sliderValue = sliderValue;
     widget.answer.sliderValue = sliderValue;
     widget.answerList.add(widget.answer);
     super.initState();

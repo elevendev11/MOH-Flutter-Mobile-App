@@ -70,7 +70,9 @@ class _EvaluationIntellectOptionScreenState
                       ],
                       image: DecorationImage(
                         image: Image.network(
-                        state.user.image != null ? '${ApiUtil.profileImageEndPoint}/${state.user.image}' : avatarNetworkIcon,
+                          state.user.image != null
+                              ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
+                              : avatarNetworkIcon,
                           fit: BoxFit.cover,
                         ).image,
                       ),
@@ -90,7 +92,7 @@ class _EvaluationIntellectOptionScreenState
                   ),
                   Center(
                     child: Text(
-                      '${state.user.email}',
+                      state.user.email,
                       style: TextStyle(
                         fontSize: constraints.maxHeight * 0.02,
                       ),
@@ -172,7 +174,7 @@ class _HappinessDetailsWidgetState extends State<HappinessDetailsWidget> {
         // ),
         // GestureDetector(
         //   onTap: () {
- 
+
         //   },
         //   child: Container(
         //     margin: EdgeInsets.symmetric(

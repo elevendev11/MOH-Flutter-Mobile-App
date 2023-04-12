@@ -33,8 +33,6 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
   bool isLastQuestion = false;
   int questionNumber = 1;
 
-  double answerSliderValue = 0.0;
-
   void validate() {
     if (_formKey.currentState!.validate()) {
       _requestBody['userId'] =

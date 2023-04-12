@@ -9,8 +9,8 @@ part of 'assesments.dart';
 Assesment _$AssesmentFromJson(Map<String, dynamic> json) => Assesment(
       id: json['id'] as int,
       title: json['title'] as String,
-      choiceList: (json['choiceList'] as List<dynamic>)
-          .map((e) => Choice.fromJson(e as Map<String, dynamic>))
+      choiceList: (json['choiceList'] as List<dynamic>?)
+          ?.map((e) => Choice.fromJson(e as Map<String, dynamic>))
           .toList(),
       questionTypeId: json['questionTypeId'] as int,
     );

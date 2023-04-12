@@ -382,7 +382,7 @@ class _BodyWidgetState extends State<BodyWidget> {
   double sliderValue = 0.0;
   @override
   void initState() {
-    sliderValue = widget.question.minSlider.toDouble();
+    sliderValue = 0.0;
     widget.answer.sliderValue = sliderValue;
     widget.answerList.add(widget.answer);
     super.initState();
