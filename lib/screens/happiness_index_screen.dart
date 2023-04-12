@@ -178,10 +178,11 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
                       // }
                       print(questionController.page);
                       questionController.nextPage(
-                        duration: const Duration(milliseconds: 400),
+                        duration: const Duration(milliseconds: 100),
                         curve: Curves.easeIn,
                       );
-                      if (questionController.page! + 1 <= questionList.length) {
+                      if (questionController.page! + 1 <= questionList.length &&
+                          !isLastQuestion) {
                         setState(() {
                           questionNumber += 1;
                         });
@@ -207,7 +208,7 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
                       onPressed: () {
                         print(questionController.page);
                         questionController.nextPage(
-                          duration: const Duration(milliseconds: 400),
+                          duration: const Duration(milliseconds: 100),
                           curve: Curves.easeIn,
                         );
                         if (questionController.page! + 1 <=
@@ -397,8 +398,6 @@ class _BodyWidgetState extends State<BodyWidget> {
   Widget build(BuildContext context) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
-      // height: widget.constraints.maxHeight * 0.46,
-      // width: widget.constraints.maxWidth * 0.6,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(22),

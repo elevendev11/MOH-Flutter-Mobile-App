@@ -173,10 +173,11 @@ class _EvaluationTypeIntellectScreenState
                   TextButton(
                     onPressed: () {
                       questionController.nextPage(
-                        duration: const Duration(milliseconds: 400),
+                        duration: const Duration(milliseconds: 100),
                         curve: Curves.easeIn,
                       );
-                      if (questionController.page! + 1 <= questionList.length) {
+                      if (questionController.page! + 1 <= questionList.length  &&
+                          !isLastQuestion) {
                         setState(() {
                           questionNumber += 1;
                         });
@@ -203,7 +204,7 @@ class _EvaluationTypeIntellectScreenState
                       onPressed: () {
                         print(questionController.page);
                         questionController.nextPage(
-                          duration: const Duration(milliseconds: 400),
+                          duration: const Duration(milliseconds: 100),
                           curve: Curves.easeIn,
                         );
                         if (questionController.page! + 1 <=
