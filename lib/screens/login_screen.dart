@@ -140,7 +140,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       TextFormField(
                         cursorColor: Style.textSecondaryColor.withOpacity(0.2),
                         autocorrect: false,
-                        keyboardType: TextInputType.number,
                         obscureText: true,
                         cursorWidth: 1,
                         onSaved: (value) {

@@ -222,7 +222,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       cursorColor: Style.textSecondaryColor.withOpacity(0.2),
                       cursorWidth: 1,
                       autocorrect: false,
-                      keyboardType: TextInputType.number,
                       obscureText: true,
                       enableSuggestions: false,
                       onSaved: (value) {
@@ -260,7 +259,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       cursorColor: Style.textSecondaryColor.withOpacity(0.2),
                       cursorWidth: 1,
                       autocorrect: false,
-                      keyboardType: TextInputType.number,
                       obscureText: true,
                       enableSuggestions: false,
                       onSaved: (value) {

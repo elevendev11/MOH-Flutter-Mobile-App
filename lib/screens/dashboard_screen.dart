@@ -28,8 +28,8 @@ class _DashboardScreenState extends State<DashboardScreen> {
   @override
   void initState() {
     super.initState();
-    // RepositoryProvider.of<LoginRepository>(context).refreshUser();
-    // BlocProvider.of<LoginBloc>(context).add(RefreshUser());
+    RepositoryProvider.of<LoginRepository>(context).refreshUser();
+    BlocProvider.of<LoginBloc>(context).add(RefreshUser());
   }
 
   @override

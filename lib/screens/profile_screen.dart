@@ -10,6 +10,7 @@ import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
 import 'package:sa_cooperation/utils/routes.dart';
 import 'package:hive_flutter/hive_flutter.dart';
+import 'package:sa_cooperation/widgets/activity_indicator.dart';
 
 import '../blocs/authentication-bloc/authentication_event.dart';
 import '../utils/style.dart';
@@ -30,6 +31,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     final width = MediaQuery.of(context).size.width;
 
     return LoaderOverlay(
+      overlayWidget: const ActivityIndicator(),
       child: BlocBuilder<AuthenticationBloc, AuthenticationState>(
         builder: (context, state) {
           if (state is AuthenticationAuthenticated) {
@@ -55,7 +57,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             ),
                           ),
                           ValueListenableBuilder<Box<User>>(
-                            valueListenable: Hive.box<User>('user').listenable(),
+                            valueListenable:
+                                Hive.box<User>('user').listenable(),
                             builder: (context, box, widget) {
                               if (box.isNotEmpty) {
                                 var user = box.getAt(0);
@@ -71,7 +74,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         shape: BoxShape.circle,
                                         boxShadow: [
                                           BoxShadow(
-                                            color: const Color.fromRGBO(173, 174, 227, 1),
+                                            color: const Color.fromRGBO(
+                                                173, 174, 227, 1),
                                             spreadRadius: 6,
                                             blurRadius: 10,
                                             offset: new Offset(0, -6),
@@ -79,7 +83,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                         ],
                                         image: DecorationImage(
                                           image: Image.network(
-                                            user.image != null ? '${ApiUtil.profileImageEndPoint}/${user.image}' : avatarNetworkIcon,
+                                            user.image != null
+                                                ? '${ApiUtil.profileImageEndPoint}/${user.image}'
+                                                : avatarNetworkIcon,
                                             fit: BoxFit.cover,
                                           ).image,
                                         ),
@@ -114,7 +120,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           print("Boxxxx${user!.name}");
                           if (user.name.isNotEmpty) {
                             return Text(
-                              "${user.name}",
+                              user.name,
                               style: const TextStyle(
                                 color: Colors.black,
                                 fontSize: 18,
@@ -338,11 +344,15 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     ),
                     InkWell(
                       onTap: () {
+                        context.loaderOverlay.show();
                         if (Platform.isIOS) {
-                          BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+                          BlocProvider.of<AuthenticationBloc>(context)
+                              .add(LoggedOut());
                         } else {
-                          BlocProvider.of<AuthenticationBloc>(context).add(LoggedOut());
+                          BlocProvider.of<AuthenticationBloc>(context)
+                              .add(LoggedOut());
                         }
+                        // context.loaderOverlay.hide();
                       },
                       child: TileWidget(
                         width: width,
@@ -455,7 +465,8 @@ class ProfileListTile extends StatelessWidget {
       children: [
         Text(
           title,
-          style: Style.bodyText1.copyWith(color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 10),
+          style: Style.bodyText1.copyWith(
+              color: Colors.grey, fontWeight: FontWeight.bold, fontSize: 10),
         ),
         Text(
           value,
