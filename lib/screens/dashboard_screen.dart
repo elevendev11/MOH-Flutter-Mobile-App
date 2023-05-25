@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
@@ -24,12 +27,46 @@ class DashboardScreen extends StatefulWidget {
   State<DashboardScreen> createState() => _DashboardScreenState();
 }
 
-class _DashboardScreenState extends State<DashboardScreen> {
+class _DashboardScreenState extends State<DashboardScreen>
+    with WidgetsBindingObserver {
+  List<String> quotes = [
+    "Success is not achieved overnight. It is built on persistence, dedication, and hard work. Keep pushing forward, and you'll reach your goals.",
+    'Dont let fear hold you back. Embrace challenges as opportunities for growth. Believe in yourself, and you will achieve greatness.',
+    'Your attitude determines your altitude. Stay positive, stay focused, and watch how high you can soar.',
+    'The road to success may be filled with obstacles, but they are stepping stones to greatness. Embrace the journey, learn from failures, and keep moving forward.',
+    'Dream big, set goals, and take action. Each step you take brings you closer to your dreams. Trust the process and never give up.',
+  ];
+
+  String currentQuote = '';
+
   @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance.addObserver(this);
+    setCurrentQuote();
     RepositoryProvider.of<LoginRepository>(context).refreshUser();
     BlocProvider.of<LoginBloc>(context).add(RefreshUser());
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  void setCurrentQuote() {
+    final random = Random();
+    final randomIndex = random.nextInt(quotes.length);
+    setState(() {
+      currentQuote = quotes[randomIndex];
+    });
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    if (state == AppLifecycleState.resumed) {
+      setCurrentQuote();
+    }
   }
 
   @override
@@ -185,8 +222,9 @@ class _DashboardScreenState extends State<DashboardScreen> {
                                   color: Colors.white,
                                   height: 3,
                                 ),
-                                const Text(
-                                  "Its is a very impressive qoute that you have seen listened ever in your life.",
+                                Text(
+                                  // "Its is a very impressive qoute that you have seen listened ever in your life.",
+                                  currentQuote,
                                   textScaleFactor: 0.8,
                                   textAlign: TextAlign.center,
                                 ),
