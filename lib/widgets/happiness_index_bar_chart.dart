@@ -16,7 +16,8 @@ class HappinessIndexBarChartWidget extends StatefulWidget {
   State<StatefulWidget> createState() => HappinessIndexBarChartWidgetState();
 }
 
-class HappinessIndexBarChartWidgetState extends State<HappinessIndexBarChartWidget> {
+class HappinessIndexBarChartWidgetState
+    extends State<HappinessIndexBarChartWidget> {
   final Color leftBarColor = Style.pColor;
   final Color rightBarColor = Colors.orange;
   final double width = 7;
@@ -158,6 +159,11 @@ class HappinessIndexBarChartWidgetState extends State<HappinessIndexBarChartWidg
         BarChartRodData(
           toY: y1,
           color: leftBarColor,
+          width: width,
+        ),
+        BarChartRodData(
+          toY: 5,
+          color: rightBarColor,
           width: width,
         ),
       ],

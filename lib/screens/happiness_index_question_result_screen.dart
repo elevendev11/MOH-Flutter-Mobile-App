@@ -230,34 +230,6 @@ class _HappinessIndexQuestionResultScreenState
                                                     },
                                                   ),
                                                 );
-                                                // return SliderTheme(
-                                                //   data: SliderTheme.of(context).copyWith(
-                                                //     activeTrackColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                //     inactiveTrackColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                //     trackShape: const RoundedRectSliderTrackShape(),
-                                                //     trackHeight: 4.0,
-                                                //     thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 12.0),
-                                                //     thumbColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                //     overlayColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                //     overlayShape: const RoundSliderOverlayShape(overlayRadius: 28.0),
-                                                //     tickMarkShape: const RoundSliderTickMarkShape(),
-                                                //     activeTickMarkColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                //     inactiveTickMarkColor: Colors.red[100],
-                                                //     valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
-                                                //     valueIndicatorColor: const Color.fromRGBO(255, 102, 0, 1),
-                                                //     valueIndicatorTextStyle: const TextStyle(
-                                                //       color: Colors.white,
-                                                //     ),
-                                                //   ),
-                                                //   child: Slider(
-                                                //     value: double.parse(value.toStringAsFixed(2)),
-                                                //     min: 0,
-                                                //     max: 100,
-                                                //     divisions: 10,
-                                                //     label: value.toString(),
-                                                //     onChanged: (value) {},
-                                                //   ),
-                                                // );
                                               }
                                               return Container();
                                             },

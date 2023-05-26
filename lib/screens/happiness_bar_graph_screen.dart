@@ -298,9 +298,42 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                         controller: screenshotController,
                         child: Container(
                           width: width * 0.8,
-                          height: height * 0.6,
+                          height: height * 0.45,
                           decoration: const BoxDecoration(),
                           child: HappinessIndexBarChartWidget(barValues: list),
+                        ),
+                      ),
+
+                      Container(
+                        width: width * 0.6,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 0.5, color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 15,
+                              width: 15,
+                              color: Style.pColor,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text("Maximum"),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              height: 15,
+                              width: 15,
+                              color: Colors.orange,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text("Minimum"),
+                            ),
+                          ],
                         ),
                       ),
                       // Divider(),

@@ -5,6 +5,7 @@ import 'package:sa_cooperation/blocs/authentication-bloc/authentication_state.da
 import 'package:sa_cooperation/blocs/success_index_result_bloc/success_index_result.dart';
 import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/routes.dart';
+import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:sa_cooperation/widgets/success_index_bar_chart.dart';
@@ -194,8 +195,7 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                                         255, 102, 0, 1),
                                                     boxShadow: const [
                                                       BoxShadow(
-                                                        color: const Color
-                                                                .fromRGBO(
+                                                        color: Color.fromRGBO(
                                                             255, 102, 0, 1),
                                                         blurRadius: 2,
                                                       )
@@ -296,10 +296,42 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                         controller: screenshotController,
                         child: Container(
                           width: width * 0.8,
-                          height: height * 0.5,
+                          height: height * 0.45,
                           decoration: const BoxDecoration(),
                           child: SuccessIndexBarChartWidget(
                               barValues: state.successIndexResultList.toList()),
+                        ),
+                      ),
+                      Container(
+                        width: width * 0.6,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 0.5, color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 15,
+                              width: 15,
+                              color: Style.pColor,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text("Maximum"),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              height: 15,
+                              width: 15,
+                              color: Colors.orange,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text("Minimum"),
+                            ),
+                          ],
                         ),
                       ),
                     ],

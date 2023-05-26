@@ -12,9 +12,10 @@ class SuccessIndexBarChartWidget extends StatefulWidget {
   State<StatefulWidget> createState() => SuccessIndexBarChartWidgetState();
 }
 
-class SuccessIndexBarChartWidgetState extends State<SuccessIndexBarChartWidget> {
+class SuccessIndexBarChartWidgetState
+    extends State<SuccessIndexBarChartWidget> {
   final Color leftBarColor = Colors.orange;
-  final Color rightBarColor = Colors.orange;
+  final Color rightBarColor = Style.pColor;
   final double width = 7;
 
   late List<BarChartGroupData> rawBarGroups;
@@ -26,7 +27,6 @@ class SuccessIndexBarChartWidgetState extends State<SuccessIndexBarChartWidget> 
   void initState() {
     super.initState();
     List<BarChartGroupData> items = [];
-
 
     widget.barValues.forEach((element) {
       items.add(makeGroupData(
@@ -155,6 +155,11 @@ class SuccessIndexBarChartWidgetState extends State<SuccessIndexBarChartWidget> 
         BarChartRodData(
           toY: y1,
           color: leftBarColor,
+          width: width,
+        ),
+        BarChartRodData(
+          toY: 5,
+          color: rightBarColor,
           width: width,
         ),
       ],
