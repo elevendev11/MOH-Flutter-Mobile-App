@@ -1,20 +1,20 @@
 import 'dart:io';
 
-import 'package:dotted_border/dotted_border.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:loader_overlay/loader_overlay.dart';
+import 'package:path/path.dart' as p;
 import 'package:sa_cooperation/blocs/transaction-bloc/transaction_state.dart';
 import 'package:sa_cooperation/utils/routes.dart';
 import 'package:sa_cooperation/utils/style.dart';
+import 'package:sa_cooperation/utils/system_util.dart';
 
 import '../blocs/transaction-bloc/transaction_bloc.dart';
 import '../blocs/transaction-bloc/transaction_event.dart';
 import '../utils/icon_util.dart';
 import '../widgets/activity_indicator.dart';
-import 'package:path/path.dart' as p;
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -24,8 +24,8 @@ class SignUpScreen extends StatefulWidget {
 }
 
 class _SignUpScreenState extends State<SignUpScreen> {
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  Map<String, dynamic> _requestBody = {};
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final Map<String, dynamic> _requestBody = {};
   bool _isAcceptTermsAndConditions = false;
   File? _image;
 
@@ -88,9 +88,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
             listener: (context, state) {
               if (state is TransactionSuccess) {
                 context.loaderOverlay.hide();
-                Navigator.pushNamed(context, loginScreenRoute);
+                if (state.message == 'Email already exists') {
+                  // Show an appropriate error message for email already exists
+                  SystemUtil.buildErrorSnackbar(
+                      context, "Email already exists");
+                } else {
+                  // Registration was successful, navigate to the login screen
+                  SystemUtil.buildSuccessSnackbar(
+                      context, state.message);
+                  Navigator.pushNamed(context, loginScreenRoute);
+                }
               } else if (state is TransactionError) {
                 context.loaderOverlay.hide();
+
+                SystemUtil.buildErrorSnackbar(
+                    context, "An error occurred during registration");
               }
             },
             child: Form(
@@ -386,7 +398,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         ),
                         child: ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Style.pColor,
+                            backgroundColor: Style.pColor,
                           ),
                           onPressed: _isAcceptTermsAndConditions
                               ? () {

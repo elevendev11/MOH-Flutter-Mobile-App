@@ -16,17 +16,28 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
   final EvaluationTypeIntellectRepository evaluationTypeIntellectRepository;
   final EvaluationTypeMindRepository evaluationTypeMindRepository;
   final AssesmentRepository assesmentRepository;
-  TransactionBloc(this.userRpository, this.successIndexRepository, this.happinessIndexRepository, this.assesmentRepository, this.evaluationTypeIntellectRepository, this.evaluationTypeMindRepository)
+  TransactionBloc(
+      this.userRpository,
+      this.successIndexRepository,
+      this.happinessIndexRepository,
+      this.assesmentRepository,
+      this.evaluationTypeIntellectRepository,
+      this.evaluationTypeMindRepository)
       : super(TransactionInitial()) {
     on<TransactionEvent>(_mapEventToState);
   }
-  Future<void> _mapEventToState(TransactionEvent event, Emitter<TransactionState> emit) async {
+  Future<void> _mapEventToState(
+      TransactionEvent event, Emitter<TransactionState> emit) async {
     try {
       String _message = '';
       emit(TransactionInProgress());
       if (event is CreateUser) {
-        await userRpository.createUser(event.requestBody);
-        _message = 'User Created';
+        var response = await userRpository.createUser(event.requestBody);
+        if (response == 'Email already exists') {
+          _message = 'Email already exists';
+        } else {
+          _message = 'User Created';
+        }
       }
       if (event is CreateAssesmentRequest) {
         await assesmentRepository.createAssesmentRequest(event.requestBody);
@@ -41,11 +52,13 @@ class TransactionBloc extends Bloc<TransactionEvent, TransactionState> {
         _message = 'Happiness Index Submitted';
       }
       if (event is SubmitEvaluationTypeIntellect) {
-        await evaluationTypeIntellectRepository.submitEvaluationTypeIntellect(event.requestBody);
+        await evaluationTypeIntellectRepository
+            .submitEvaluationTypeIntellect(event.requestBody);
         _message = 'Evaluation Type Intellect Submitted';
       }
       if (event is SubmitEvaluationTypeMind) {
-        await evaluationTypeMindRepository.submitEvaluationTypeMind(event.requestBody);
+        await evaluationTypeMindRepository
+            .submitEvaluationTypeMind(event.requestBody);
         _message = 'Evaluation Type Mind Submitted';
       }
       if (event is UpdateUser) {

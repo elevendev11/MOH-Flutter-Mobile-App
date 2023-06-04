@@ -38,13 +38,15 @@ class UserApiClient {
   //   return response.errorMessage;
   // }
 
-  Future<String> createUser(Map<String, dynamic> requestBody) async {
-    var request = http.MultipartRequest('POST', Uri.parse(ApiUtil.registerEndPoint));
+Future<String> createUser(Map<String, dynamic> requestBody) async {
+    var request =
+        http.MultipartRequest('POST', Uri.parse(ApiUtil.registerEndPoint));
 
     request.fields['name'] = requestBody['name'];
     request.fields['email'] = requestBody['email'];
     request.fields['password'] = requestBody['password'];
-    request.fields['password_confirmation'] = requestBody['password_confirmation'];
+    request.fields['password_confirmation'] =
+        requestBody['password_confirmation'];
 
     if (requestBody['image'] != null) {
       request.files.add(http.MultipartFile(
@@ -56,7 +58,24 @@ class UserApiClient {
     }
 
     var response = await request.send();
-    return response.reasonPhrase!;
+    var responseData = await response.stream.transform(utf8.decoder).join();
+    var decodedResponse = jsonDecode(responseData);
+
+    if (response.statusCode == 200) {
+      if (decodedResponse.containsKey('errorCode') &&
+          decodedResponse.containsKey('errorMessage')) {
+        var errorCode = decodedResponse['errorCode'];
+        var errorMessage = decodedResponse['errorMessage'];
+
+        if (errorCode == 400 && errorMessage == 'Email already exists') {
+          return errorMessage;
+        }
+      } else if (decodedResponse.containsKey('response')) {
+        return 'User created successfully.';
+      }
+    }
+
+    return 'An error occurred during user creation.';
   }
 
   User? loggedInUser() => box.get('user');
