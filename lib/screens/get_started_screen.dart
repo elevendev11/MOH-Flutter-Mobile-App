@@ -62,26 +62,26 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                 height: height * 0.23,
               ),
             ),
+            // Container(
+            //   padding: const EdgeInsets.symmetric(
+            //     horizontal: 40,
+            //     vertical: 10,
+            //   ),
+            //   width: width,
+            //   height: height * 0.2,
+            //   child: const Center(
+            //     child: Text(
+            //       "This content is related to app. This content is related to app. This content is related to app. This content is related to app.",
+            //       style: TextStyle(
+            //         fontWeight: FontWeight.bold,
+            //         fontSize: 18,
+            //       ),
+            //       textAlign: TextAlign.center,
+            //     ),
+            //   ),
+            // ),
             Container(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 40,
-                vertical: 10,
-              ),
-              width: width,
-              height: height * 0.2,
-              child: const Center(
-                child: Text(
-                  "This content is related to app. This content is related to app. This content is related to app. This content is related to app.",
-                  style: TextStyle(
-                    fontWeight: FontWeight.bold,
-                    fontSize: 18,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: 40),
+              padding: const EdgeInsets.symmetric(horizontal: 40),
               width: width,
               height: height * 0.4,
               child: Column(
@@ -162,7 +162,7 @@ class _GetStartedScreenState extends State<GetStartedScreen> {
                     ),
                   ),
                   style: ElevatedButton.styleFrom(
-                    primary: Style.pColor,
+                    backgroundColor: Style.pColor,
                   ),
                 ),
               ),
@@ -210,12 +210,12 @@ class StartingOptionWidget extends StatelessWidget {
           ),
           child: Image.asset(assetName),
         ),
-        SizedBox(
+        const SizedBox(
           height: 7,
         ),
         Text(
           label,
-          style: TextStyle(
+          style: const TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 14,
           ),
