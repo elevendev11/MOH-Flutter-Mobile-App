@@ -217,7 +217,7 @@ class PageOne extends StatelessWidget {
             AnotherStepper(
               stepperList: [
                 StepperData(
-                  title: StepperText("Reduces Stress & Negative Thoughts"),
+                  title: StepperText("Calculate your Happiness and your Success in Objective manner."),
                   subtitle: null,
                   iconWidget: CircleAvatar(
                     radius: 12,
@@ -230,7 +230,7 @@ class PageOne extends StatelessWidget {
                 ),
                 StepperData(
                   title: StepperText(
-                      "Learn Life-Changing Habits Based on Science"),
+                      "Understand and Know your type of Intellect."),
                   subtitle: null,
                   iconWidget: CircleAvatar(
                     radius: 12,
@@ -243,7 +243,7 @@ class PageOne extends StatelessWidget {
                 ),
                 StepperData(
                   title: StepperText(
-                      "Build Skills For a Healthy Life with Fun Activities and Games"),
+                      "Understand and Know your type of Mind."),
                   subtitle: null,
                   iconWidget: CircleAvatar(
                     radius: 12,
