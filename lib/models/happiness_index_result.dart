@@ -9,18 +9,16 @@ class HappinessIndexResult {
   final int userId;
   final int sectionId;
   final String sectionTitle;
-  final DateTime createdAt;
-  final int responseCount;
-  final double sliderValueAverage;
+  double? latestRecord;
+  double? secondLastRecord;
 
   HappinessIndexResult({
     required this.id,
     required this.userId,
     required this.sectionId,
     required this.sectionTitle,
-    required this.createdAt,
-    required this.responseCount,
-    required this.sliderValueAverage,
+    this.latestRecord,
+    this.secondLastRecord
   });
 
   factory HappinessIndexResult.fromJson(Map<String, dynamic> json) => _$HappinessIndexResultFromJson(json);

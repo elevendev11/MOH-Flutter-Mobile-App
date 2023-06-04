@@ -9,18 +9,16 @@ class SuccessResult {
   final int userId;
   final int sectionId;
   final String sectionTitle;
-  final DateTime createdAt;
-  final int responseCount;
-  final double sliderValueAverage;
+  final double? secondLastRecord;
+  final double? latestRecord;
 
-  SuccessResult(
-    this.createdAt,
-    this.responseCount,
-    this.sliderValueAverage, {
+  SuccessResult({
     required this.id,
     required this.userId,
     required this.sectionId,
     required this.sectionTitle,
+    this.secondLastRecord,
+    this.latestRecord,
   });
 
   factory SuccessResult.fromJson(Map<String, dynamic> json) =>

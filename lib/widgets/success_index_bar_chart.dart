@@ -28,12 +28,10 @@ class SuccessIndexBarChartWidgetState
     super.initState();
     List<BarChartGroupData> items = [];
 
-    widget.barValues.forEach((element) {
-      items.add(makeGroupData(
-        widget.barValues.indexOf(element),
-        element.sliderValueAverage,
-      ));
-    });
+    for (var element in widget.barValues) {
+      items.add(makeGroupData(widget.barValues.indexOf(element),
+          element.latestRecord!, element.secondLastRecord!));
+    }
 
     rawBarGroups = items;
     showingBarGroups = rawBarGroups;
@@ -147,7 +145,7 @@ class SuccessIndexBarChartWidgetState
     );
   }
 
-  BarChartGroupData makeGroupData(int x, double y1) {
+  BarChartGroupData makeGroupData(int x, double y1, double y2) {
     return BarChartGroupData(
       barsSpace: 4,
       x: x,
@@ -158,7 +156,7 @@ class SuccessIndexBarChartWidgetState
           width: width,
         ),
         BarChartRodData(
-          toY: 5,
+          toY: y2,
           color: rightBarColor,
           width: width,
         ),

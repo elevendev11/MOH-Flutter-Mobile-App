@@ -193,7 +193,7 @@ class _HappinessIndexQuestionResultScreenState
                                                 list.forEach(
                                                   (element) {
                                                     value += element
-                                                            .sliderValueAverage /
+                                                            .latestRecord! /
                                                         list.length;
                                                   },
                                                 );

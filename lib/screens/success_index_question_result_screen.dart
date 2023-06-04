@@ -204,7 +204,7 @@ class _SuccessIndexQuestionResultScreenState
                                                 list.forEach(
                                                   (element) {
                                                     value += element
-                                                            .sliderValueAverage /
+                                                            .latestRecord! /
                                                         list.length;
                                                   },
                                                 );

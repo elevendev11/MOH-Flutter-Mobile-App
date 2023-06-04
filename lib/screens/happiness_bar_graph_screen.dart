@@ -319,7 +319,7 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                             ),
                             const Padding(
                               padding: EdgeInsets.all(4.0),
-                              child: Text("Maximum"),
+                              child: Text("Current"),
                             ),
                             const SizedBox(
                               width: 10,
@@ -331,7 +331,7 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                             ),
                             const Padding(
                               padding: EdgeInsets.all(4.0),
-                              child: Text("Minimum"),
+                              child: Text("Previous"),
                             ),
                           ],
                         ),

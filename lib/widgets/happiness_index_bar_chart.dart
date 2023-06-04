@@ -1,9 +1,5 @@
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sa_cooperation/blocs/happiness_index_result_bloc/happiness_index_result.dart';
-import 'package:sa_cooperation/blocs/success_index_line_chart_bloc/success_index_line_chart_bloc.dart';
-import 'package:sa_cooperation/blocs/success_index_line_chart_bloc/success_index_line_chart_event.dart';
 import 'package:sa_cooperation/models/happiness_index_result.dart';
 import 'package:sa_cooperation/utils/style.dart';
 
@@ -32,12 +28,13 @@ class HappinessIndexBarChartWidgetState
     super.initState();
     List<BarChartGroupData> items = [];
 
-    widget.barValues.forEach((element) {
+    for (var element in widget.barValues) {
       items.add(makeGroupData(
         widget.barValues.indexOf(element),
-        element.sliderValueAverage,
+        element.latestRecord!,
+        element.secondLastRecord!
       ));
-    });
+    }
 
     rawBarGroups = items;
     showingBarGroups = rawBarGroups;
@@ -131,9 +128,9 @@ class HappinessIndexBarChartWidgetState
   Widget bottomTitles(double value, TitleMeta meta) {
     List<String> titles = [];
 
-    widget.barValues.forEach((element) {
+    for (var element in widget.barValues) {
       titles.add(element.sectionTitle);
-    });
+    }
 
     final Widget text = Text(
       titles[value.toInt()],
@@ -151,7 +148,7 @@ class HappinessIndexBarChartWidgetState
     );
   }
 
-  BarChartGroupData makeGroupData(int x, double y1) {
+  BarChartGroupData makeGroupData(int x, double y1, double y2) {
     return BarChartGroupData(
       barsSpace: 4,
       x: x,
@@ -162,7 +159,7 @@ class HappinessIndexBarChartWidgetState
           width: width,
         ),
         BarChartRodData(
-          toY: 5,
+          toY: y2,
           color: rightBarColor,
           width: width,
         ),

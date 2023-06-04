@@ -13,10 +13,8 @@ HappinessIndexResult _$HappinessIndexResultFromJson(
       userId: json['userId'] as int,
       sectionId: json['sectionId'] as int,
       sectionTitle: json['sectionTitle'] as String,
-      createdAt:
-          const DateTimeEpochConverter().fromJson(json['createdAt'] as int),
-      responseCount: json['responseCount'] as int,
-      sliderValueAverage: (json['sliderValueAverage'] as num).toDouble(),
+      latestRecord: (json['latestRecord'] as num?)?.toDouble(),
+      secondLastRecord: (json['secondLastRecord'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$HappinessIndexResultToJson(
@@ -26,7 +24,6 @@ Map<String, dynamic> _$HappinessIndexResultToJson(
       'userId': instance.userId,
       'sectionId': instance.sectionId,
       'sectionTitle': instance.sectionTitle,
-      'createdAt': const DateTimeEpochConverter().toJson(instance.createdAt),
-      'responseCount': instance.responseCount,
-      'sliderValueAverage': instance.sliderValueAverage,
+      'latestRecord': instance.latestRecord,
+      'secondLastRecord': instance.secondLastRecord,
     };
