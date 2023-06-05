@@ -8,7 +8,6 @@ import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
 import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
-import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
 import '../utils/routes.dart';
@@ -99,7 +98,7 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                   ),
                 ),
                 child: Container(
-                  padding: EdgeInsets.symmetric(vertical: 20),
+                  padding: const EdgeInsets.symmetric(vertical: 20),
                   decoration: BoxDecoration(
                     gradient: const LinearGradient(
                       tileMode: TileMode.clamp,
@@ -156,8 +155,7 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                                             // Colors.transparent,
                                           ],
                                         ),
-                                        borderRadius:
-                                            BorderRadius.circular(15),
+                                        borderRadius: BorderRadius.circular(15),
                                       ),
                                       padding: const EdgeInsets.only(
                                         top: 32,
@@ -255,7 +253,7 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                                                   height: height * 0.06,
                                                   width: width * 0.1,
                                                   decoration: BoxDecoration(
-                                                    color: Color.fromRGBO(
+                                                    color: const Color.fromRGBO(
                                                         255, 102, 0, 1),
                                                     boxShadow: const [
                                                       BoxShadow(
@@ -331,7 +329,7 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                       Container(
                         width: width * 0.8,
                         height: height * 0.6,
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child: RotatedBox(
                           quarterTurns: 1,
                           child: SfCartesianChart(
@@ -370,10 +368,15 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                                     (EvaluationTypeIntellectResult data, _) =>
                                         data.sliderValueAverage,
                                 // splineType: SplineType.natural,
-                                color: Colors.orange,
+                                // color: Colors.orange,
+                                pointColorMapper:
+                                    (EvaluationTypeIntellectResult data, _) =>
+                                        data.sliderValueAverage < 5
+                                            ? Style.pColor
+                                            : Colors.orange,
                                 width: 0.2,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
+                                    const BorderRadius.all(Radius.circular(15)),
                               ),
                               ColumnSeries<EvaluationTypeIntellectResult,
                                   String>(
@@ -390,14 +393,60 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                                 width: 0.2,
                                 opacity: 0.0,
                                 borderRadius:
-                                    BorderRadius.all(Radius.circular(15)),
+                                    const BorderRadius.all(Radius.circular(15)),
                               ),
                             ],
                           ),
                         ),
                       ),
+                      Container(
+                        padding: const EdgeInsets.all(8.0),
+                        width: width * 0.8,
+                        child: Row(
+                          children: const [
+                            Expanded(
+                              child: Text(
+                                "If you have a value less than 5, then you are introverted represnt by purple . If you have a value greater than or equal to 5, then you are extroverted.",
+                                textAlign: TextAlign.justify,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                       const SizedBox(
                         height: 10,
+                      ),
+                      Container(
+                        width: width * 0.6,
+                        decoration: BoxDecoration(
+                            border: Border.all(width: 0.5, color: Colors.grey),
+                            borderRadius: BorderRadius.circular(8)),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              height: 15,
+                              width: 15,
+                              color: Colors.orange,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text("Extrovert"),
+                            ),
+                            const SizedBox(
+                              width: 10,
+                            ),
+                            Container(
+                              height: 15,
+                              width: 15,
+                              color: Style.pColor,
+                            ),
+                            const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Text("Introvert"),
+                            ),
+                          ],
+                        ),
                       ),
                     ],
                   ),

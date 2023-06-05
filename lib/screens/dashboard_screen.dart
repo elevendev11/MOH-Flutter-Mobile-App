@@ -30,11 +30,11 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver {
   List<String> quotes = [
-    "Success is not achieved overnight. It is built on persistence, dedication, and hard work. Keep pushing forward, and you'll reach your goals.",
-    'Dont let fear hold you back. Embrace challenges as opportunities for growth. Believe in yourself, and you will achieve greatness.',
-    'Your attitude determines your altitude. Stay positive, stay focused, and watch how high you can soar.',
-    'The road to success may be filled with obstacles, but they are stepping stones to greatness. Embrace the journey, learn from failures, and keep moving forward.',
-    'Dream big, set goals, and take action. Each step you take brings you closer to your dreams. Trust the process and never give up.',
+    "Watch your thoughts (Metacognition) for the Happiness of Mind and Intellect.",
+    'Watch your Food for the Happiness of Body.',
+    'Mindfulness and Stillness are the ingredients for Happiness of Mind.',
+    'Balance in all five Chapters of Life causes  Happiness of Intellect. Family, Career, Health, Society and Me-Time.',
+    'Balance between Purpose of Life and Enjoyment in journey of Life causes Happiness of Self.',
   ];
 
   String currentQuote = '';

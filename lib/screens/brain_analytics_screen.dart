@@ -10,7 +10,7 @@ import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
 import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
-import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
+
 
 import '../utils/routes.dart';
 
