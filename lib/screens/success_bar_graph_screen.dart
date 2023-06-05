@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sa_cooperation/blocs/authentication-bloc/authentication_bloc.dart';
 import 'package:sa_cooperation/blocs/authentication-bloc/authentication_state.dart';
 import 'package:sa_cooperation/blocs/success_index_result_bloc/success_index_result.dart';
+import 'package:sa_cooperation/models/success_index_result.dart';
 import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/routes.dart';
 import 'package:sa_cooperation/utils/style.dart';
@@ -302,6 +303,63 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                               barValues: state.successIndexResultList.toList()),
                         ),
                       ),
+                      BlocBuilder<SuccessIndexResultBloc,
+                          SuccessIndexResultState>(builder: (context, state) {
+                        if (state is SuccessIndexResultLoading) {
+                          return const Center(
+                            child: ActivityIndicator(),
+                          );
+                        }
+                        if (state is SuccessIndexResultLoaded) {
+                          List<SuccessResult> list =
+                              state.successIndexResultList.toList();
+                          double value = 0.0;
+                          double secondLatestRecord = 0.0;
+                          for (var element in list) {
+                            value += element.latestRecord! / list.length;
+                          }
+                          for (var element in list) {
+                            secondLatestRecord +=
+                                element.secondLastRecord! / list.length;
+                          }
+                          return Container(
+                            width: width * 0.6,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 0.5, color: Colors.grey),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 15,
+                                  width: 15,
+                                  color: Style.pColor,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(value.toStringAsFixed(2)),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  height: 15,
+                                  width: 15,
+                                  color: Colors.orange,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                      secondLatestRecord.toStringAsFixed(2)),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                        return Container();
+                      }),
+                      const SizedBox(height: 10),
                       Container(
                         width: width * 0.6,
                         decoration: BoxDecoration(

@@ -303,7 +303,63 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                           child: HappinessIndexBarChartWidget(barValues: list),
                         ),
                       ),
-
+                      BlocBuilder<HappinessIndexResultBloc,
+                          HappinessIndexResultState>(builder: (context, state) {
+                        if (state is HappinessIndexResultLoading) {
+                          return const Center(
+                            child: ActivityIndicator(),
+                          );
+                        }
+                        if (state is HappinessIndexResultLoaded) {
+                          List<HappinessIndexResult> list =
+                              state.happinessIndexResultList.toList();
+                          double value = 0.0;
+                          double secondLatestRecord = 0.0;
+                          for (var element in list) {
+                            value += element.latestRecord! / list.length;
+                          }
+                          for (var element in list) {
+                            secondLatestRecord +=
+                                element.secondLastRecord! / list.length;
+                          }
+                          return Container(
+                            width: width * 0.6,
+                            decoration: BoxDecoration(
+                                border:
+                                    Border.all(width: 0.5, color: Colors.grey),
+                                borderRadius: BorderRadius.circular(8)),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Container(
+                                  height: 15,
+                                  width: 15,
+                                  color: Style.pColor,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(value.toStringAsFixed(2)),
+                                ),
+                                const SizedBox(
+                                  width: 10,
+                                ),
+                                Container(
+                                  height: 15,
+                                  width: 15,
+                                  color: Colors.orange,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.all(4.0),
+                                  child: Text(
+                                      secondLatestRecord.toStringAsFixed(2)),
+                                ),
+                              ],
+                            ),
+                          );
+                        }
+                        return Container();
+                      }),
+                      const SizedBox(height: 10),
                       Container(
                         width: width * 0.6,
                         decoration: BoxDecoration(

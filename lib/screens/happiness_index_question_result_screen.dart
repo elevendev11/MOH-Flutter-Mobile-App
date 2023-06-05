@@ -177,26 +177,18 @@ class _HappinessIndexQuestionResultScreenState
                                           BlocBuilder<HappinessIndexResultBloc,
                                               HappinessIndexResultState>(
                                             builder: (context, state) {
-                                              if (state
-                                                  is HappinessIndexResultLoading) {
+                                              if (state is HappinessIndexResultLoading) {
                                                 return const Center(
                                                   child: ActivityIndicator(),
                                                 );
                                               }
-                                              if (state
-                                                  is HappinessIndexResultLoaded) {
+                                              if (state is HappinessIndexResultLoaded) {
                                                 List<HappinessIndexResult>
-                                                    list = state
-                                                        .happinessIndexResultList
-                                                        .toList();
+                                                    list = state.happinessIndexResultList.toList();
                                                 double value = 0.0;
-                                                list.forEach(
-                                                  (element) {
-                                                    value += element
-                                                            .latestRecord! /
-                                                        list.length;
-                                                  },
-                                                );
+                                                for (var element in list) {
+                                                    value += element.latestRecord! / list.length;
+                                                  }
                                                 return SfSliderTheme(
                                                   data: SfSliderThemeData(
                                                       thumbRadius: 18),
@@ -205,12 +197,8 @@ class _HappinessIndexQuestionResultScreenState
                                                     max: 10.0,
                                                     activeColor: Colors.red,
                                                     thumbIcon: Container(
-                                                      alignment:
-                                                          Alignment.center,
-                                                      child: Text(
-                                                        value.toStringAsFixed(
-                                                          2,
-                                                        ),
+                                                      alignment: Alignment.center,
+                                                      child: Text(value.toStringAsFixed(2),
                                                         textScaleFactor: 0.8,
                                                         style: const TextStyle(
                                                           color: Colors.white,
