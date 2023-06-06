@@ -345,7 +345,7 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                const Text('Current'),
+                                const Text('Previous'),
                                 const SizedBox(width: 6),
                                 Container(
                                   height: 15,

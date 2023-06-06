@@ -345,7 +345,7 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                 const SizedBox(
                                   width: 10,
                                 ),
-                                const Text('Current'),
+                                const Text('Previous'),
                                 const SizedBox(width: 6),
                                 Container(
                                   height: 15,
