@@ -7,19 +7,13 @@ part 'happiness_index_line_chart.g.dart';
 class HappinessIndexLineChart {
   final int id;
   final int userId;
-  final int sectionId;
-  final String sectionTitle;
   final DateTime createdAt;
-  final int responseCount;
   final double sliderValueAverage;
 
   HappinessIndexLineChart({
     required this.id,
     required this.userId,
-    required this.sectionId,
-    required this.sectionTitle,
     required this.createdAt,
-    required this.responseCount,
     required this.sliderValueAverage,
   });
 

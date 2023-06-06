@@ -306,7 +306,7 @@ class _SuccessIndexCommulativeScreenState
                       Container(
                         width: width * 0.8,
                         height: height * 0.5,
-                        decoration: BoxDecoration(),
+                        decoration: const BoxDecoration(),
                         child:
                             SuccessIndexLineChartWidget(barValues: listChart),
                       ),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:sa_cooperation/models/happiness_index_line_chart.dart';
 import 'package:syncfusion_flutter_charts/charts.dart';
 
@@ -8,10 +9,12 @@ class HappinessIndexLineChartWidget extends StatefulWidget {
   final List<HappinessIndexLineChart> barValues;
 
   @override
-  State<HappinessIndexLineChartWidget> createState() => _HappinessIndexLineChartWidgetState();
+  State<HappinessIndexLineChartWidget> createState() =>
+      _HappinessIndexLineChartWidgetState();
 }
 
-class _HappinessIndexLineChartWidgetState extends State<HappinessIndexLineChartWidget> {
+class _HappinessIndexLineChartWidgetState
+    extends State<HappinessIndexLineChartWidget> {
   List<Color> gradientColors = [
     Colors.orange,
     Colors.orange,
@@ -46,8 +49,13 @@ class _HappinessIndexLineChartWidgetState extends State<HappinessIndexLineChartW
           // Renders line chart
           LineSeries<HappinessIndexLineChart, String>(
             dataSource: widget.barValues,
-            xValueMapper: (HappinessIndexLineChart data, _) => "${data.createdAt.day} ${getMonth(data.createdAt.month)}",
-            yValueMapper: (HappinessIndexLineChart data, _) => data.sliderValueAverage,
+            // xValueMapper: (HappinessIndexLineChart data, _) => "${data.createdAt.day} ${getMonth(data.createdAt.month)}",
+            xValueMapper: (HappinessIndexLineChart data, _) {
+              final formattedCreatedAt = formatCreatedAt(data.createdAt);
+              return formattedCreatedAt;
+            },
+            yValueMapper: (HappinessIndexLineChart data, _) =>
+                data.sliderValueAverage,
             markerSettings: const MarkerSettings(isVisible: true),
           ),
         ],
@@ -56,6 +64,11 @@ class _HappinessIndexLineChartWidgetState extends State<HappinessIndexLineChartW
       //   mainData(),
       // ),
     );
+  }
+
+  String formatCreatedAt(DateTime createdAt) {
+    final formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+    return formatter.format(createdAt);
   }
 
   String getMonth(int month) {

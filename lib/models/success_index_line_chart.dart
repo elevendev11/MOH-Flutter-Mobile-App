@@ -7,22 +7,17 @@ part 'success_index_line_chart.g.dart';
 class SuccessIndexLineChart {
   final int id;
   final int userId;
-  final int sectionId;
-  final String sectionTitle;
   final DateTime createdAt;
-  final int responseCount;
   final double sliderValueAverage;
 
-  SuccessIndexLineChart(
-    this.createdAt,
-    this.responseCount,
-    this.sliderValueAverage, {
+  SuccessIndexLineChart({
+    required this.createdAt,
+    required this.sliderValueAverage,
     required this.id,
     required this.userId,
-    required this.sectionId,
-    required this.sectionTitle,
   });
 
-  factory SuccessIndexLineChart.fromJson(Map<String, dynamic> json) => _$SuccessIndexLineChartFromJson(json);
+  factory SuccessIndexLineChart.fromJson(Map<String, dynamic> json) =>
+      _$SuccessIndexLineChartFromJson(json);
   Map<String, dynamic> toJson() => _$SuccessIndexLineChartToJson(this);
 }

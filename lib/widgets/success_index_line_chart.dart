@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
+
 
 import '../models/success_index_line_chart.dart';
 
@@ -11,10 +12,12 @@ class SuccessIndexLineChartWidget extends StatefulWidget {
   final List<SuccessIndexLineChart> barValues;
 
   @override
-  State<SuccessIndexLineChartWidget> createState() => _SuccessIndexLineChartWidgetState();
+  State<SuccessIndexLineChartWidget> createState() =>
+      _SuccessIndexLineChartWidgetState();
 }
 
-class _SuccessIndexLineChartWidgetState extends State<SuccessIndexLineChartWidget> {
+class _SuccessIndexLineChartWidgetState
+    extends State<SuccessIndexLineChartWidget> {
   List<Color> gradientColors = [
     Colors.orange,
     Colors.orange,
@@ -37,7 +40,7 @@ class _SuccessIndexLineChartWidgetState extends State<SuccessIndexLineChartWidge
             width: 0.0,
           ),
 
-          // dateFormat: DateFormat.yMMMd(),
+
         ),
         primaryYAxis: NumericAxis(
           maximum: 10,
@@ -50,9 +53,21 @@ class _SuccessIndexLineChartWidgetState extends State<SuccessIndexLineChartWidge
           // Renders line chart
           LineSeries<SuccessIndexLineChart, String>(
             dataSource: widget.barValues,
-            xValueMapper: (SuccessIndexLineChart data, _) => "${data.createdAt.day} ${getMonth(data.createdAt.month)}",
-            yValueMapper: (SuccessIndexLineChart data, _) => data.sliderValueAverage,
+            // xValueMapper: (SuccessIndexLineChart data, _) => "${data.createdAt.day} ${getMonth(data.createdAt.month)}",
+        xValueMapper: (SuccessIndexLineChart data, _) {
+              final formattedCreatedAt = formatCreatedAt(data.createdAt);
+              return formattedCreatedAt;
+            },
+            // xValueMapper: (SuccessIndexLineChart data, _) {
+            //   final dateTime = data.createdAt;
+            //   final monthName = DateFormat('MMM dd').format(dateTime);
+            //   return monthName;
+            // },
+            yValueMapper: (SuccessIndexLineChart data, _) =>
+                data.sliderValueAverage,
+                
             markerSettings: const MarkerSettings(isVisible: true),
+            
           )
           // dataLabelSettings: DataLabelSettings(isVisible: true)),
         ],
@@ -63,38 +78,12 @@ class _SuccessIndexLineChartWidgetState extends State<SuccessIndexLineChartWidge
     );
   }
 
-  String getMonth(int month) {
-    switch (month) {
-      case 1:
-        return "Jan";
-      case 2:
-        return "Feb";
-      case 3:
-        return "Mar";
-      case 4:
-        return "Apr";
-      case 5:
-        return "May";
-      case 6:
-        return "Jun";
-      case 7:
-        return "Jul";
-      case 8:
-        return "Aug";
-      case 9:
-        return "Sep";
-      case 10:
-        return "Oct";
-      case 11:
-        return "Nov";
-      case 12:
-        return "Dec";
-      default:
-        return "";
-    }
-
-    // return "Nov";
+  String formatCreatedAt(DateTime createdAt) {
+    final formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
+    return formatter.format(createdAt);
   }
+
+
 }
 
 class ChartData {
