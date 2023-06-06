@@ -10,10 +10,12 @@ class SuccessHistoryOptionScreen extends StatefulWidget {
   const SuccessHistoryOptionScreen({Key? key}) : super(key: key);
 
   @override
-  State<SuccessHistoryOptionScreen> createState() => _SuccessHistoryOptionScreenState();
+  State<SuccessHistoryOptionScreen> createState() =>
+      _SuccessHistoryOptionScreenState();
 }
 
-class _SuccessHistoryOptionScreenState extends State<SuccessHistoryOptionScreen> {
+class _SuccessHistoryOptionScreenState
+    extends State<SuccessHistoryOptionScreen> {
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -71,7 +73,9 @@ class _SuccessHistoryOptionScreenState extends State<SuccessHistoryOptionScreen>
                           ],
                           image: DecorationImage(
                             image: Image.network(
-                              user.image != null ? '${ApiUtil.profileImageEndPoint}/${user.image}' : avatarNetworkIcon,
+                              user.image != null
+                                  ? '${ApiUtil.profileImageEndPoint}/${user.image}'
+                                  : avatarNetworkIcon,
                               fit: BoxFit.cover,
                             ).image,
                           ),
@@ -179,7 +183,7 @@ class _SuccessDetailsWidgetState extends State<SuccessDetailsWidget> {
             height: widget.constraints.maxHeight * 0.2,
             width: widget.constraints.maxWidth * 0.7,
             decoration: BoxDecoration(
-              color: Color.fromRGBO(211, 211, 246, 2),
+              color: const Color.fromRGBO(211, 211, 246, 2),
               borderRadius: BorderRadius.circular(15),
             ),
             child: Column(

@@ -323,7 +323,7 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                 element.secondLastRecord! / list.length;
                           }
                           return Container(
-                            width: width * 0.6,
+                            width: width * 0.8,
                             decoration: BoxDecoration(
                                 border:
                                     Border.all(width: 0.5, color: Colors.grey),
@@ -331,6 +331,8 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                             child: Row(
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
+                                const Text('Current'),
+                                const SizedBox(width: 6),
                                 Container(
                                   height: 15,
                                   width: 15,
@@ -343,6 +345,8 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                 const SizedBox(
                                   width: 10,
                                 ),
+                                const Text('Current'),
+                                const SizedBox(width: 6),
                                 Container(
                                   height: 15,
                                   width: 15,
@@ -359,39 +363,8 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                         }
                         return Container();
                       }),
-                      const SizedBox(height: 10),
-                      Container(
-                        width: width * 0.6,
-                        decoration: BoxDecoration(
-                            border: Border.all(width: 0.5, color: Colors.grey),
-                            borderRadius: BorderRadius.circular(8)),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              height: 15,
-                              width: 15,
-                              color: Style.pColor,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text("Current"),
-                            ),
-                            const SizedBox(
-                              width: 10,
-                            ),
-                            Container(
-                              height: 15,
-                              width: 15,
-                              color: Colors.orange,
-                            ),
-                            const Padding(
-                              padding: EdgeInsets.all(4.0),
-                              child: Text("Previous"),
-                            ),
-                          ],
-                        ),
-                      ),
+                      const Text('Total Result')
+
                       // Divider(),
                       // Container(
                       //   width: width * 0.8,
