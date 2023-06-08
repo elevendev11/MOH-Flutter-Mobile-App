@@ -23,6 +23,7 @@ import 'package:sa_cooperation/clients/api_clients/assesment_api_client.dart';
 import 'package:sa_cooperation/clients/api_clients/evaluation_type_intellect_api_client.dart';
 import 'package:sa_cooperation/clients/api_clients/evaluation_type_mind_api_client.dart';
 import 'package:sa_cooperation/clients/api_clients/happiness_index_api_client.dart';
+import 'package:sa_cooperation/clients/api_clients/log_api_client.dart';
 import 'package:sa_cooperation/clients/api_clients/login_api_client.dart';
 import 'package:sa_cooperation/clients/api_clients/notification_api_clients.dart';
 import 'package:sa_cooperation/clients/api_clients/success_index_api_client.dart';
@@ -31,6 +32,7 @@ import 'package:sa_cooperation/repositories/assesment_repository.dart';
 import 'package:sa_cooperation/repositories/evaluation_type_intellect.dart';
 import 'package:sa_cooperation/repositories/evaluation_type_mind_repository.dart';
 import 'package:sa_cooperation/repositories/happiness_index_repository.dart';
+import 'package:sa_cooperation/repositories/log_repository.dart';
 import 'package:sa_cooperation/repositories/login_repository.dart';
 import 'package:sa_cooperation/repositories/notification_repository.dart';
 import 'package:sa_cooperation/repositories/success_index_repository.dart';
@@ -43,11 +45,13 @@ final GetIt locator = GetIt.instance;
 
 Future<void> registerLocator() async {
   //Register Hive User Box
-  final appDocumentDirectory = await path_provider.getApplicationDocumentsDirectory();
+  final appDocumentDirectory =
+      await path_provider.getApplicationDocumentsDirectory();
   Hive.init(appDocumentDirectory.path);
   Hive.registerAdapter<User>(UserAdapter());
 
-  var userBox = await Hive.openBox<User>('user', compactionStrategy: (int total, int deleted) {
+  var userBox = await Hive.openBox<User>('user',
+      compactionStrategy: (int total, int deleted) {
     return deleted > 20;
   });
 
@@ -61,10 +65,16 @@ Future<void> registerLocator() async {
   locator.registerLazySingleton(() => UserApiClient(locator(), locator()));
   locator.registerLazySingleton(() => NotificationApiClient(locator()));
   locator.registerLazySingleton(() => AssesmentApiClient(locator()));
-  locator.registerLazySingleton(() => SuccessIndexApiClient(locator(), locator()));
-  locator.registerLazySingleton(() => HappinessIndexApiClient(locator(), locator()));
-  locator.registerLazySingleton(() => EvaluationTypeIntellectApiClient(locator(), locator()));
-  locator.registerLazySingleton(() => EvaluationTypeMindApiClient(locator(), locator()));
+  locator
+      .registerLazySingleton(() => SuccessIndexApiClient(locator(), locator()));
+  locator.registerLazySingleton(
+      () => HappinessIndexApiClient(locator(), locator()));
+  locator.registerLazySingleton(
+      () => EvaluationTypeIntellectApiClient(locator(), locator()));
+  locator.registerLazySingleton(
+      () => EvaluationTypeMindApiClient(locator(), locator()));
+        locator.registerLazySingleton(
+      () => LogApiClient(locator(), locator()));
 
   //Register Repositories
 
@@ -74,27 +84,34 @@ Future<void> registerLocator() async {
   locator.registerLazySingleton(() => AssesmentRepository(locator()));
   locator.registerLazySingleton(() => SuccessIndexRepository(locator()));
   locator.registerLazySingleton(() => HappinessIndexRepository(locator()));
-  locator.registerLazySingleton(() => EvaluationTypeIntellectRepository(locator()));
+  locator.registerLazySingleton(
+      () => EvaluationTypeIntellectRepository(locator()));
   locator.registerLazySingleton(() => EvaluationTypeMindRepository(locator()));
+  locator.registerLazySingleton(() => LogRepository(locator()));
 
   //Register Blocs
   locator.registerLazySingleton(() => AuthenticationBloc(locator()));
   locator.registerLazySingleton(() => LoginBloc(locator()));
-  locator.registerLazySingleton(() => TransactionBloc(locator(), locator(), locator(), locator(), locator(), locator()));
+  locator.registerLazySingleton(() => TransactionBloc(
+      locator(), locator(), locator(), locator(), locator(), locator()));
   locator.registerLazySingleton(() => AssesmentBloc(locator()));
   locator.registerLazySingleton(() => SuccessIndexBloc(locator()));
   locator.registerLazySingleton(() => HappinessIndexBloc(locator()));
   locator.registerLazySingleton(() => EvaluationTypeIntellectBloc(locator()));
   locator.registerLazySingleton(() => EvaluationTypeMindBloc(locator()));
   locator.registerLazySingleton(() => SuccessIndexResultBloc(locator()));
-  locator.registerLazySingleton(() => EvaluationMindQuestionResultBloc(locator()));
+  locator
+      .registerLazySingleton(() => EvaluationMindQuestionResultBloc(locator()));
   locator.registerLazySingleton(() => EvaluationMindResultBloc(locator()));
   locator.registerLazySingleton(() => SuccessIndexLineChartBloc(locator()));
-  locator.registerLazySingleton(() => EvaluationTypeIntellectResultBloc(locator()));
+  locator.registerLazySingleton(
+      () => EvaluationTypeIntellectResultBloc(locator()));
   locator.registerLazySingleton(() => HappinessIndexResultBloc(locator()));
   locator.registerLazySingleton(() => HappinessIndexLineChartBloc(locator()));
-  locator.registerLazySingleton(() => SuccessIndexQuestionResultBloc(locator()));
-  locator.registerLazySingleton(() => HappinessIndexQuestionResultBloc(locator()));
+  locator
+      .registerLazySingleton(() => SuccessIndexQuestionResultBloc(locator()));
+  locator
+      .registerLazySingleton(() => HappinessIndexQuestionResultBloc(locator()));
 
   locator.registerLazySingleton(() => http.Client());
 }

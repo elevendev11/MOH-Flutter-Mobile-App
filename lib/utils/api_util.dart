@@ -37,6 +37,7 @@ class ApiUtil {
   static final String successIndexLineChartResponse = '$_saBaseUrlV1/success_index_line_chart_response/';
   static final String successIndexQuestionResult = '$_saBaseUrlV1/success_index_low_question_analytics/';
   static final String happinessIndexQuestionResult = '$_saBaseUrlV1/happiness_index_low_question_analytics/';
+  static final String logsEndPoint = '$_saBaseUrlV1/logs/';
 
   static final String profileImageEndPoint = '$_baseUrlV1/storage/users';
 }

@@ -15,6 +15,7 @@ import 'package:sa_cooperation/blocs/success-index-bloc/success_index_bloc.dart'
 import 'package:sa_cooperation/blocs/success_index_line_chart_bloc/success_index_line_chart_bloc.dart';
 import 'package:sa_cooperation/blocs/success_index_question_result_bloc/success_index_question_result_bloc.dart';
 import 'package:sa_cooperation/blocs/success_index_result_bloc/success_index_result_bloc.dart';
+import 'package:sa_cooperation/repositories/log_repository.dart';
 import 'package:sa_cooperation/service_locator.dart';
 import 'package:sa_cooperation/utils/routes.dart';
 import 'package:sa_cooperation/utils/sa_router.dart';
@@ -59,6 +60,7 @@ class _MyAppState extends State<MyApp> {
     return MultiRepositoryProvider(
       providers: [
         RepositoryProvider(create: (_) => locator<LoginRepository>()),
+        RepositoryProvider(create: (_) => locator<LogRepository>())
       ],
       child: MultiBlocProvider(providers: [
         BlocProvider(

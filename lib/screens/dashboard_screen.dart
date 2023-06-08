@@ -4,12 +4,13 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:intl/intl.dart';
 import 'package:loader_overlay/loader_overlay.dart';
 import 'package:sa_cooperation/blocs/login-bloc/login_bloc.dart';
 import 'package:sa_cooperation/blocs/transaction-bloc/transaction_bloc.dart';
 import 'package:sa_cooperation/blocs/transaction-bloc/transaction_state.dart';
+import 'package:sa_cooperation/models/log_response.dart';
 import 'package:sa_cooperation/models/user.dart';
+import 'package:sa_cooperation/repositories/log_repository.dart';
 import 'package:sa_cooperation/repositories/login_repository.dart';
 import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
@@ -29,6 +30,7 @@ class DashboardScreen extends StatefulWidget {
 
 class _DashboardScreenState extends State<DashboardScreen>
     with WidgetsBindingObserver {
+  late Future<LogResponse> logResponseFuture;
   List<String> quotes = [
     "Watch your thoughts (Metacognition) for the Happiness of Mind and Intellect.",
     'Watch your Food for the Happiness of Body.',
@@ -45,6 +47,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     WidgetsBinding.instance.addObserver(this);
     setCurrentQuote();
     RepositoryProvider.of<LoginRepository>(context).refreshUser();
+    logResponseFuture =
+        RepositoryProvider.of<LogRepository>(context).findAllLogs();
     BlocProvider.of<LoginBloc>(context).add(RefreshUser());
   }
 
@@ -74,8 +78,8 @@ class _DashboardScreenState extends State<DashboardScreen>
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
-    DateTime now = DateTime.now();
-    String currentFormatterDateTime = DateFormat.yMMMd().format(now);
+    // DateTime now = DateTime.now();
+    // String currentFormatterDateTime = DateFormat.yMMMd().format(now);
 
     return Scaffold(
       appBar: AppBar(
@@ -308,19 +312,35 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 },
                               );
                             },
-                            child: Tile(
-                              assetName: happinessIcon,
-                              constraints: constraints,
-                              currentDate: currentFormatterDateTime,
-                              previousDate: currentFormatterDateTime,
-                              title: "Happiness Index",
-                              isEven: false,
+                            child: FutureBuilder<LogResponse>(
+                              future: logResponseFuture,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                } else if (snapshot.hasData) {
+                                  LogResponse logResponse = snapshot.data!;
+
+                                  return Tile(
+                                    assetName: happinessIcon,
+                                    constraints: constraints,
+                                    currentDate: logResponse
+                                        .formattedhappinessCreatedAtLatest(),
+                                    previousDate: logResponse
+                                        .formattedhappinessCreatedAtSecondLast(),
+                                    title: "Happiness Index",
+                                    isEven: false,
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
                             ),
                           ),
-                          const Divider(
-                            height: 2,
-                            color: Colors.black,
-                          ),
+                          const Divider(height: 2, color: Colors.black),
                           GestureDetector(
                             onTap: () {
                               showDialog(
@@ -379,13 +399,32 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 },
                               );
                             },
-                            child: Tile(
-                              assetName: successIndexIcon,
-                              constraints: constraints,
-                              currentDate: currentFormatterDateTime,
-                              previousDate: currentFormatterDateTime,
-                              title: "Success Index",
-                              isEven: true,
+                            child: FutureBuilder<LogResponse>(
+                              future: logResponseFuture,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                } else if (snapshot.hasData) {
+                                  LogResponse logResponse = snapshot.data!;
+
+                                  return Tile(
+                                    assetName: successIndexIcon,
+                                    constraints: constraints,
+                                    currentDate: logResponse
+                                        .formattedsuccessIndexcreatedAtLatest(),
+                                    previousDate: logResponse
+                                        .formattedsuccessIndexcreatedAtSecondLast(),
+                                    title: "Success Index",
+                                    isEven: true,
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
                             ),
                           ),
                           const Divider(
@@ -452,13 +491,32 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 },
                               );
                             },
-                            child: Tile(
-                              assetName: personalEvaluationIcon,
-                              constraints: constraints,
-                              currentDate: currentFormatterDateTime,
-                              previousDate: currentFormatterDateTime,
-                              title: "Evaluation of Type of Intellect",
-                              isEven: false,
+                            child: FutureBuilder<LogResponse>(
+                              future: logResponseFuture,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                } else if (snapshot.hasData) {
+                                  LogResponse logResponse = snapshot.data!;
+
+                                  return Tile(
+                                    assetName: personalEvaluationIcon,
+                                    constraints: constraints,
+                                    currentDate: logResponse
+                                        .formattedevaluationIntellectCreatedAtLatest(),
+                                    previousDate: logResponse
+                                        .formattedevaluationIntellectCreatedAtSecondLast(),
+                                    title: "Evaluation of Type of Intellect",
+                                    isEven: false,
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
                             ),
                           ),
                           const Divider(
@@ -523,13 +581,32 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 },
                               );
                             },
-                            child: Tile(
-                              assetName: knowYourselfIcon,
-                              constraints: constraints,
-                              currentDate: currentFormatterDateTime,
-                              previousDate: currentFormatterDateTime,
-                              title: "Evaluation of Type of Mind",
-                              isEven: true,
+                            child: FutureBuilder<LogResponse>(
+                              future: logResponseFuture,
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                      child: CircularProgressIndicator());
+                                } else if (snapshot.hasError) {
+                                  return Text('Error: ${snapshot.error}');
+                                } else if (snapshot.hasData) {
+                                  LogResponse logResponse = snapshot.data!;
+
+                                  return Tile(
+                                    assetName: knowYourselfIcon,
+                                    constraints: constraints,
+                                    currentDate: logResponse
+                                        .formattedevaluationMindCreatedAtLatest(),
+                                    previousDate: logResponse
+                                        .formattedevaluationMindCreatedAtSecondLast(),
+                                    title: "Evaluation of Type of Mind",
+                                    isEven: true,
+                                  );
+                                } else {
+                                  return Container();
+                                }
+                              },
                             ),
                           ),
                         ],
