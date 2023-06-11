@@ -11,6 +11,7 @@ import 'package:sa_cooperation/utils/routes.dart';
 import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
+import 'package:sa_cooperation/widgets/error_widget.dart';
 import 'package:sa_cooperation/widgets/information_dialog.dart';
 
 import '../blocs/transaction-bloc/transaction_bloc.dart';
@@ -59,6 +60,13 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
         .add(FetchHappinessIndexEvent());
   }
 
+  void _refreshHappinessIndex() {
+    Future.delayed(Duration(milliseconds: 400), () {
+      BlocProvider.of<HappinessIndexBloc>(context)
+          .add(FetchHappinessIndexEvent());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -77,6 +85,14 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
             if (state is HappinessIndexLoading) {
               return const Center(
                 child: ActivityIndicator(),
+              );
+            }
+            if (state is HappinessIndexError) {
+              return Center(
+                child: MLErrorWidget(
+                  title: state.message,
+                  onPress: () => _refreshHappinessIndex(),
+                ),
               );
             }
             if (state is HappinessIndexLoaded) {
