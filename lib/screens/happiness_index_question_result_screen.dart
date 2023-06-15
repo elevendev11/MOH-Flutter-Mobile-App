@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:hive_flutter/adapters.dart';
 import 'package:sa_cooperation/blocs/authentication-bloc/authentication_bloc.dart';
 import 'package:sa_cooperation/blocs/authentication-bloc/authentication_state.dart';
 import 'package:sa_cooperation/blocs/happiness_index_question_result_bloc/Happiness_index_question_result.dart';
 import 'package:sa_cooperation/blocs/happiness_index_result_bloc/happiness_index_result.dart';
 import 'package:sa_cooperation/models/happiness_index_question_result.dart';
 import 'package:sa_cooperation/models/happiness_index_result.dart';
+import 'package:sa_cooperation/models/user.dart';
 import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
 import 'package:sa_cooperation/utils/routes.dart';
@@ -127,121 +129,168 @@ class _HappinessIndexQuestionResultScreenState
                             const SizedBox(
                               height: 10,
                             ),
-                            Container(
-                              width: width * 0.8,
-                              height: height * 0.3,
-                              child: Stack(
-                                children: [
-                                  Positioned(
-                                    bottom: 0,
-                                    child: Container(
-                                      width: width * 0.8,
-                                      height: height * 0.25,
-                                      decoration: BoxDecoration(
-                                        gradient: LinearGradient(
-                                          tileMode: TileMode.clamp,
-                                          begin: Alignment.topCenter,
-                                          end: Alignment.bottomCenter,
-                                          colors: [
-                                            Colors.grey[200]!,
-                                            Colors.white,
-                                            // Colors.transparent,
-                                          ],
-                                        ),
-                                        borderRadius: BorderRadius.circular(15),
-                                      ),
-                                      padding: const EdgeInsets.only(
-                                        top: 32,
-                                        right: 15,
-                                        left: 15,
-                                        bottom: 15,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Text(
-                                            state.user.name,
-                                            style: TextStyle(
-                                              color: Colors.grey[800],
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 18,
-                                            ),
-                                          ),
-                                          Text(
-                                            "This content is related to app. This content is related to app. This content is related to app.",
-                                            style: TextStyle(
-                                              color: Colors.grey[600],
-                                              fontSize: 12,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
-                                          BlocBuilder<HappinessIndexResultBloc,
-                                              HappinessIndexResultState>(
-                                            builder: (context, state) {
-                                              if (state is HappinessIndexResultLoading) {
-                                                return const Center(
-                                                  child: ActivityIndicator(),
-                                                );
-                                              }
-                                              if (state is HappinessIndexResultLoaded) {
-                                                List<HappinessIndexResult>
-                                                    list = state.happinessIndexResultList.toList();
-                                                double value = 0.0;
-                                                for (var element in list) {
-                                                    value += element.latestRecord! / list.length;
-                                                  }
-                                                return SfSliderTheme(
-                                                  data: SfSliderThemeData(
-                                                      thumbRadius: 18),
-                                                  child: SfSlider(
-                                                    min: 0.0,
-                                                    max: 10.0,
-                                                    activeColor: Colors.red,
-                                                    thumbIcon: Container(
-                                                      alignment: Alignment.center,
-                                                      child: Text(value.toStringAsFixed(2),
-                                                        textScaleFactor: 0.8,
-                                                        style: const TextStyle(
-                                                          color: Colors.white,
-                                                        ),
-                                                        textAlign:
-                                                            TextAlign.center,
+                            ValueListenableBuilder<Box<User>>(
+                                valueListenable:
+                                    Hive.box<User>('user').listenable(),
+                                builder: (context, box, widget) {
+                                  if (box.isNotEmpty) {
+                                    var user = box.getAt(0);
+                                    if (user != null) {
+                                      return Container(
+                                        width: width * 0.8,
+                                        height: height * 0.3,
+                                        child: Stack(
+                                          children: [
+                                            Positioned(
+                                              bottom: 0,
+                                              child: Container(
+                                                width: width * 0.8,
+                                                height: height * 0.25,
+                                                decoration: BoxDecoration(
+                                                  gradient: LinearGradient(
+                                                    tileMode: TileMode.clamp,
+                                                    begin: Alignment.topCenter,
+                                                    end: Alignment.bottomCenter,
+                                                    colors: [
+                                                      Colors.grey[200]!,
+                                                      Colors.white,
+                                                      // Colors.transparent,
+                                                    ],
+                                                  ),
+                                                  borderRadius:
+                                                      BorderRadius.circular(15),
+                                                ),
+                                                padding: const EdgeInsets.only(
+                                                  top: 32,
+                                                  right: 15,
+                                                  left: 15,
+                                                  bottom: 15,
+                                                ),
+                                                child: Column(
+                                                  children: [
+                                                    Text(
+                                                      state.user.name,
+                                                      style: TextStyle(
+                                                        color: Colors.grey[800],
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontSize: 18,
                                                       ),
                                                     ),
-                                                    value: double.parse(value
-                                                        .toStringAsFixed(2)),
-                                                    onChanged:
-                                                        (dynamic values) {
-                                                      // setState(() {
-                                                      //   _value =
-                                                      //       values as double;
-                                                      // });
-                                                    },
+                                                    Text(
+                                                      "This content is related to app. This content is related to app. This content is related to app.",
+                                                      style: TextStyle(
+                                                        color: Colors.grey[600],
+                                                        fontSize: 12,
+                                                      ),
+                                                      textAlign:
+                                                          TextAlign.center,
+                                                    ),
+                                                    BlocBuilder<
+                                                        HappinessIndexResultBloc,
+                                                        HappinessIndexResultState>(
+                                                      builder:
+                                                          (context, state) {
+                                                        if (state
+                                                            is HappinessIndexResultLoading) {
+                                                          return const Center(
+                                                            child:
+                                                                ActivityIndicator(),
+                                                          );
+                                                        }
+                                                        if (state
+                                                            is HappinessIndexResultLoaded) {
+                                                          List<HappinessIndexResult>
+                                                              list = state
+                                                                  .happinessIndexResultList
+                                                                  .toList();
+                                                          double value = 0.0;
+                                                          for (var element
+                                                              in list) {
+                                                            value += element
+                                                                    .latestRecord! /
+                                                                list.length;
+                                                          }
+                                                          return SfSliderTheme(
+                                                            data:
+                                                                SfSliderThemeData(
+                                                                    thumbRadius:
+                                                                        18),
+                                                            child: SfSlider(
+                                                              min: 0.0,
+                                                              max: 10.0,
+                                                              activeColor:
+                                                                  Colors.red,
+                                                              thumbIcon:
+                                                                  Container(
+                                                                alignment:
+                                                                    Alignment
+                                                                        .center,
+                                                                child: Text(
+                                                                  value
+                                                                      .toStringAsFixed(
+                                                                          2),
+                                                                  textScaleFactor:
+                                                                      0.8,
+                                                                  style:
+                                                                      const TextStyle(
+                                                                    color: Colors
+                                                                        .white,
+                                                                  ),
+                                                                  textAlign:
+                                                                      TextAlign
+                                                                          .center,
+                                                                ),
+                                                              ),
+                                                              value: double
+                                                                  .parse(value
+                                                                      .toStringAsFixed(
+                                                                          2)),
+                                                              onChanged:
+                                                                  (dynamic
+                                                                      values) {
+                                                                // setState(() {
+                                                                //   _value =
+                                                                //       values as double;
+                                                                // });
+                                                              },
+                                                            ),
+                                                          );
+                                                        }
+                                                        return Container();
+                                                      },
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                     
+                                            Positioned(
+                                              right: 0,
+                                              left: 0,
+                                              child: Container(
+                                                height: height * 0.09,
+                                                decoration: BoxDecoration(
+                                                  shape: BoxShape.circle,
+                                                  color: Colors.grey.shade200,
+                                                  image: DecorationImage(
+                                                    image: Image.network(
+                                                      user.image != null
+                                                          ? '${ApiUtil.profileImageEndPoint}/${user.image}'
+                                                          : avatarNetworkIcon,
+                                                      fit: BoxFit.cover,
+                                                    ).image,
                                                   ),
-                                                );
-                                              }
-                                              return Container();
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  Positioned(
-                                    right: 0,
-                                    left: 0,
-                                    child: CircleAvatar(
-                                      radius: height * 0.045,
-                                      backgroundImage: NetworkImage(
-                                        state.user.image != null
-                                            ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
-                                            : avatarNetworkIcon,
-                                      ),
-                                      backgroundColor: Colors.transparent,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      );
+                                    }
+                                  }
+                                  return Container();
+                                }),
                             const SizedBox(
                               height: 10,
                             ),

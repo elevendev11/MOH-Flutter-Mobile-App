@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.sa_cooperation">
+    package="ab.nation.sa_cooperation">
 
     <uses-permission android:name="android.permission.INTERNET" />
    <application

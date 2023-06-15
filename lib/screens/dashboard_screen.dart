@@ -18,6 +18,7 @@ import 'package:sa_cooperation/utils/routes.dart';
 import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/utils/system_util.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
+import 'package:sa_cooperation/widgets/category_dialog.dart';
 
 import '../blocs/login-bloc/login_event.dart';
 
@@ -252,362 +253,116 @@ class _DashboardScreenState extends State<DashboardScreen>
                           SizedBox(
                             height: constraints.maxHeight * 0.01,
                           ),
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Text(
-                                            "Happiness Index",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.pop(
-                                                      context); // Close the dialog
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    happinessIndexScreenRoute,
-                                                  ); // Navigate to the specific route
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      const Color.fromRGBO(
-                                                          255, 102, 0, 1),
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 10,
-                                                  ),
-                                                ),
-                                                child: const Text("Lets Go"),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                          FutureBuilder<LogResponse>(
+                            future: logResponseFuture,
+                            builder: (context, snapshot) {
+                              if (snapshot.connectionState ==
+                                  ConnectionState.waiting) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else if (snapshot.hasError) {
+                                return Text('Error: ${snapshot.error}');
+                              } else if (snapshot.hasData) {
+                                LogResponse logResponse = snapshot.data!;
+
+                                return Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: () {
+                                        getCategoryDialog(
+                                          context,
+                                          "Happiness Index",
+                                          happinessIndexScreenRoute,
+                                          Color.fromRGBO(255, 102, 0, 1),
+                                        );
+                                      },
+                                      child: Tile(
+                                        assetName: happinessIcon,
+                                        constraints: constraints,
+                                        currentDate: logResponse
+                                            .formattedhappinessCreatedAtLatest(),
+                                        previousDate: logResponse
+                                            .formattedhappinessCreatedAtSecondLast(),
+                                        title: "Happiness Index",
+                                        isEven: false,
                                       ),
                                     ),
-                                  );
-                                },
-                              );
-                            },
-                            child: FutureBuilder<LogResponse>(
-                              future: logResponseFuture,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                } else if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                } else if (snapshot.hasData) {
-                                  LogResponse logResponse = snapshot.data!;
-
-                                  return Tile(
-                                    assetName: happinessIcon,
-                                    constraints: constraints,
-                                    currentDate: logResponse
-                                        .formattedhappinessCreatedAtLatest(),
-                                    previousDate: logResponse
-                                        .formattedhappinessCreatedAtSecondLast(),
-                                    title: "Happiness Index",
-                                    isEven: false,
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
-                          ),
-                          const Divider(height: 2, color: Colors.black),
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
+                                    const Divider(
+                                      height: 2,
+                                      color: Colors.black,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Text(
+                                    GestureDetector(
+                                      onTap: () {
+                                        getCategoryDialog(
+                                            context,
                                             "Success Index",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.pop(
-                                                      context); // Close the dialog
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    successIndexScreenRoute,
-                                                  ); // Navigate to the specific route
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Style.pColor,
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 10,
-                                                  ),
-                                                ),
-                                                child: const Text("Lets Go"),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                            successIndexScreenRoute,
+                                            Style.pColor);
+                                      },
+                                      child: Tile(
+                                        assetName: successIndexIcon,
+                                        constraints: constraints,
+                                        currentDate: logResponse
+                                            .formattedsuccessIndexcreatedAtLatest(),
+                                        previousDate: logResponse
+                                            .formattedsuccessIndexcreatedAtSecondLast(),
+                                        title: "Success Index",
+                                        isEven: true,
                                       ),
                                     ),
-                                  );
-                                },
-                              );
-                            },
-                            child: FutureBuilder<LogResponse>(
-                              future: logResponseFuture,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                } else if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                } else if (snapshot.hasData) {
-                                  LogResponse logResponse = snapshot.data!;
-
-                                  return Tile(
-                                    assetName: successIndexIcon,
-                                    constraints: constraints,
-                                    currentDate: logResponse
-                                        .formattedsuccessIndexcreatedAtLatest(),
-                                    previousDate: logResponse
-                                        .formattedsuccessIndexcreatedAtSecondLast(),
-                                    title: "Success Index",
-                                    isEven: true,
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
-                          ),
-                          const Divider(
-                            height: 2,
-                            color: Colors.black,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
+                                    const Divider(
+                                      height: 2,
+                                      color: Colors.black,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Text(
+                                    GestureDetector(
+                                      onTap: () {
+                                        getCategoryDialog(
+                                            context,
                                             "Evaluation of Type of Intellect",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.pop(
-                                                      context); // Close the dialog
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    evaluationTypeIntellectScreenRoute,
-                                                  ); // Navigate to the specific route
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor:
-                                                      const Color.fromRGBO(
-                                                          255, 102, 0, 1),
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 10,
-                                                  ),
-                                                ),
-                                                child: const Text("Let's Go"),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                            evaluationTypeIntellectScreenRoute,
+                                            Color.fromRGBO(255, 102, 0, 1));
+                                      },
+                                      child: Tile(
+                                        assetName: personalEvaluationIcon,
+                                        constraints: constraints,
+                                        currentDate: logResponse
+                                            .formattedevaluationIntellectCreatedAtLatest(),
+                                        previousDate: logResponse
+                                            .formattedevaluationIntellectCreatedAtSecondLast(),
+                                        title:
+                                            "Evaluation of Type of Intellect",
+                                        isEven: false,
                                       ),
                                     ),
-                                  );
-                                },
-                              );
-                            },
-                            child: FutureBuilder<LogResponse>(
-                              future: logResponseFuture,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                } else if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                } else if (snapshot.hasData) {
-                                  LogResponse logResponse = snapshot.data!;
-
-                                  return Tile(
-                                    assetName: personalEvaluationIcon,
-                                    constraints: constraints,
-                                    currentDate: logResponse
-                                        .formattedevaluationIntellectCreatedAtLatest(),
-                                    previousDate: logResponse
-                                        .formattedevaluationIntellectCreatedAtSecondLast(),
-                                    title: "Evaluation of Type of Intellect",
-                                    isEven: false,
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
-                          ),
-                          const Divider(
-                            height: 2,
-                            color: Colors.black,
-                          ),
-                          GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return Dialog(
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(10.0),
+                                    const Divider(
+                                      height: 2,
+                                      color: Colors.black,
                                     ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(20.0),
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          const Text(
+                                    GestureDetector(
+                                      onTap: () {
+                                        getCategoryDialog(
+                                            context,
                                             "Evaluation of Type of Mind",
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.bold,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 20),
-                                          Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              ElevatedButton(
-                                                onPressed: () {
-                                                  Navigator.pop(
-                                                      context); // Close the dialog
-                                                  Navigator.pushNamed(
-                                                    context,
-                                                    evaluationTypeMindScreenRoute,
-                                                  ); // Navigate to the specific route
-                                                },
-                                                style: ElevatedButton.styleFrom(
-                                                  backgroundColor: Style.pColor,
-                                                  textStyle: const TextStyle(
-                                                    fontSize: 12,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                  padding: const EdgeInsets
-                                                      .symmetric(
-                                                    horizontal: 20,
-                                                    vertical: 10,
-                                                  ),
-                                                ),
-                                                child: const Text("Let's Go"),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                            evaluationTypeMindScreenRoute,
+                                            Style.pColor);
+                                      },
+                                      child: Tile(
+                                        assetName: knowYourselfIcon,
+                                        constraints: constraints,
+                                        currentDate: logResponse
+                                            .formattedevaluationMindCreatedAtLatest(),
+                                        previousDate: logResponse
+                                            .formattedevaluationMindCreatedAtSecondLast(),
+                                        title: "Evaluation of Type of Mind",
+                                        isEven: true,
                                       ),
-                                    ),
-                                  );
-                                },
-                              );
+                                    )
+                                  ],
+                                );
+                              } else {
+                                return Container();
+                              }
                             },
-                            child: FutureBuilder<LogResponse>(
-                              future: logResponseFuture,
-                              builder: (context, snapshot) {
-                                if (snapshot.connectionState ==
-                                    ConnectionState.waiting) {
-                                  return const Center(
-                                      child: CircularProgressIndicator());
-                                } else if (snapshot.hasError) {
-                                  return Text('Error: ${snapshot.error}');
-                                } else if (snapshot.hasData) {
-                                  LogResponse logResponse = snapshot.data!;
-
-                                  return Tile(
-                                    assetName: knowYourselfIcon,
-                                    constraints: constraints,
-                                    currentDate: logResponse
-                                        .formattedevaluationMindCreatedAtLatest(),
-                                    previousDate: logResponse
-                                        .formattedevaluationMindCreatedAtSecondLast(),
-                                    title: "Evaluation of Type of Mind",
-                                    isEven: true,
-                                  );
-                                } else {
-                                  return Container();
-                                }
-                              },
-                            ),
                           ),
                         ],
                       ),

@@ -105,9 +105,7 @@ class _HappinessCommulativeHistoryScreenState
                             color: Colors.grey[600],
                           ),
                         ),
-                        const SizedBox(
-                          height: 10,
-                        ),
+                        const SizedBox(height: 10),
                         ValueListenableBuilder<Box<User>>(
                           valueListenable: Hive.box<User>('user').listenable(),
                           builder: (context, box, widget) {
@@ -294,14 +292,20 @@ class _HappinessCommulativeHistoryScreenState
                                       Positioned(
                                         right: 0,
                                         left: 0,
-                                        child: CircleAvatar(
-                                          radius: height * 0.045,
-                                          backgroundImage: NetworkImage(user
-                                                      .image !=
-                                                  null
-                                              ? '${ApiUtil.profileImageEndPoint}/${user.image}'
-                                              : avatarNetworkIcon),
-                                          backgroundColor: Colors.transparent,
+                                        child: Container(
+                                          height: height * 0.09,
+                                          decoration: BoxDecoration(
+                                            shape: BoxShape.circle,
+                                            color: Colors.grey.shade200,
+                                            image: DecorationImage(
+                                              image: Image.network(
+                                                user.image != null
+                                                    ? '${ApiUtil.profileImageEndPoint}/${user.image}'
+                                                    : avatarNetworkIcon,
+                                                fit: BoxFit.cover,
+                                              ).image,
+                                            ),
+                                          ),
                                         ),
                                       ),
                                     ],
