@@ -10,7 +10,7 @@ class ApiUtil {
     });
   }
 
-  static final String _baseUrlV1 = 'https://almaqqam.com';
+  static final String _baseUrlV1 = 'http://aliz31.sg-host.com';
 
   static final String _saBaseUrlV1 = '$_baseUrlV1/api';
   static final String loginEndPoint = '$_saBaseUrlV1/login';

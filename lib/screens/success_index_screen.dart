@@ -17,7 +17,7 @@ import '../blocs/transaction-bloc/transaction_bloc.dart';
 import '../blocs/transaction-bloc/transaction_event.dart';
 
 class SuccessIndexScreen extends StatefulWidget {
-  SuccessIndexScreen({Key? key}) : super(key: key);
+  const SuccessIndexScreen({Key? key}) : super(key: key);
 
   @override
   State<SuccessIndexScreen> createState() => _SuccessIndexScreenState();
@@ -38,7 +38,7 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
       _requestBody['userId'] =
           context.read<LoginRepository>().getLoggedInUser!.id;
       // _requestBody['sectionId'] = widget.sectionId;
-      List<Map<String, dynamic>> answerMap = new List.empty(growable: true);
+      List<Map<String, dynamic>> answerMap = List.empty(growable: true);
       answerList.forEach((element) {
         answerMap.add(element.toJson());
       });
@@ -193,7 +193,7 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
                         duration: const Duration(milliseconds: 100),
                         curve: Curves.easeIn,
                       );
-                      if (questionController.page! + 1 <= questionList.length  &&
+                      if (questionController.page! + 1 <= questionList.length &&
                           !isLastQuestion) {
                         setState(() {
                           questionNumber += 1;
