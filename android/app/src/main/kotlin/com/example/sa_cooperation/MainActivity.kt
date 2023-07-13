@@ -1,4 +1,4 @@
-package com.example.sa_cooperation
+package ab.nation.sa_cooperation
 
 import io.flutter.embedding.android.FlutterActivity
 

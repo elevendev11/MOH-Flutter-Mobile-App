@@ -36,5 +36,5 @@ const String heartIcon = '${iconsBasePath}heart_outlined.png';
 const String notificationIcon = '${svgIconsBasePath}bell.svg';
 const String avatarSvgIcon = '${svgIconsBasePath}avatar.svg';
 
-const String avatarNetworkIcon = 'https://almaqqam.com/storage/admin/admin.png';
+const String avatarNetworkIcon = 'http://aliz31.sg-host.com/storage/admin/admin.png';
 
