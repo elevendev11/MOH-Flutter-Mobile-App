@@ -1,9 +1,8 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
 import 'package:sa_cooperation/utils/style.dart';
 
-void getInformationDialog(BuildContext context) {
+void getInformationDialog(BuildContext context, String questionInfo) {
   final height = MediaQuery.of(context).size.height;
   final width = MediaQuery.of(context).size.width;
   showDialog(
@@ -13,7 +12,7 @@ void getInformationDialog(BuildContext context) {
               AlertDialog(
                 contentPadding: EdgeInsets.zero,
                 content: Container(
-                  padding: EdgeInsets.all(10),
+                  padding: const EdgeInsets.all(10),
                   height: height * 0.45,
                   width: width * 0.7,
                   decoration: BoxDecoration(
@@ -41,9 +40,9 @@ void getInformationDialog(BuildContext context) {
                         const SizedBox(
                           height: 30,
                         ),
-                        const Expanded(
+                        Expanded(
                           child: Text(
-                            "abc abc abc abca bca bca avhs avh xn",
+                            questionInfo,
                             textScaleFactor: 0.8,
                           ),
                         ),

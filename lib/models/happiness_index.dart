@@ -12,6 +12,7 @@ class HappinessIndex {
   final int minSlider;
   final int maxSlider;
   double? lastsliderValue;
+  String? questionInfo;
 
   HappinessIndex({
     required this.categoryId,
@@ -23,8 +24,10 @@ class HappinessIndex {
     required this.minSlider,
     required this.maxSlider,
     this.lastsliderValue,
+    this.questionInfo,
   });
 
-  factory HappinessIndex.fromJson(Map<String, dynamic> json) => _$HappinessIndexFromJson(json);
+  factory HappinessIndex.fromJson(Map<String, dynamic> json) =>
+      _$HappinessIndexFromJson(json);
   Map<String, dynamic> toJson() => _$HappinessIndexToJson(this);
 }

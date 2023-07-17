@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
-
+import 'package:share_plus/share_plus.dart';
 import '../utils/style.dart';
 
 class InviteScreen extends StatefulWidget {
@@ -13,7 +13,6 @@ class InviteScreen extends StatefulWidget {
 class _InviteScreenState extends State<InviteScreen> {
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
       appBar: AppBar(
@@ -66,9 +65,13 @@ class _InviteScreenState extends State<InviteScreen> {
                 width: width * 0.3,
               ),
               child: ElevatedButton(
-                onPressed: () {},
+                onPressed: () {
+                  // Call the share method from share_plus when the button is pressed
+                  Share.share(
+                      'https://play.google.com/store/apps/details?id=ab.nation.sa_cooperation');
+                },
                 style: ElevatedButton.styleFrom(
-                  primary: Colors.orange[700],
+                  backgroundColor: Colors.orange[700],
                 ),
                 child: const Text("Invite"),
               ),

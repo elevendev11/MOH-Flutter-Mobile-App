@@ -18,6 +18,7 @@ EvaluationTypeIntellect _$EvaluationTypeIntellectFromJson(
       minSlider: json['minSlider'] as int,
       maxSlider: json['maxSlider'] as int,
       lastsliderValue: (json['lastsliderValue'] as num?)?.toDouble(),
+      questionInfo: json['questionInfo'] as String?,
     );
 
 Map<String, dynamic> _$EvaluationTypeIntellectToJson(
@@ -32,4 +33,5 @@ Map<String, dynamic> _$EvaluationTypeIntellectToJson(
       'minSlider': instance.minSlider,
       'maxSlider': instance.maxSlider,
       'lastsliderValue': instance.lastsliderValue,
+      'questionInfo': instance.questionInfo,
     };

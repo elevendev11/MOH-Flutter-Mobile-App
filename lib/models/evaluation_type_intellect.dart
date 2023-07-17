@@ -12,6 +12,7 @@ class EvaluationTypeIntellect {
   final int minSlider;
   final int maxSlider;
   double? lastsliderValue;
+  String? questionInfo;
 
   EvaluationTypeIntellect({
     required this.categoryId,
@@ -22,9 +23,11 @@ class EvaluationTypeIntellect {
     required this.questionStatement,
     required this.minSlider,
     required this.maxSlider,
-    this.lastsliderValue
+    this.lastsliderValue,
+    this.questionInfo,
   });
 
-  factory EvaluationTypeIntellect.fromJson(Map<String, dynamic> json) => _$EvaluationTypeIntellectFromJson(json);
+  factory EvaluationTypeIntellect.fromJson(Map<String, dynamic> json) =>
+      _$EvaluationTypeIntellectFromJson(json);
   Map<String, dynamic> toJson() => _$EvaluationTypeIntellectToJson(this);
 }

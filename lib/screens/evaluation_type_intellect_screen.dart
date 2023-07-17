@@ -7,7 +7,6 @@ import 'package:sa_cooperation/models/evaluation_type_intellect.dart';
 import 'package:sa_cooperation/models/evaluation_type_intellect_answer.dart';
 import 'package:sa_cooperation/repositories/login_repository.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
-import 'package:sa_cooperation/utils/read_more.dart';
 import 'package:sa_cooperation/utils/routes.dart';
 import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
@@ -35,7 +34,6 @@ class _EvaluationTypeIntellectScreenState
   List<EvaluationTypeIntellectAnswer> answerList = [];
   bool isLastQuestion = false;
   int questionNumber = 1;
-
 
   void validate() {
     if (_formKey.currentState!.validate()) {
@@ -176,7 +174,7 @@ class _EvaluationTypeIntellectScreenState
                         duration: const Duration(milliseconds: 100),
                         curve: Curves.easeIn,
                       );
-                      if (questionController.page! + 1 <= questionList.length  &&
+                      if (questionController.page! + 1 <= questionList.length &&
                           !isLastQuestion) {
                         setState(() {
                           questionNumber += 1;
@@ -435,13 +433,13 @@ class _BodyWidgetState extends State<BodyWidget> {
                     ),
                     IconButton(
                       onPressed: () {
-                        getInformationDialog(context);
+                        if (widget.question.questionInfo != null) {
+                          getInformationDialog(
+                              context, widget.question.questionInfo!);
+                        }
                       },
-                      icon: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Image.asset(
-                          infoPurpleIcon,
-                        ),
+                      icon: Image.asset(
+                        infoPurpleIcon,
                       ),
                     ),
                   ],

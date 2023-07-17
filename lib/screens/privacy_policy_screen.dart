@@ -115,7 +115,7 @@ class PolicyWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text(
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
+      " We value your privacy and take appropriate measures to protect your personal information. However, please be aware that no data transmission over the internet can be guaranteed as completely secure. By using the App, you acknowledge and accept the inherent risks involved in transmitting information online.",
       textAlign: TextAlign.justify,
     );
   }
@@ -129,7 +129,7 @@ class TermsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Text(
-      "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.",
+      "We are committed to protecting your privacy and ensuring the security of your personal information. By using the Management of Happiness mobile app, you consent to the collection, storage, and processing of your personal data as described in this Privacy Statement.",
       textAlign: TextAlign.justify,
     );
   }

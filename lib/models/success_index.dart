@@ -11,7 +11,8 @@ class SuccessIndex {
   final String questionStatement;
   final int minSlider;
   final int maxSlider;
-  final double? lastsliderValue;
+  double? lastsliderValue;
+  String? questionInfo;
 
   SuccessIndex({
     required this.categoryId,
@@ -22,9 +23,11 @@ class SuccessIndex {
     required this.questionStatement,
     required this.minSlider,
     required this.maxSlider,
-    this.lastsliderValue
+    this.lastsliderValue,
+    this.questionInfo,
   });
 
-  factory SuccessIndex.fromJson(Map<String, dynamic> json) => _$SuccessIndexFromJson(json);
+  factory SuccessIndex.fromJson(Map<String, dynamic> json) =>
+      _$SuccessIndexFromJson(json);
   Map<String, dynamic> toJson() => _$SuccessIndexToJson(this);
 }

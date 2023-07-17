@@ -173,7 +173,7 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
                         duration: const Duration(milliseconds: 100),
                         curve: Curves.easeIn,
                       );
-                      if (questionController.page! + 1 <= questionList.length  &&
+                      if (questionController.page! + 1 <= questionList.length &&
                           !isLastQuestion) {
                         setState(() {
                           questionNumber += 1;
@@ -434,7 +434,10 @@ class _BodyWidgetState extends State<BodyWidget> {
                     ),
                     IconButton(
                       onPressed: () {
-                        getInformationDialog(context);
+                        if (widget.question.questionInfo != null) {
+                          getInformationDialog(
+                              context, widget.question.questionInfo!);
+                        }
                       },
                       icon: Image.asset(
                         infoPurpleIcon,

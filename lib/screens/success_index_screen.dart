@@ -455,7 +455,10 @@ class _BodyWidgetState extends State<BodyWidget> {
                     ),
                     IconButton(
                       onPressed: () {
-                        getInformationDialog(context);
+                        if (widget.question.questionInfo != null) {
+                          getInformationDialog(
+                              context, widget.question.questionInfo!);
+                        }
                       },
                       icon: Image.asset(
                         infoPurpleIcon,

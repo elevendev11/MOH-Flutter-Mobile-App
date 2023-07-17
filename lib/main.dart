@@ -33,15 +33,8 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
   await registerLocator();
-  BlocOverrides.runZoned(
-    () {
-      runApp(const MyApp());
-    },
-    blocObserver: SCBlocDelegate(),
-  );
-  // Bloc.observer = SCBlocDelegate();
-
-  // runApp(const MyApp());
+  Bloc.observer = SCBlocDelegate();
+  runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
