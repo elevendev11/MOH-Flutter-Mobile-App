@@ -39,5 +39,5 @@ class ApiUtil {
   static final String happinessIndexQuestionResult = '$_saBaseUrlV1/happiness_index_low_question_analytics/';
   static final String logsEndPoint = '$_saBaseUrlV1/logs/';
 
-  static final String profileImageEndPoint = '$_baseUrlV1/storage/users';
+  static final String profileImageEndPoint = '$_baseUrlV1/public/storage/users';
 }

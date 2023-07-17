@@ -47,10 +47,10 @@ class _DashboardScreenState extends State<DashboardScreen>
     super.initState();
     WidgetsBinding.instance.addObserver(this);
     setCurrentQuote();
-    RepositoryProvider.of<LoginRepository>(context).refreshUser();
+    // RepositoryProvider.of<LoginRepository>(context).refreshUser();
     logResponseFuture =
         RepositoryProvider.of<LogRepository>(context).findAllLogs();
-    BlocProvider.of<LoginBloc>(context).add(RefreshUser());
+    // BlocProvider.of<LoginBloc>(context).add(RefreshUser());
   }
 
   @override
