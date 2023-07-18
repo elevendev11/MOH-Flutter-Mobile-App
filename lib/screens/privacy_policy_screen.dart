@@ -115,10 +115,11 @@ class PolicyWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: ListView(
-        shrinkWrap: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // shrinkWrap: true,
         children: [
-          _buildHeading(
+          _buildContent(
               'We are committed to protecting your privacy and ensuring the security of your personal information. By using the Management of Happiness mobile app, you consent to the collection, storage, and processing of your personal data as described in this Privacy Statement.'),
           const SizedBox(height: 10),
           _buildHeading('Collection and Use of Personal Information:'),
@@ -168,7 +169,11 @@ class PolicyWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         text,
-        style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
+        textAlign: TextAlign.justify,
+        style: const TextStyle(
+          fontWeight: FontWeight.bold,
+          fontSize: 16,
+        ),
       ),
     );
   }
@@ -178,6 +183,7 @@ class PolicyWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Text(
         text,
+        textAlign: TextAlign.justify,
         style: const TextStyle(fontSize: 14),
       ),
     );
@@ -191,8 +197,9 @@ class TermsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.all(16.0),
-      child: ListView(
-        shrinkWrap: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        // shrinkWrap: true,
         children: [
           _buildHeading('Personal Information:'),
           _buildContent(
@@ -236,6 +243,7 @@ class TermsWidget extends StatelessWidget {
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Text(
         text,
+        textAlign: TextAlign.justify,
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 16),
       ),
     );
@@ -246,6 +254,7 @@ class TermsWidget extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 16.0),
       child: Text(
         text,
+        textAlign: TextAlign.justify,
         style: const TextStyle(fontSize: 14),
       ),
     );
