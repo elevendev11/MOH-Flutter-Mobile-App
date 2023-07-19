@@ -3,7 +3,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
    <application
-        android:label="sa_cooperation"
+        android:label="Management of Happiness"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
