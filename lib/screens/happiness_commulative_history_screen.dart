@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sa_cooperation/blocs/authentication-bloc/authentication_bloc.dart';
-import 'package:sa_cooperation/blocs/authentication-bloc/authentication_state.dart';
 import 'package:sa_cooperation/blocs/happiness_index_line_chart_bloc/happiness_index_line_chart.dart';
 import 'package:sa_cooperation/models/happiness_index_line_chart.dart';
 import 'package:sa_cooperation/models/user.dart';
@@ -41,7 +39,7 @@ class _HappinessCommulativeHistoryScreenState
     final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
     return Scaffold(
-        appBar: const AdaptiveAppBar(null, 'Happiness Commulative History'),
+        appBar: const AdaptiveAppBar(null, 'Commulative History'),
         body: BlocBuilder<HappinessIndexLineChartBloc,
             HappinessIndexLineChartState>(
           builder: (context, state) {

@@ -12,7 +12,6 @@ dependencies:
   flutter:
     sdk: flutter
   cupertino_icons: ^1.0.2
-  google_fonts: ^3.0.1
   flutter_bloc: ^8.0.1
   bloc: ^8.0.2
   http: ^0.13.4
@@ -32,7 +31,6 @@ dependencies:
   loader_overlay: ^2.0.7
   fl_chart: ^0.55.1
   image_picker: ^0.8.5+3
-  screenshot: ^1.2.3
   # share_plus: ^5.0.0
 
   datetime_picker_formfield: ^2.0.1
@@ -43,6 +41,8 @@ dependencies:
   syncfusion_flutter_sliders: ^20.4.54
   syncfusion_flutter_core: ^20.4.54
   share_plus: ^7.0.2
+  google_fonts: ^4.0.4
+  screenshot: ^2.1.0
 
 
  

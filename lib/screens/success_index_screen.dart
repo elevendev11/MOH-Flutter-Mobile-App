@@ -66,6 +66,7 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
     return Scaffold(
       appBar: AdaptiveAppBar(
         null,
+        
         "Question $questionNumber",
         centerTitle: true,
       ),

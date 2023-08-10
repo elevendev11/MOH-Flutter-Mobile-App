@@ -26,7 +26,7 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (Platform.isIOS) {
       return CupertinoNavigationBar(
         padding: const EdgeInsetsDirectional.only(start: 8, end: 8),
-        backgroundColor: Colors.red,
+             backgroundColor: Style.pColor,
         automaticallyImplyLeading: automaticallyImplyLeading,
         middle: _titleWidget(),
         trailing: Row(
