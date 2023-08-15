@@ -122,12 +122,12 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        "This content is related to your result",
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                        ),
-                      ),
+                      // Text(
+                      //   "This content is related to your result",
+                      //   style: TextStyle(
+                      //     color: Colors.grey[600],
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -173,14 +173,14 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                                               fontSize: 18,
                                             ),
                                           ),
-                                          Text(
-                                            "This content is related to app. This content is related to app. This content is related to app.",
-                                            style: TextStyle(
-                                              color: Colors.grey[600],
-                                              fontSize: 12,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                          // Text(
+                                          //   "This content is related to app. This content is related to app. This content is related to app.",
+                                          //   style: TextStyle(
+                                          //     color: Colors.grey[600],
+                                          //     fontSize: 12,
+                                          //   ),
+                                          //   textAlign: TextAlign.center,
+                                          // ),
                                           const SizedBox(
                                             height: 15,
                                           ),

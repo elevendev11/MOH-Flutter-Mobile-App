@@ -11,7 +11,7 @@ import 'package:sa_cooperation/utils/routes.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:sa_cooperation/widgets/success_index_line_chart.dart';
-import 'package:screenshot/screenshot.dart';
+
 
 import '../utils/icon_util.dart';
 
@@ -25,7 +25,7 @@ class SuccessIndexCommulativeScreen extends StatefulWidget {
 
 class _SuccessIndexCommulativeScreenState
     extends State<SuccessIndexCommulativeScreen> {
-  ScreenshotController screenshotController = ScreenshotController();
+
 
   @override
   void initState() {

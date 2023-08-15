@@ -10,7 +10,6 @@ import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:sa_cooperation/widgets/success_index_bar_chart.dart';
-import 'package:screenshot/screenshot.dart';
 
 import '../utils/icon_util.dart';
 
@@ -22,8 +21,6 @@ class SuccessBarGraphScreen extends StatefulWidget {
 }
 
 class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
-  ScreenshotController screenshotController = ScreenshotController();
-
   @override
   void initState() {
     super.initState();
@@ -142,14 +139,14 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                                               fontSize: 18,
                                             ),
                                           ),
-                                          Text(
-                                            "This content is related to app. This content is related to app. This content is related to app.",
-                                            style: TextStyle(
-                                              color: Colors.grey[600],
-                                              fontSize: 12,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                          // Text(
+                                          //   "This content is related to app. This content is related to app. This content is related to app.",
+                                          //   style: TextStyle(
+                                          //     color: Colors.grey[600],
+                                          //     fontSize: 12,
+                                          //   ),
+                                          //   textAlign: TextAlign.center,
+                                          // ),
                                           const Spacer(),
                                           Row(
                                             mainAxisAlignment:
@@ -299,15 +296,12 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                           return Container();
                         },
                       ),
-                      Screenshot(
-                        controller: screenshotController,
-                        child: Container(
-                          width: width * 0.8,
-                          height: height * 0.45,
-                          decoration: const BoxDecoration(),
-                          child: SuccessIndexBarChartWidget(
-                              barValues: state.successIndexResultList.toList()),
-                        ),
+                      Container(
+                        width: width * 0.8,
+                        height: height * 0.45,
+                        decoration: const BoxDecoration(),
+                        child: SuccessIndexBarChartWidget(
+                            barValues: state.successIndexResultList.toList()),
                       ),
                       BlocBuilder<SuccessIndexResultBloc,
                           SuccessIndexResultState>(builder: (context, state) {

@@ -9,7 +9,7 @@ import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:sa_cooperation/widgets/happiness_index_line_chart.dart';
-import 'package:screenshot/screenshot.dart';
+
 
 import '../utils/icon_util.dart';
 import '../utils/routes.dart';
@@ -24,7 +24,7 @@ class HappinessCommulativeHistoryScreen extends StatefulWidget {
 
 class _HappinessCommulativeHistoryScreenState
     extends State<HappinessCommulativeHistoryScreen> {
-  ScreenshotController screenshotController = ScreenshotController();
+
 
   @override
   void initState() {

@@ -160,12 +160,12 @@ class _BrainAnalyticsScreenState extends State<BrainAnalyticsScreen> {
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            Text(
-                              "This content is related to your result",
-                              style: TextStyle(
-                                color: Colors.grey[600],
-                              ),
-                            ),
+                            // Text(
+                            //   "This content is related to your result",
+                            //   style: TextStyle(
+                            //     color: Colors.grey[600],
+                            //   ),
+                            // ),
                             const SizedBox(
                               height: 10,
                             ),
@@ -213,15 +213,15 @@ class _BrainAnalyticsScreenState extends State<BrainAnalyticsScreen> {
                                                     fontSize: 18,
                                                   ),
                                                 ),
-                                                Text(
-                                                  "This content is related to app. This content is related to app. This content is related to app.",
-                                                  style: TextStyle(
-                                                    color: Colors.grey[600],
-                                                    fontSize: 12,
-                                                  ),
-                                                  textAlign: TextAlign.center,
-                                                ),
-                                                Spacer(),
+                                                // Text(
+                                                //   "This content is related to app. This content is related to app. This content is related to app.",
+                                                //   style: TextStyle(
+                                                //     color: Colors.grey[600],
+                                                //     fontSize: 12,
+                                                //   ),
+                                                //   textAlign: TextAlign.center,
+                                                // ),
+                                                const Spacer(),
                                                 Row(
                                                   mainAxisAlignment:
                                                       MainAxisAlignment

@@ -26,7 +26,7 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
     if (Platform.isIOS) {
       return CupertinoNavigationBar(
         padding: const EdgeInsetsDirectional.only(start: 8, end: 8),
-             backgroundColor: Style.pColor,
+        backgroundColor: Style.pColor,
         automaticallyImplyLeading: automaticallyImplyLeading,
         middle: _titleWidget(),
         trailing: Row(
@@ -39,7 +39,9 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
     return AppBar(
       title: _titleWidget(),
+
       elevation: 0.5,
+
       iconTheme: const IconThemeData(
         color: Colors.white, //change your color here
       ),
@@ -63,10 +65,7 @@ class AdaptiveAppBar extends StatelessWidget implements PreferredSizeWidget {
     }
     return Text(
       title,
-      style: Style.headline6.copyWith(
-        color: Colors.white,
-        fontSize: 22  
-      ),
+      style: Style.headline6.copyWith(color: Colors.white, fontSize: 22),
       textScaleFactor: 1.0,
     );
   }

@@ -125,22 +125,25 @@ class SuccessIndexBarChartWidgetState
   Widget bottomTitles(double value, TitleMeta meta) {
     List<String> titles = [];
 
-    widget.barValues.forEach((element) {
+    for (var element in widget.barValues) {
       titles.add(element.sectionTitle);
-    });
+    }
 
-    final Widget text = Text(
-      titles[value.toInt()],
-      style: const TextStyle(
-        color: Color(0xff7589a2),
-        fontWeight: FontWeight.bold,
-        fontSize: 9,
+    final Widget text = Transform.rotate(
+      angle: -0.4, // Adjust the angle to your preference
+      child: Text(
+        titles[value.toInt()],
+        style: const TextStyle(
+          color: Color(0xff7589a2),
+          fontWeight: FontWeight.bold,
+          fontSize: 9,
+        ),
       ),
     );
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      space: 12, //margin top
+      space: 12, // margin top
       child: text,
     );
   }

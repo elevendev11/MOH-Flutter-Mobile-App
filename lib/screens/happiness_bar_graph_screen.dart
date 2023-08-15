@@ -10,7 +10,7 @@ import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:sa_cooperation/widgets/happiness_index_bar_chart.dart';
-import 'package:screenshot/screenshot.dart';
+
 
 import '../utils/icon_util.dart';
 
@@ -23,7 +23,7 @@ class HappinessBarGraphScreen extends StatefulWidget {
 }
 
 class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
-  ScreenshotController screenshotController = ScreenshotController();
+
 
   @override
   void initState() {
@@ -94,12 +94,12 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        "This content is related to your result",
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                        ),
-                      ),
+                      // Text(
+                      //   "This content is related to your result",
+                      //   style: TextStyle(
+                      //     color: Colors.grey[600],
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -145,14 +145,14 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                                               fontSize: 18,
                                             ),
                                           ),
-                                          Text(
-                                            "This content is related to app. This content is related to app. This content is related to app.",
-                                            style: TextStyle(
-                                              color: Colors.grey[600],
-                                              fontSize: 12,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                          // Text(
+                                          //   "This content is related to app. This content is related to app. This content is related to app.",
+                                          //   style: TextStyle(
+                                          //     color: Colors.grey[600],
+                                          //     fontSize: 12,
+                                          //   ),
+                                          //   textAlign: TextAlign.center,
+                                          // ),
                                           const Spacer(),
                                           Row(
                                             mainAxisAlignment:
@@ -300,15 +300,13 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                           return Container();
                         },
                       ),
-                      Screenshot(
-                        controller: screenshotController,
-                        child: Container(
-                          width: width * 0.8,
-                          height: height * 0.45,
-                          decoration: const BoxDecoration(),
-                          child: HappinessIndexBarChartWidget(barValues: list),
-                        ),
+                      Container(
+                        width: width * 0.8,
+                        height: height * 0.45,
+                        decoration: const BoxDecoration(),
+                        child: HappinessIndexBarChartWidget(barValues: list),
                       ),
+
                       BlocBuilder<HappinessIndexResultBloc,
                           HappinessIndexResultState>(builder: (context, state) {
                         if (state is HappinessIndexResultLoading) {
