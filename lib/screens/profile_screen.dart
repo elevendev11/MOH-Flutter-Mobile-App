@@ -72,13 +72,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                       decoration: BoxDecoration(
                                         color: Colors.white,
                                         shape: BoxShape.circle,
-                                        boxShadow: [
+                                        boxShadow: const [
                                           BoxShadow(
-                                            color: const Color.fromRGBO(
+                                            color: Color.fromRGBO(
                                                 173, 174, 227, 1),
                                             spreadRadius: 6,
                                             blurRadius: 10,
-                                            offset: new Offset(0, -6),
+                                            offset: Offset(0, -6),
                                           ),
                                         ],
                                         image: DecorationImage(
