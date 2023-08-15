@@ -11,7 +11,6 @@ import 'package:sa_cooperation/utils/icon_util.dart';
 import 'package:sa_cooperation/utils/style.dart';
 import 'package:sa_cooperation/widgets/activity_indicator.dart';
 
-
 import '../utils/routes.dart';
 
 class BrainAnalyticsScreen extends StatefulWidget {
@@ -360,14 +359,20 @@ class _BrainAnalyticsScreenState extends State<BrainAnalyticsScreen> {
                                         Positioned(
                                           right: 0,
                                           left: 0,
-                                          child: CircleAvatar(
-                                            radius: height * 0.045,
-                                            backgroundImage: NetworkImage(
-                                              state.user.image != null
-                                                  ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
-                                                  : avatarNetworkIcon,
+                                          child: Container(
+                                            height: height * 0.09,
+                                            decoration: BoxDecoration(
+                                              shape: BoxShape.circle,
+                                              color: Colors.grey.shade200,
+                                              image: DecorationImage(
+                                                image: Image.network(
+                                                  state.user.image != null
+                                                      ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
+                                                      : avatarNetworkIcon,
+                                                  fit: BoxFit.cover,
+                                                ).image,
+                                              ),
                                             ),
-                                            backgroundColor: Colors.transparent,
                                           ),
                                         ),
                                       ],

@@ -10,7 +10,6 @@ import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:sa_cooperation/widgets/happiness_index_line_chart.dart';
 
-
 import '../utils/icon_util.dart';
 import '../utils/routes.dart';
 
@@ -24,12 +23,10 @@ class HappinessCommulativeHistoryScreen extends StatefulWidget {
 
 class _HappinessCommulativeHistoryScreenState
     extends State<HappinessCommulativeHistoryScreen> {
-
-
   @override
   void initState() {
     super.initState();
-    // BlocProvider.of<HappinessIndexResultBloc>(context).add(FetchHappinessIndexResultEvent());
+
     BlocProvider.of<HappinessIndexLineChartBloc>(context)
         .add(FetchHappinessIndexLineChartEvent());
   }
@@ -82,7 +79,6 @@ class _HappinessCommulativeHistoryScreenState
                         colors: [
                           Colors.white,
                           Colors.white,
-                          // Colors.transparent,
                         ],
                       ),
                       borderRadius: BorderRadius.circular(15),
@@ -97,12 +93,12 @@ class _HappinessCommulativeHistoryScreenState
                             fontWeight: FontWeight.bold,
                           ),
                         ),
-                        Text(
-                          "This content is related to your result",
-                          style: TextStyle(
-                            color: Colors.grey[600],
-                          ),
-                        ),
+                        // Text(
+                        //   "This content is related to your result",
+                        //   style: TextStyle(
+                        //     color: Colors.grey[600],
+                        //   ),
+                        // ),
                         const SizedBox(height: 10),
                         ValueListenableBuilder<Box<User>>(
                           valueListenable: Hive.box<User>('user').listenable(),
@@ -150,14 +146,14 @@ class _HappinessCommulativeHistoryScreenState
                                                   fontSize: 18,
                                                 ),
                                               ),
-                                              Text(
-                                                "This content is related to app. This content is related to app. This content is related to app.",
-                                                style: TextStyle(
-                                                  color: Colors.grey[600],
-                                                  fontSize: 12,
-                                                ),
-                                                textAlign: TextAlign.center,
-                                              ),
+                                              // Text(
+                                              //   "This content is related to app. This content is related to app. This content is related to app.",
+                                              //   style: TextStyle(
+                                              //     color: Colors.grey[600],
+                                              //     fontSize: 12,
+                                              //   ),
+                                              //   textAlign: TextAlign.center,
+                                              // ),
                                               const Spacer(),
                                               Row(
                                                 mainAxisAlignment:

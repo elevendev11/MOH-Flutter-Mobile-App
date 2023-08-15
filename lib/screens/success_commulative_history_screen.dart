@@ -12,7 +12,6 @@ import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:sa_cooperation/widgets/success_index_line_chart.dart';
 
-
 import '../utils/icon_util.dart';
 
 class SuccessIndexCommulativeScreen extends StatefulWidget {
@@ -25,8 +24,6 @@ class SuccessIndexCommulativeScreen extends StatefulWidget {
 
 class _SuccessIndexCommulativeScreenState
     extends State<SuccessIndexCommulativeScreen> {
-
-
   @override
   void initState() {
     super.initState();
@@ -95,12 +92,12 @@ class _SuccessIndexCommulativeScreenState
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        "This content is related to your result",
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                        ),
-                      ),
+                      // Text(
+                      //   "This content is related to your result",
+                      //   style: TextStyle(
+                      //     color: Colors.grey[600],
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
@@ -150,14 +147,14 @@ class _SuccessIndexCommulativeScreenState
                                                 fontSize: 18,
                                               ),
                                             ),
-                                            Text(
-                                              "This content is related to app. This content is related to app. This content is related to app.",
-                                              style: TextStyle(
-                                                color: Colors.grey[600],
-                                                fontSize: 12,
-                                              ),
-                                              textAlign: TextAlign.center,
-                                            ),
+                                            // Text(
+                                            //   "This content is related to app. This content is related to app. This content is related to app.",
+                                            //   style: TextStyle(
+                                            //     color: Colors.grey[600],
+                                            //     fontSize: 12,
+                                            //   ),
+                                            //   textAlign: TextAlign.center,
+                                            // ),
                                             const Spacer(),
                                             Row(
                                               mainAxisAlignment:
@@ -200,8 +197,9 @@ class _SuccessIndexCommulativeScreenState
                                                     height: height * 0.06,
                                                     width: width * 0.1,
                                                     decoration: BoxDecoration(
-                                                      color: Color.fromRGBO(
-                                                          255, 102, 0, 1),
+                                                      color:
+                                                          const Color.fromRGBO(
+                                                              255, 102, 0, 1),
                                                       boxShadow: const [
                                                         BoxShadow(
                                                           color: Color.fromRGBO(
@@ -284,14 +282,20 @@ class _SuccessIndexCommulativeScreenState
                                     Positioned(
                                       right: 0,
                                       left: 0,
-                                      child: CircleAvatar(
-                                        radius: height * 0.045,
-                                        backgroundImage: NetworkImage(user
-                                                    .image !=
-                                                null
-                                            ? '${ApiUtil.profileImageEndPoint}/${user.image}'
-                                            : avatarNetworkIcon),
-                                        backgroundColor: Colors.transparent,
+                                      child: Container(
+                                        height: height * 0.09,
+                                        decoration: BoxDecoration(
+                                          shape: BoxShape.circle,
+                                          color: Colors.grey.shade200,
+                                          image: DecorationImage(
+                                            image: Image.network(
+                                              user.image != null
+                                                  ? '${ApiUtil.profileImageEndPoint}/${user.image}'
+                                                  : avatarNetworkIcon,
+                                              fit: BoxFit.cover,
+                                            ).image,
+                                          ),
+                                        ),
                                       ),
                                     ),
                                   ],

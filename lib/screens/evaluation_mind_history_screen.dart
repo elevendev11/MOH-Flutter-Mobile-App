@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sa_cooperation/blocs/authentication-bloc/authentication_bloc.dart';
-import 'package:sa_cooperation/blocs/authentication-bloc/authentication_state.dart';
 import 'package:sa_cooperation/models/user.dart';
 import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
