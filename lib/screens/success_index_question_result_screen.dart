@@ -178,14 +178,14 @@ class _SuccessIndexQuestionResultScreenState
                                               fontSize: 18,
                                             ),
                                           ),
-                                          Text(
-                                            "This content is related to app. This content is related to app. This content is related to app.",
-                                            style: TextStyle(
-                                              color: Colors.grey[600],
-                                              fontSize: 12,
-                                            ),
-                                            textAlign: TextAlign.center,
-                                          ),
+                                          // Text(
+                                          //   "This content is related to app. This content is related to app. This content is related to app.",
+                                          //   style: TextStyle(
+                                          //     color: Colors.grey[600],
+                                          //     fontSize: 12,
+                                          //   ),
+                                          //   textAlign: TextAlign.center,
+                                          // ),
                                           BlocBuilder<SuccessIndexResultBloc,
                                               SuccessIndexResultState>(
                                             builder: (context, state) {

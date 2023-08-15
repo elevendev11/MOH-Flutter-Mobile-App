@@ -88,12 +88,12 @@ class _SuccessBarGraphScreenState extends State<SuccessBarGraphScreen> {
                           fontWeight: FontWeight.bold,
                         ),
                       ),
-                      Text(
-                        "This content is related to your result",
-                        style: TextStyle(
-                          color: Colors.grey[600],
-                        ),
-                      ),
+                      // Text(
+                      //   "This content is related to your result",
+                      //   style: TextStyle(
+                      //     color: Colors.grey[600],
+                      //   ),
+                      // ),
                       const SizedBox(
                         height: 10,
                       ),
