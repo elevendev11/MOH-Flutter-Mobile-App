@@ -28,10 +28,30 @@ class SuccessIndexBarChartWidgetState
     super.initState();
     List<BarChartGroupData> items = [];
 
+    double totalLatestRecord = 0;
+    double totalSecondLastRecord = 0;
+
     for (var element in widget.barValues) {
-      items.add(makeGroupData(widget.barValues.indexOf(element),
-          element.latestRecord!, element.secondLastRecord!));
+      items.add(makeGroupData(
+        widget.barValues.indexOf(element),
+        element.latestRecord!,
+        element.secondLastRecord!,
+      ));
+
+      totalLatestRecord += element.latestRecord!;
+      totalSecondLastRecord += element.secondLastRecord!;
     }
+
+    double averageLatestRecord = totalLatestRecord / widget.barValues.length;
+
+    double averageSecondLastRecord =
+        totalSecondLastRecord / widget.barValues.length;
+
+    items.add(makeGroupData(
+      widget.barValues.length,
+      averageLatestRecord,
+      averageSecondLastRecord,
+    ));
 
     rawBarGroups = items;
     showingBarGroups = rawBarGroups;
@@ -129,8 +149,10 @@ class SuccessIndexBarChartWidgetState
       titles.add(element.sectionTitle);
     }
 
+    titles.add("Total");
+
     final Widget text = Transform.rotate(
-      angle: -0.4, // Adjust the angle to your preference
+      angle: -0.4,
       child: Text(
         titles[value.toInt()],
         style: const TextStyle(

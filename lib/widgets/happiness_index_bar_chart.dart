@@ -43,10 +43,9 @@ class HappinessIndexBarChartWidgetState
     }
 
     double averageLatestRecord = totalLatestRecord / widget.barValues.length;
-    print(averageLatestRecord);
+
     double averageSecondLastRecord =
         totalSecondLastRecord / widget.barValues.length;
-    print(averageSecondLastRecord);
 
     items.add(makeGroupData(
       widget.barValues.length,

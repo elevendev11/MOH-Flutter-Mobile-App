@@ -3,7 +3,6 @@ import 'package:intl/intl.dart';
 
 import 'package:syncfusion_flutter_charts/charts.dart';
 
-
 import '../models/success_index_line_chart.dart';
 
 class SuccessIndexLineChartWidget extends StatefulWidget {
@@ -35,12 +34,9 @@ class _SuccessIndexLineChartWidgetState
         color: Colors.white,
       ),
       child: SfCartesianChart(
-        primaryXAxis: CategoryAxis(
-          majorGridLines: const MajorGridLines(
-            width: 0.0,
-          ),
-
-
+        primaryXAxis: DateTimeCategoryAxis(
+          majorGridLines: const MajorGridLines(width: 0),
+          dateFormat: DateFormat("yyyy-MM-dd"),
         ),
         primaryYAxis: NumericAxis(
           maximum: 10,
@@ -49,27 +45,17 @@ class _SuccessIndexLineChartWidgetState
             width: 0.0,
           ),
         ),
-        series: <ChartSeries<SuccessIndexLineChart, String>>[
+        series: <ChartSeries<SuccessIndexLineChart, DateTime>>[
           // Renders line chart
-          LineSeries<SuccessIndexLineChart, String>(
+          LineSeries<SuccessIndexLineChart, DateTime>(
             dataSource: widget.barValues,
-            // xValueMapper: (SuccessIndexLineChart data, _) => "${data.createdAt.day} ${getMonth(data.createdAt.month)}",
-        xValueMapper: (SuccessIndexLineChart data, _) {
-              final formattedCreatedAt = formatCreatedAt(data.createdAt);
-              return formattedCreatedAt;
+            xValueMapper: (SuccessIndexLineChart data, _) {
+              return data.createdAt;
             },
-            // xValueMapper: (SuccessIndexLineChart data, _) {
-            //   final dateTime = data.createdAt;
-            //   final monthName = DateFormat('MMM dd').format(dateTime);
-            //   return monthName;
-            // },
             yValueMapper: (SuccessIndexLineChart data, _) =>
                 data.sliderValueAverage,
-                
             markerSettings: const MarkerSettings(isVisible: true),
-            
           )
-          // dataLabelSettings: DataLabelSettings(isVisible: true)),
         ],
       ),
       // child: LineChart(
@@ -82,8 +68,6 @@ class _SuccessIndexLineChartWidgetState
     final formatter = DateFormat('yyyy-MM-dd HH:mm:ss');
     return formatter.format(createdAt);
   }
-
-
 }
 
 class ChartData {
