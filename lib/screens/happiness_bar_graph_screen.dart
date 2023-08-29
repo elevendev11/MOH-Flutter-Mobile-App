@@ -11,7 +11,6 @@ import 'package:sa_cooperation/widgets/activity_indicator.dart';
 import 'package:sa_cooperation/widgets/adaptive_appbar.dart';
 import 'package:sa_cooperation/widgets/happiness_index_bar_chart.dart';
 
-
 import '../utils/icon_util.dart';
 
 class HappinessBarGraphScreen extends StatefulWidget {
@@ -23,8 +22,6 @@ class HappinessBarGraphScreen extends StatefulWidget {
 }
 
 class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
-
-
   @override
   void initState() {
     super.initState();
@@ -368,14 +365,6 @@ class _HappinessBarGraphScreenState extends State<HappinessBarGraphScreen> {
                         return Container();
                       }),
                       const Text('Total Result')
-
-                      // Divider(),
-                      // Container(
-                      //   width: width * 0.8,
-                      //   height: height * 0.6,
-                      //   decoration: BoxDecoration(),
-                      //   child: HappinessIndexLineChartWidget(barValues: listChart),
-                      // ),
                     ],
                   ),
                 ),

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:hive_flutter/hive_flutter.dart';
-import 'package:sa_cooperation/blocs/authentication-bloc/authentication_bloc.dart';
-import 'package:sa_cooperation/blocs/authentication-bloc/authentication_state.dart';
 import 'package:sa_cooperation/models/user.dart';
 import 'package:sa_cooperation/utils/api_util.dart';
 import 'package:sa_cooperation/utils/icon_util.dart';
@@ -119,7 +116,6 @@ class _EvaluationIntellectOptionScreenState
               return Container();
             }),
       ),
-      // bottomNavigationBar: const NavigationBar(),
     );
   }
 }
@@ -141,9 +137,7 @@ class _HappinessDetailsWidgetState extends State<HappinessDetailsWidget> {
     return Column(
       children: [
         GestureDetector(
-          onTap: () {
-            // Navigator.pushNamed(context, successBarChartScreenRoute);
-          },
+          onTap: () {},
           child: Container(
             margin: EdgeInsets.symmetric(
               horizontal: widget.constraints.maxWidth * 0.18,
@@ -174,43 +168,6 @@ class _HappinessDetailsWidgetState extends State<HappinessDetailsWidget> {
             ),
           ),
         ),
-        // const SizedBox(
-        //   height: 25,
-        // ),
-        // GestureDetector(
-        //   onTap: () {
-
-        //   },
-        //   child: Container(
-        //     margin: EdgeInsets.symmetric(
-        //       horizontal: widget.constraints.maxWidth * 0.18,
-        //     ),
-        //     height: widget.constraints.maxHeight * 0.2,
-        //     width: widget.constraints.maxWidth * 0.7,
-        //     decoration: BoxDecoration(
-        //       color: Color.fromRGBO(211, 211, 246, 2),
-        //       borderRadius: BorderRadius.circular(15),
-        //     ),
-        //     child: Column(
-        //       mainAxisAlignment: MainAxisAlignment.spaceAround,
-        //       children: [
-        //         Image.asset(
-        //           resultIcon,
-        //           height: 60,
-        //           color: Colors.grey[700],
-        //         ),
-        //         Text(
-        //           "Commulative History",
-        //           style: TextStyle(
-        //             fontWeight: FontWeight.bold,
-        //             fontSize: widget.constraints.maxHeight * 0.025,
-        //             color: Colors.grey[700],
-        //           ),
-        //         )
-        //       ],
-        //     ),
-        //   ),
-        // ),
       ],
     );
   }
