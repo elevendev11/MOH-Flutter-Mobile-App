@@ -78,42 +78,44 @@ class _HappinessIndexScreenState extends State<HappinessIndexScreen> {
         "Question $questionNumber",
         centerTitle: true,
       ),
-      body: Form(
-        key: _formKey,
-        child: BlocBuilder<HappinessIndexBloc, HappinessIndexState>(
-          builder: (context, state) {
-            if (state is HappinessIndexLoading) {
-              return const Center(
-                child: ActivityIndicator(),
-              );
-            }
-            if (state is HappinessIndexError) {
-              return Center(
-                child: MLErrorWidget(
-                  title: state.message,
-                  onPress: () => _refreshHappinessIndex(),
-                ),
-              );
-            }
-            if (state is HappinessIndexLoaded) {
-              List<HappinessIndex> list = state.happinessIndexList.toList();
-              if (list.isEmpty) {
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: BlocBuilder<HappinessIndexBloc, HappinessIndexState>(
+            builder: (context, state) {
+              if (state is HappinessIndexLoading) {
                 return const Center(
-                  child: Text('No happiness index found'),
-                );
-              } else {
-                if (list.length == 1) {
-                  isLastQuestion = true;
-                }
-                return getSectionWidget(
-                  questionList: list,
-                  height: height,
-                  width: width,
+                  child: ActivityIndicator(),
                 );
               }
-            }
-            return Container();
-          },
+              if (state is HappinessIndexError) {
+                return Center(
+                  child: MLErrorWidget(
+                    title: state.message,
+                    onPress: () => _refreshHappinessIndex(),
+                  ),
+                );
+              }
+              if (state is HappinessIndexLoaded) {
+                List<HappinessIndex> list = state.happinessIndexList.toList();
+                if (list.isEmpty) {
+                  return const Center(
+                    child: Text('No happiness index found'),
+                  );
+                } else {
+                  if (list.length == 1) {
+                    isLastQuestion = true;
+                  }
+                  return getSectionWidget(
+                    questionList: list,
+                    height: height,
+                    width: width,
+                  );
+                }
+              }
+              return Container();
+            },
+          ),
         ),
       ),
     );

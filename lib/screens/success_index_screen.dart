@@ -66,60 +66,61 @@ class _SuccessIndexScreenState extends State<SuccessIndexScreen> {
     return Scaffold(
       appBar: AdaptiveAppBar(
         null,
-        
         "Question $questionNumber",
         centerTitle: true,
       ),
-      body: LoaderOverlay(
-        overlayWidget: const ActivityIndicator(),
-        child: BlocBuilder<SuccessIndexBloc, SuccessIndexState>(
-          builder: (context, state) {
-            if (state is SuccessIndexLoading) {
-              return const Center(
-                child: ActivityIndicator(),
-              );
-            }
-            if (state is SuccessIndexLoaded) {
-              List<SuccessIndex> list = state.successIndexList.toList();
-              if (list.isEmpty) {
+      body: SafeArea(
+        child: LoaderOverlay(
+          overlayWidget: const ActivityIndicator(),
+          child: BlocBuilder<SuccessIndexBloc, SuccessIndexState>(
+            builder: (context, state) {
+              if (state is SuccessIndexLoading) {
                 return const Center(
-                  child: Text('No happiness index found'),
+                  child: ActivityIndicator(),
                 );
-              } else {
-                if (list.length == 1) {
-                  isLastQuestion = true;
-                }
-                return Form(
-                  key: _formKey,
-                  child: getSectionWidget(
-                    questionList: list,
-                    height: height,
-                    width: width,
-                  ),
-                );
-                // return PageView.builder(
-                //   physics: const NeverScrollableScrollPhysics(),
-                //   controller: sectionController,
-                //   itemCount: list.length,
-                //   itemBuilder: (context, index) {
-                //     return SectionWidget(
-                //       width: width,
-                //       section: list[index],
-                //       height: height,
-                //       sectionController: sectionController,
-                //       questionController: questionController,
-                //       sectionListLength: list.length,
-                //       isLastSection:
-                //           list[index].sectionId == list.last.sectionId,
-                //       validate: validate,
-                //       answerList: answerList,
-                //     );
-                //   },
-                // );
               }
-            }
-            return Container();
-          },
+              if (state is SuccessIndexLoaded) {
+                List<SuccessIndex> list = state.successIndexList.toList();
+                if (list.isEmpty) {
+                  return const Center(
+                    child: Text('No happiness index found'),
+                  );
+                } else {
+                  if (list.length == 1) {
+                    isLastQuestion = true;
+                  }
+                  return Form(
+                    key: _formKey,
+                    child: getSectionWidget(
+                      questionList: list,
+                      height: height,
+                      width: width,
+                    ),
+                  );
+                  // return PageView.builder(
+                  //   physics: const NeverScrollableScrollPhysics(),
+                  //   controller: sectionController,
+                  //   itemCount: list.length,
+                  //   itemBuilder: (context, index) {
+                  //     return SectionWidget(
+                  //       width: width,
+                  //       section: list[index],
+                  //       height: height,
+                  //       sectionController: sectionController,
+                  //       questionController: questionController,
+                  //       sectionListLength: list.length,
+                  //       isLastSection:
+                  //           list[index].sectionId == list.last.sectionId,
+                  //       validate: validate,
+                  //       answerList: answerList,
+                  //     );
+                  //   },
+                  // );
+                }
+              }
+              return Container();
+            },
+          ),
         ),
       ),
     );

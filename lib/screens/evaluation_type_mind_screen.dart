@@ -71,35 +71,37 @@ class _EvaluationTypeMindScreenState extends State<EvaluationTypeMindScreen> {
         "Question $questionNumber",
         centerTitle: true,
       ),
-      body: Form(
-        key: _formKey,
-        child: BlocBuilder<EvaluationTypeMindBloc, EvaluationTypeMindState>(
-          builder: ((context, state) {
-            if (state is EvaluationTypeMindLoading) {
-              return const Center(
-                child: ActivityIndicator(),
-              );
-            }
-            if (state is EvaluationTypeMindLoaded) {
-              List<EvaluationTypeMind> list =
-                  state.evaluationTypeMindList.toList();
-              if (list.isEmpty) {
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: BlocBuilder<EvaluationTypeMindBloc, EvaluationTypeMindState>(
+            builder: ((context, state) {
+              if (state is EvaluationTypeMindLoading) {
                 return const Center(
-                  child: Text('No evaluation type mind found'),
-                );
-              } else {
-                if (list.length == 1) {
-                  isLastQuestion = true;
-                }
-                return getSectionWidget(
-                  questionList: list,
-                  height: height,
-                  width: width,
+                  child: ActivityIndicator(),
                 );
               }
-            }
-            return Container();
-          }),
+              if (state is EvaluationTypeMindLoaded) {
+                List<EvaluationTypeMind> list =
+                    state.evaluationTypeMindList.toList();
+                if (list.isEmpty) {
+                  return const Center(
+                    child: Text('No evaluation type mind found'),
+                  );
+                } else {
+                  if (list.length == 1) {
+                    isLastQuestion = true;
+                  }
+                  return getSectionWidget(
+                    questionList: list,
+                    height: height,
+                    width: width,
+                  );
+                }
+              }
+              return Container();
+            }),
+          ),
         ),
       ),
     );

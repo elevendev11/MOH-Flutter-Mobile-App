@@ -72,36 +72,38 @@ class _EvaluationTypeIntellectScreenState
         "Question $questionNumber",
         centerTitle: true,
       ),
-      body: Form(
-        key: _formKey,
-        child: BlocBuilder<EvaluationTypeIntellectBloc,
-            EvaluationTypeIntellectState>(
-          builder: ((context, state) {
-            if (state is EvaluationTypeIntellectLoading) {
-              return const Center(
-                child: ActivityIndicator(),
-              );
-            }
-            if (state is EvaluationTypeIntellectLoaded) {
-              List<EvaluationTypeIntellect> list =
-                  state.evaluationTypeIntellectList.toList();
-              if (list.isEmpty) {
+      body: SafeArea(
+        child: Form(
+          key: _formKey,
+          child: BlocBuilder<EvaluationTypeIntellectBloc,
+              EvaluationTypeIntellectState>(
+            builder: ((context, state) {
+              if (state is EvaluationTypeIntellectLoading) {
                 return const Center(
-                  child: Text('No evaluation intellect found'),
-                );
-              } else {
-                if (list.length == 1) {
-                  isLastQuestion = true;
-                }
-                return getSectionWidget(
-                  questionList: list,
-                  height: height,
-                  width: width,
+                  child: ActivityIndicator(),
                 );
               }
-            }
-            return Container();
-          }),
+              if (state is EvaluationTypeIntellectLoaded) {
+                List<EvaluationTypeIntellect> list =
+                    state.evaluationTypeIntellectList.toList();
+                if (list.isEmpty) {
+                  return const Center(
+                    child: Text('No evaluation intellect found'),
+                  );
+                } else {
+                  if (list.length == 1) {
+                    isLastQuestion = true;
+                  }
+                  return getSectionWidget(
+                    questionList: list,
+                    height: height,
+                    width: width,
+                  );
+                }
+              }
+              return Container();
+            }),
+          ),
         ),
       ),
     );
