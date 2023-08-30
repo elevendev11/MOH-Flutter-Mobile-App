@@ -309,14 +309,20 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                                   Positioned(
                                     right: 0,
                                     left: 0,
-                                    child: CircleAvatar(
-                                      radius: height * 0.045,
-                                      backgroundImage: NetworkImage(
-                                        state.user.image != null
-                                            ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
-                                            : avatarNetworkIcon,
+                                    child: Container(
+                                      height: height * 0.09,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        color: Colors.grey.shade200,
+                                        image: DecorationImage(
+                                          image: Image.network(
+                                            state.user.image != null
+                                                ? '${ApiUtil.profileImageEndPoint}/${state.user.image}'
+                                                : avatarNetworkIcon,
+                                            fit: BoxFit.cover,
+                                          ).image,
+                                        ),
                                       ),
-                                      backgroundColor: Colors.transparent,
                                     ),
                                   ),
                                 ],
@@ -367,8 +373,6 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                                 yValueMapper:
                                     (EvaluationTypeIntellectResult data, _) =>
                                         data.sliderValueAverage,
-                                // splineType: SplineType.natural,
-                                // color: Colors.orange,
                                 pointColorMapper:
                                     (EvaluationTypeIntellectResult data, _) =>
                                         data.sliderValueAverage < 5
@@ -406,7 +410,7 @@ class _RotatedBarChartScreenState extends State<RotatedBarChartScreen> {
                           children: const [
                             Expanded(
                               child: Text(
-                                "If you have a value less than 5, then you are introverted represnt by purple . If you have a value greater than or equal to 5, then you are extroverted.",
+                                "If you have a value less than 5, then you are introverted represent by purple . If you have a value greater than or equal to 5, then you are extroverted.",
                                 textAlign: TextAlign.justify,
                               ),
                             ),
