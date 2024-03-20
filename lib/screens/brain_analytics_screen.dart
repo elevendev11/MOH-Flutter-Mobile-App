@@ -520,7 +520,8 @@ class _BrainAnalyticsScreenState extends State<BrainAnalyticsScreen> {
                       bottomRight: Radius.circular(20),
                     ),
                   ),
-                  child: Column(
+                  child: ListView(
+                    shrinkWrap: true,
                     children: List.generate(
                       list.length,
                       (index) => getStatusRow(

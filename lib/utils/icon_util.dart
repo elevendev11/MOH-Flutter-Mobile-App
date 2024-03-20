@@ -8,6 +8,7 @@ const String happinessIcon = '${iconsBasePath}happiness.png';
 const String inviteIcon = '${iconsBasePath}invite.png';
 const String knowYourselfIcon = '${iconsBasePath}know_yourself.png';
 const String googleIcon = '${iconsBasePath}google.png';
+const String appleIcon = '${iconsBasePath}apple_icon.png';
 const String facebookIcon = '${iconsBasePath}facebook.png';
 const String successIndexIcon = '${iconsBasePath}success_index.png';
 const String personalEvaluationIcon = '${iconsBasePath}personal_evaluation.png';
@@ -29,6 +30,7 @@ const String leftBrainIcon = '${iconsBasePath}left_side_brain.png';
 const String rightBrainIcon = '${iconsBasePath}right_side_brain.png';
 
 const String logoutIcon = '${iconsBasePath}logout.png';
+const String deleteIcon = '${iconsBasePath}delete_user.png';
 const String privacyIcon = '${iconsBasePath}privacy.png';
 const String inviteFriendsIcon = '${iconsBasePath}invite_friends.png';
 

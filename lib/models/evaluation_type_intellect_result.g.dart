@@ -9,14 +9,16 @@ part of 'evaluation_type_intellect_result.dart';
 EvaluationTypeIntellectResult _$EvaluationTypeIntellectResultFromJson(
         Map<String, dynamic> json) =>
     EvaluationTypeIntellectResult(
-      id: json['id'] as int,
-      userId: json['userId'] as int,
-      sectionId: json['sectionId'] as int,
-      sectionTitle: json['sectionTitle'] as String,
-      sectionOpposite: json['sectionOpposite'] as String,
+      id: json['id'] ?? 0,
+      userId: json['userId'] ?? 0,
+      sectionId: json['sectionId'] ?? 0,
+      sectionTitle: json['sectionTitle'] ?? "",
+      sectionOpposite: json['sectionOpposite'] ?? "",
       createdAt:
           const DateTimeEpochConverter().fromJson(json['createdAt'] as int),
-      sliderValueAverage: (json['sliderValueAverage'] as num).toDouble(),
+      sliderValueAverage: json['sliderValueAverage'] != null
+          ? (json['sliderValueAverage'] as num).toDouble()
+          : 0,
     );
 
 Map<String, dynamic> _$EvaluationTypeIntellectResultToJson(
@@ -26,7 +28,7 @@ Map<String, dynamic> _$EvaluationTypeIntellectResultToJson(
       'userId': instance.userId,
       'sectionId': instance.sectionId,
       'sectionTitle': instance.sectionTitle,
-      'sectionOpposite': instance.sectionOpposite,
+      'sectionOpposite': instance.sectionOpposite??"",
       'createdAt': const DateTimeEpochConverter().toJson(instance.createdAt),
       'sliderValueAverage': instance.sliderValueAverage,
     };

@@ -37,5 +37,12 @@ class AuthenticationBloc extends Bloc<AuthenticationEvent, AuthenticationState> 
       await loginRepository.logoutUser();
       emit(AuthenticationUnauthenticated());
     }
+
+    if (event is DeleteUser) {
+      final User? loggedInUser = loginRepository.getLoggedInUser;
+      emit(AuthenticationLoading());
+      await loginRepository.deleteUser(loggedInUser!.id.toString());
+      emit(AuthenticationUnauthenticated());
+    }
   }
 }

@@ -7,16 +7,16 @@ part of 'success_index.dart';
 // **************************************************************************
 
 SuccessIndex _$SuccessIndexFromJson(Map<String, dynamic> json) => SuccessIndex(
-      categoryId: json['categoryId'] as int,
-      categoryName: json['categoryName'] as String,
-      sectionId: json['sectionId'] as int,
-      sectionName: json['sectionName'] as String,
-      questionId: json['questionId'] as int,
-      questionStatement: json['questionStatement'] as String,
-      minSlider: json['minSlider'] as int,
-      maxSlider: json['maxSlider'] as int,
-      lastsliderValue: (json['lastsliderValue'] as num?)?.toDouble(),
-      questionInfo: json['questionInfo'] as String?,
+      categoryId: json['categoryId'] ??0,
+      categoryName: json['categoryName']??"",
+      sectionId: json['sectionId'] ??0,
+      sectionName: json['sectionName'] ??"",
+      questionId: json['questionId'] ??0,
+      questionStatement: json['questionStatement'] ??"",
+      minSlider: json['minSlider']??0,
+      maxSlider: json['maxSlider'] ??0,
+      lastsliderValue: json['lastsliderValue'] !=null ?(json['lastsliderValue'] as num?)?.toDouble():0,
+      questionInfo: json['questionInfo']??"",
     );
 
 Map<String, dynamic> _$SuccessIndexToJson(SuccessIndex instance) =>

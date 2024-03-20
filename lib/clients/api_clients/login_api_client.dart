@@ -23,6 +23,18 @@ class LoginApiClient {
     return _user;
   }
 
+  Future<void> deleteUser(String id) async {
+    var response = await apiBaseHelper.delete(
+      url: "${ApiUtil.deleteUserEndPoint}/$id",
+      headers: ApiUtil.headers(),
+    );
+    print("DELETE_USER : ${response.response}");
+    if (response.errorCode == 200) {
+      box.clear();
+    }
+
+  }
+
   User? loggedInUser() => box.get('user');
 
   Future<void> logoutUser() async {
@@ -54,9 +66,7 @@ class LoginApiClient {
     var response = await apiBaseHelper.post(
       url: ApiUtil.loginEndPoint,
       body: requestBody,
-      headers: ApiUtil.headers(
-      
-      ),
+      headers: ApiUtil.headers(),
     );
     if (response.errorCode != 200) {
       throw Exception(response.errorMessage);

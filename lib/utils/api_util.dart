@@ -18,6 +18,7 @@ class ApiUtil {
 
   static const String _saBaseUrlV1 = '$_baseUrlV1/api';
   static const String loginEndPoint = '$_saBaseUrlV1/login';
+  static const String deleteUserEndPoint = '$_saBaseUrlV1/deleteuser';
   static const String registerEndPoint = '$_saBaseUrlV1/register';
   static const String logoutEndPoint = '$_saBaseUrlV1/logout';
   static const String updateUserEndPoint = '$_saBaseUrlV1/update_user/';

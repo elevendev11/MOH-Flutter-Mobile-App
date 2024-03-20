@@ -9,13 +9,13 @@ part of 'evaluation_mind_question_result.dart';
 EvaluationMindQuestionResult _$EvaluationMindQuestionResultFromJson(
         Map<String, dynamic> json) =>
     EvaluationMindQuestionResult(
-      id: json['id'] as int,
-      userId: json['userId'] as int,
-      sectionId: json['sectionId'] as int,
-      sectionTitle: json['sectionTitle'] as String,
-      selectedSliderValue: (json['selectedSliderValue'] as num).toDouble(),
-      questionStatement: json['questionStatement'] as String,
-      mindintensity: json['mindintensity'] as String,
+      id: json['id'] ??0,
+      userId: json['userId'] ??0,
+      sectionId: json['sectionId'] ??0,
+      sectionTitle: json['sectionTitle'] ??"",
+      selectedSliderValue:json['selectedSliderValue']!=null? (json['selectedSliderValue'] as num).toDouble():0,
+      questionStatement: json['questionStatement']??"",
+      mindintensity: json['mindintensity'] ??"",
       createdAt:
           const DateTimeEpochConverter().fromJson(json['createdAt'] as int),
     );

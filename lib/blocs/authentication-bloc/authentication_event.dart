@@ -12,3 +12,4 @@ class AppStarted extends AuthenticationEvent {}
 class LoggedInUser extends AuthenticationEvent {}
 
 class LoggedOut extends AuthenticationEvent {}
+class DeleteUser extends AuthenticationEvent {}

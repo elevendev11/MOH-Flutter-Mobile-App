@@ -374,7 +374,7 @@ class _HappinessIndexQuestionResultScreenState
                   children: List.generate(
                     questionList.length,
                     (index) => Text(
-                      questionList[index].questionStatement!,
+                      questionList[index].questionStatement??"",
                       textScaleFactor: 0.7,
                       style: const TextStyle(
                         color: Colors.white,

@@ -18,6 +18,10 @@ class ApiBaseHelper {
         Uri.parse(url),
         headers: headers ?? ApiUtil.headers(),
       );
+
+      print("API_RESPONSE : ${url}");
+      print("API_RESPONSE : ${response.statusCode}");
+      print("API_RESPONSE : ${response.body}");
       responseJson = _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');
@@ -33,6 +37,27 @@ class ApiBaseHelper {
         headers: headers ?? ApiUtil.headers(),
         body: body != null ? jsonEncode(body) : null,
       );
+
+      print("API_RESPONSE : ${response.statusCode}");
+      print("API_RESPONSE : ${response.body}");
+
+      responseJson = _returnResponse(response);
+    } on SocketException {
+      throw FetchDataException('No Internet connection');
+    }
+    return responseJson;
+  }
+  Future<ApiResponse> delete({required String url, Map<String, String>? headers, dynamic body}) async {
+    ApiResponse responseJson;
+    try {
+      final response = await httpClient.delete(
+        Uri.parse(url),
+        headers: headers ?? ApiUtil.headers(),
+      );
+
+      print("API_RESPONSE : ${response.statusCode}");
+      print("API_RESPONSE : ${response.body}");
+
       responseJson = _returnResponse(response);
     } on SocketException {
       throw FetchDataException('No Internet connection');

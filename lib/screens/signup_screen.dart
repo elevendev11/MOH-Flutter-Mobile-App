@@ -1,4 +1,7 @@
+import 'dart:async';
+import 'dart:convert';
 import 'dart:io';
+import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -15,6 +18,20 @@ import '../blocs/transaction-bloc/transaction_bloc.dart';
 import '../blocs/transaction-bloc/transaction_event.dart';
 import '../utils/icon_util.dart';
 import '../widgets/activity_indicator.dart';
+import 'dart:io' show Platform;
+
+import 'dart:convert' show json;
+import 'package:http/http.dart' as http;
+
+// /// The scopes required by this application.
+// const List<String> scopes = <String>[
+//   'email',
+//   'https://www.googleapis.com/auth/contacts.readonly',
+// ];
+//
+// GoogleSignIn _googleSignIn = GoogleSignIn(
+//   scopes: scopes,
+// );
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({Key? key}) : super(key: key);
@@ -28,6 +45,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final Map<String, dynamic> _requestBody = {};
   bool _isAcceptTermsAndConditions = false;
   File? _image;
+  // GoogleSignInAccount? _currentUser;
+  // bool _isAuthorized = false; // has granted permissions?
+  // String _contactText = '';
 
   validate() {
     if (_formKey.currentState!.validate()) {
@@ -38,6 +58,82 @@ class _SignUpScreenState extends State<SignUpScreen> {
       print("Not Validated");
     }
   }
+  //
+  // Future _handleGoogleSignUp() async {
+  //   _googleSignIn.onCurrentUserChanged
+  //       .listen((GoogleSignInAccount? account) async {
+  //     // In mobile, being authenticated means being authorized...
+  //     bool isAuthorized = account != null;
+  //
+  //     setState(() {
+  //       _currentUser = account;
+  //       _isAuthorized = isAuthorized;
+  //     });
+  //
+  //     // Now that we know that the user can access the required scopes, the app
+  //     // can call the REST API.
+  //     if (isAuthorized) {
+  //       unawaited(_handleGetContact(account));
+  //     }
+  //   });
+  //
+  //   try {
+  //     await _googleSignIn.signIn();
+  //   } catch (error) {
+  //     print(error);
+  //   }
+  // }
+  //
+  // // Calls the People API REST endpoint for the signed-in user to retrieve information.
+  // Future<void> _handleGetContact(GoogleSignInAccount user) async {
+  //   _contactText = 'Loading contact info...';
+  //
+  //   final http.Response response = await http.get(
+  //     Uri.parse('https://people.googleapis.com/v1/people/me/connections'
+  //         '?requestMask.includeField=person.names'),
+  //     headers: await user.authHeaders,
+  //   );
+  //   if (response.statusCode != 200) {
+  //     setState(() {
+  //       _contactText = 'People API gave a ${response.statusCode} '
+  //           'response. Check logs for details.';
+  //     });
+  //     print('People API ${response.statusCode} response: ${response.body}');
+  //     return;
+  //   }
+  //   final Map<String, dynamic> data =
+  //       json.decode(response.body) as Map<String, dynamic>;
+  //   final String? namedContact = _pickFirstNamedContact(data);
+  //   setState(() {
+  //     if (namedContact != null) {
+  //       _contactText = 'I see you know $namedContact!';
+  //     } else {
+  //       _contactText = 'No contacts to display.';
+  //     }
+  //
+  //     print("USER_NAME : $_contactText");
+  //   });
+  // }
+
+  // String? _pickFirstNamedContact(Map<String, dynamic> data) {
+  //   final List<dynamic>? connections = data['connections'] as List<dynamic>?;
+  //   final Map<String, dynamic>? contact = connections?.firstWhere(
+  //     (dynamic contact) => (contact as Map<Object?, dynamic>)['names'] != null,
+  //     orElse: () => null,
+  //   ) as Map<String, dynamic>?;
+  //   if (contact != null) {
+  //     final List<dynamic> names = contact['names'] as List<dynamic>;
+  //     final Map<String, dynamic>? name = names.firstWhere(
+  //       (dynamic name) =>
+  //           (name as Map<Object?, dynamic>)['displayName'] != null,
+  //       orElse: () => null,
+  //     ) as Map<String, dynamic>?;
+  //     if (name != null) {
+  //       return name['displayName'] as String?;
+  //     }
+  //   }
+  //   return null;
+  // }
 
   Future getImage(ImageSource source) async {
     try {
@@ -94,8 +190,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       context, "Email already exists");
                 } else {
                   // Registration was successful, navigate to the login screen
-                  SystemUtil.buildSuccessSnackbar(
-                      context, state.message);
+                  SystemUtil.buildSuccessSnackbar(context, state.message);
                   Navigator.pushNamed(context, loginScreenRoute);
                 }
               } else if (state is TransactionError) {
@@ -126,39 +221,42 @@ class _SignUpScreenState extends State<SignUpScreen> {
                       child: Padding(
                         padding: EdgeInsets.all(4.0),
                         child: Text(
-                          "Sign in and start your journey",
+                          "Sign up and start your journey",
                           style: TextStyle(
                             fontSize: 17,
                           ),
                         ),
                       ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: [
-                        SocialWidget(
-                          height: height,
-                          width: width,
-                          assetName: facebookIcon,
-                        ),
-                        const Text("OR"),
-                        SocialWidget(
-                          height: height,
-                          width: width,
-                          assetName: googleIcon,
-                        ),
-                      ],
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                    const Text(
-                      "Your activity will never be visible to anyone on facebook.",
-                      textAlign: TextAlign.center,
-                    ),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Platform.isIOS
+                    //         ? SocialWidget(
+                    //             height: height,
+                    //             width: width,
+                    //             assetName: appleIcon,
+                    //           )
+                    //         : InkWell(
+                    //             onTap: _handleGoogleSignUp,
+                    //             child: SocialWidget(
+                    //               height: height,
+                    //               width: width,
+                    //               assetName: googleIcon,
+                    //             ),
+                    //           ),
+                    //   ],
+                    // ),
+                    // const SizedBox(
+                    //   height: 10,
+                    // ),
+                    // const Text(
+                    //   "Your activity will never be visible to anyone on facebook.",
+                    //   textAlign: TextAlign.center,
+                    // ),
                     const SizedBox(height: 16),
                     TextFormField(
                       cursorColor: Style.textSecondaryColor.withOpacity(0.2),
@@ -485,6 +583,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
       },
     );
   }
+
+  String generateNonce([int length = 32]) {
+    const charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+    final random = Random.secure();
+    return List.generate(length, (_) => charset[random.nextInt(charset.length)])
+        .join();
+  }
 }
 
 class SocialWidget extends StatelessWidget {
@@ -548,6 +654,38 @@ class SocialWidget extends StatelessWidget {
             ),
           ),
         ],
+      ),
+    );
+  }
+}
+
+class SocialIconWidget extends StatelessWidget {
+  const SocialIconWidget({
+    Key? key,
+    required this.height,
+    required this.width,
+    required this.assetName,
+  }) : super(key: key);
+
+  final double height;
+  final double width;
+  final String assetName;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(6),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        shape: BoxShape.circle,
+        border: Border.all(
+          width: 1.5,
+          color: Colors.blue,
+        ),
+      ),
+      child: Image.asset(
+        assetName,
+        height: 35,
       ),
     );
   }

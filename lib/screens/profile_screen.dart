@@ -25,6 +25,7 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   bool isExapnded = false;
   var box = Hive.box<User>('user');
+
   @override
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
@@ -364,6 +365,24 @@ class _ProfileScreenState extends State<ProfileScreen> {
                     const SizedBox(
                       height: 20,
                     ),
+                    InkWell(
+                      onTap: () {
+                        context.loaderOverlay.show();
+                        BlocProvider.of<AuthenticationBloc>(context)
+                            .add(DeleteUser());
+                        // context.loaderOverlay.hide();
+                      },
+                      child: TileWidget(
+                        width: width,
+                        height: height,
+                        title: "Delete Account",
+                        assetName: deleteIcon,
+                        iconColor: Colors.red,
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
                     // TextButton(
                     //   onPressed: () {},
                     //   child: Text(
@@ -387,18 +406,21 @@ class _ProfileScreenState extends State<ProfileScreen> {
 }
 
 class TileWidget extends StatelessWidget {
-  const TileWidget({
-    Key? key,
-    required this.width,
-    required this.height,
-    required this.assetName,
-    required this.title,
-  }) : super(key: key);
+  TileWidget(
+      {Key? key,
+      required this.width,
+      required this.height,
+      required this.assetName,
+      required this.title,
+      this.iconColor = Colors.grey})
+      : super(key: key);
 
   final double width;
   final double height;
   final String assetName;
   final String title;
+
+  Color? iconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -438,7 +460,7 @@ class TileWidget extends StatelessWidget {
               child: Image.asset(
                 assetName,
                 height: 25,
-                color: Colors.grey[800],
+                color: iconColor,
               ),
             ),
           ),
@@ -451,6 +473,7 @@ class TileWidget extends StatelessWidget {
 class ProfileListTile extends StatelessWidget {
   final String title;
   final String value;
+
   const ProfileListTile({
     Key? key,
     required this.title,

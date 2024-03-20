@@ -16,6 +16,9 @@ class LoginRepository {
   Future<void> logoutUser() {
     return apiClient.logoutUser();
   }
+  Future<void> deleteUser(String id) {
+    return apiClient.deleteUser(id);
+  }
 
     Future<User> refreshUser() {
     return apiClient.refreshUser();

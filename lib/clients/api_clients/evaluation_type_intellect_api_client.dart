@@ -16,6 +16,7 @@ class EvaluationTypeIntellectApiClient {
     var response = await apiBaseHelper.get(
       url: "${ApiUtil.evaluationTypeIntellectEndPoint}${_user!.id}",
     );
+    print("${ApiUtil.evaluationTypeIntellectEndPoint}${_user.id}");
     var list = response.response!['evaluationTypeIntellectList'] as List;
     return list.map((e) => EvaluationTypeIntellect.fromJson(e)).toList();
   }

@@ -3,7 +3,7 @@ description: A new Flutter project.
 
 publish_to: 'none' # Remove this line if you wish to publish to pub.dev
 
-version: 1.0.9+9
+version: 1.0.10+13
 
 environment:
   sdk: ">=2.17.0-266.1.beta <3.0.0"
@@ -42,6 +42,9 @@ dependencies:
   syncfusion_flutter_core: ^20.4.54
   share_plus: ^7.0.2
   google_fonts: ^4.0.4
+#  google_sign_in: ^6.1.6
+#  sign_in_with_apple: ^5.0.0
+#  crypto: ^3.0.3
 
 
 

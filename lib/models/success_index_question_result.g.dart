@@ -33,5 +33,5 @@ Question _$QuestionFromJson(Map<String, dynamic> json) => Question(
 
 Map<String, dynamic> _$QuestionToJson(Question instance) => <String, dynamic>{
       'sliderValue': instance.sliderValue,
-      'questionStatement': instance.questionStatement,
+      'questionStatement': instance.questionStatement??"",
     };

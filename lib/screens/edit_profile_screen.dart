@@ -308,7 +308,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                                       data: ThemeData.light().copyWith(
                                         colorScheme: ColorScheme.fromSwatch(
                                           primarySwatch: Style.primarySwatch,
-                                          primaryColorDark:
+                                          backgroundColor:
                                               Style.textPrimaryColor,
                                           accentColor: Style.textPrimaryColor,
                                         ),
